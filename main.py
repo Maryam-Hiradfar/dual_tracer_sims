@@ -137,8 +137,8 @@ def main():
 
     # ----- figure 1:  Plot NRMSE vs Δ -----
     plt.figure(figsize=(7, 5))
-    plt.plot(Delays, nrmse_rac, "-o", label="PBR NRMSE (bio)")
-    plt.plot(Delays, nrmse_fdg, "-o", label="FDG NRMSE (bio)")
+    plt.plot(DELAYS, nrmse_pbr, "-o", label="PBR NRMSE (bio)")
+    plt.plot(DELAYS, nrmse_fdg, "-o", label="FDG NRMSE (bio)")
     plt.xlabel("FDG injection delay Δ (min)")
     plt.ylabel("NRMSE")
     plt.title("Unmixing error vs injection delay")
@@ -147,7 +147,7 @@ def main():
     plt.ylim(0,0.6)
     plt.tight_layout()
     fig1_path = get_figure_path(run_info, f"nrmse_vs_delay_{timestamp}.png")
-    plt.savefig(os.path.join(fig1_path, fname_nrmse), dpi=300)
+    plt.savefig(fig1_path, dpi=300)
     plt.close()
     fig_paths.append(fig1_path)
 

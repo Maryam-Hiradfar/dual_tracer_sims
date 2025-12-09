@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 import numpy as np
 from .base import Tracer
-from .aif import pbr28_aif
+from .aif import pbr28_aif, PBR28_DEFAULT
 
 
 
