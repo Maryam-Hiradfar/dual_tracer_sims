@@ -12,6 +12,7 @@ from kinetics.basis_gamma import build_gamma_library
 from sim.sweep import sweep_delays
 from datetime import datetime
 import os
+from utils.run_logger import start_run, finalize_run, get_figure_path
 
 FIG_DIR = "/Users/maryamhiradfar/desktop/catana_lab_local/dual_tracer/dualtracer/figures/PBR_scale_1.2_fdg_scale_1"
 
@@ -22,36 +23,99 @@ os.makedirs(FIG_DIR, exist_ok=True)
 
 
 def main():
-    
-    pbr_scale = 1.2
-    fdg_scale = 1.0
-    # ----- 1) Define dynamic frame schedule -----
-    # Example: 0–120 min in 2-min frames → 61 edges, 60 frames
-    frame_edges = np.linspace(0.0, 120.0, 361)  # [0, 2, 4, ..., 120]
-    timegrid = TimeGrid(frame_edges=frame_edges, internal_dt_min=1/60.0)  # 1 sec internal
+    # ==============================
+    # USER-RUN SETTINGS (EDIT HERE)
+    # ==============================
+
+    RUN_DESCRIPTION = "FDG/PBR delay sweep (#2) with updated Feng params"
+    RUN_NOTES = """
+    Testing new gamma basis library (version 3)
+    - FDG scale = 1.0
+    - PBR scale = 1.2
+    - Delays: 0–50 min (1-min steps)
+    Expect better unmixing around D ≈ 15 min
+    """
+    key_params = "FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120"
+
+    #optional overrides for default parameters
+    FDG_OVERRIDES = {
+        # "A1": 1854.66,
+        # "A2": 8.168,
+        # "A3": 2.731,
+        # "lam1": 20.031,
+        # "lam2": 0.355,
+        # "lam3": 0.0178,
+        # "tau": 0.27
+    }
+    PBR_OVERRIDES = {
+        # "A1": 22.0,
+        # "A2": 3.2,
+        # "A3": 0.25,
+        # "lam1": 3.1,
+        # "lam2": 0.23,
+        # "lam3": 0.015
+    }
+    # ==============================
+    DELAYS = np.arange(0, 50, 1)  # Δ = 0..15 min this is for the delay sweep
+    FRAME_EDGES = np.linspace(0.0, 120.0, 361)  # [0, 2, 4, ..., 120], this is for section "Define dynamic frame schedule"
+        # Example: 0–120 min in 2-min frames → 61 edges, 60 frames
+    timestamp = datetime.now().strftime("%Y_%m_%d_%H%M%S")
+
+
+
+
 
     # ----- 2) Define tracers -----
     # Half-lives: 11C ≈ 20.4 min, 18F ≈ 109.8 min
-    pbr = PBR28Tracer(name="PBR28", half_life_min=20.4, scale = pbr_scale)
+    pbr = PBR28Tracer(
+        name="PBR28",
+        half_life_min=20.4, 
+        scale = 1.2,
+        pbr28_params = (PBR_OVERRIDES if PBR_OVERRIDES else None),
+        )
+    fdg = FDGTracer(
+        name="FDG", 
+        half_life_min=109.8,
+        scale = 1.0, 
+        feng_params = (FDG_OVERRIDES if FDG_OVERRIDES else None),
+        )
+    
+    #===============================
+    # ------- Run logging setup --------#
+    #===============================
 
-    feng_params = dict(
-        A1=1854.66, A2=8.168, A3=2.731,
-        lam1=20.031, lam2=0.355, lam3=0.0178,
-        tau=0.27
-    )
-    fdg = FDGTracer(name="FDG", half_life_min=109.8, feng_params=feng_params, scale = fdg_scale)
-    timestamp = datetime.now().strftime("%Y_%m_%d_%H%M%S")
 
-    # ----- 3) Build gamma basis library on FRAME times -----
-    # Important: Gamma's time axis must match Ct_bio (which lives on frame_mids)
+    params = {
+    "run_description" : RUN_DESCRIPTION,
+    "tracers" : ["FDG", "PBR28"], 
+    "fdg":{
+        "name" : "FDG",
+        "half_life_min" : fdg.half_life_min,
+        "scale" : fdg.scale,
+        "feng_params" : fdg.feng_params,
+    },  
+    "pbr":{
+        "name" : "PBR28",
+        "half_life_min" : pbr.half_life_min,
+        "scale" : pbr.scale,
+        "pbr28_params" : pbr.pbr28_params,
+    },   
+    "delays" : DELAYS,
+    "frame_edges" : FRAME_EDGES, 
+    }
+    run_info = start_run(params, description="Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0")
+    #=======================================================
+    # 3) Build time grid, gamma basis, and run delay sweep
+    # =======================================================
+    # ----- 1) Define dynamic frame schedule -----
+    timegrid = TimeGrid(frame_edges=FRAME_EDGES, internal_dt_min=1/60.0)  # 1 sec internal
     gamma_lib, Gamma = build_gamma_library(timegrid.frame_mids)
 
     # ----- 4) Prepare delay sweep -----
-    Delays = np.arange(0, 50, 1)  # Δ = 0..15 min
     rng = np.random.default_rng(42)
 
     results = sweep_delays(
-        delays=Delays,
+        delays=DELAYS,
         timegrid=timegrid,
         rac=pbr,
         fdg=fdg,
@@ -62,10 +126,16 @@ def main():
     )
 
     # results is a list of dicts; convert to arrays for plotting
-    nrmse_rac = np.array([r["nrmse_pbr_bio"] for r in results])
+    nrmse_pbr = np.array([r["nrmse_pbr_bio"] for r in results])
     nrmse_fdg = np.array([r["nrmse_fdg_bio"] for r in results])
 
-    # ----- 5) Plot NRMSE vs Δ -----
+    #==================================
+    # 4) Generate and save figures
+    #==================================
+
+    fig_paths: list[str] = []
+
+    # ----- figure 1:  Plot NRMSE vs Δ -----
     plt.figure(figsize=(7, 5))
     plt.plot(Delays, nrmse_rac, "-o", label="PBR NRMSE (bio)")
     plt.plot(Delays, nrmse_fdg, "-o", label="FDG NRMSE (bio)")
@@ -76,13 +146,13 @@ def main():
     plt.legend()
     plt.ylim(0,0.6)
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, f"nrmse_vs_delay_{timestamp}.png"), dpi=300)
-    # plt.show()   # optional
+    fig1_path = get_figure_path(run_info, f"nrmse_vs_delay_{timestamp}.png")
+    plt.savefig(os.path.join(fig1_path, fname_nrmse), dpi=300)
     plt.close()
+    fig_paths.append(fig1_path)
 
-
-        # ===== FIGURE 2: Grid of true vs estimated biological TACs across delays =====
-    # ===== FIGURE 2: Split tiled grid into multiple files =====
+    # ===== FIGURE 2: Grid of true vs estimated biological TACs across delays, split into multiple files =====
+   
     n_results = len(results)
     n_cols = 4
     n_rows_per_fig = 3    # adjust here
@@ -140,11 +210,11 @@ def main():
         fig.text(0.5, 0.04, "Time (min)", ha="center", fontsize=14)
         fig.text(0.04, 0.5, "Biological concentration", va="center",
                 rotation="vertical", fontsize=14)
-
-        fname = f"tac_grid_part{f+1}_{timestamp}.png"
+        fig2_path = get_figure_path(run_info, f"tac_grid_part{f+1}_{timestamp}.png")
         plt.tight_layout(rect=[0.03, 0.05, 1, 0.95])
-        plt.savefig(os.path.join(FIG_DIR, fname), dpi=300)
+        plt.savefig(fig2_path, dpi=300)
         plt.close()
+        fig_paths.append(fig2_path)
 
 
 
@@ -177,11 +247,13 @@ def main():
     )
 
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, f"fdg_aligned_true_{timestamp}.png"), dpi=300, bbox_inches="tight")
+    fig3_path = get_figure_path(run_info, f"fdg_aligned_true_{timestamp}.png")
+    plt.savefig(fig3_path, dpi=300, bbox_inches="tight")
     plt.close()
+    fig_paths.append(fig3_path)
 
 
-        # OPTIONAL: overlay estimated FDG TACs in aligned biological time
+    # ===== FIGURE 4: Estimated FDG biological TACs aligned by time since FDG injection =====
     plt.figure(figsize=(8, 5))
 
     for r in results:
@@ -209,10 +281,12 @@ def main():
     )
 
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, f"fdg_aligned_estimated_{timestamp}.png"), dpi=300, bbox_inches="tight")
+    fig4_path = get_figure_path(run_info, f"fdg_aligned_estimated_{timestamp}.png")
+    plt.savefig(fig4_path, dpi=300, bbox_inches="tight")
     plt.close()
+    fig_paths.append(fig4_path)
 
-    # ------- Figure 5: gamma library----------#
+    # ------- Figure 4: gamma library----------#
     plt.figure(figsize=(8,5))
     t_basis_plot = np.linspace(t[0], t[-1], 360)
 
@@ -224,8 +298,20 @@ def main():
     plt.grid(True, alpha = 0.3)
 
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, f"gamma_library_{timestamp}.png"), dpi = 300)
+    fig5_path = get_figure_path(run_info, f"gamma_library_{timestamp}.png")
+    plt.savefig(fig5_path, dpi=300)
     plt.close()
+    fig_paths.append(fig5_path)
+    #==================================
+    # ------- Finalize run logging ----------#
+    #==================================
+    finalize_run(
+        run_info,
+        figure_filenames=fig_paths,
+        key_params_str=key_params,
+        notes= RUN_NOTES.strip(),
+    )
+    
 
 
 

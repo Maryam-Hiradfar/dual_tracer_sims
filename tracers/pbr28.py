@@ -2,20 +2,22 @@
 from dataclasses import dataclass
 import numpy as np
 from .base import Tracer
-
-def pbr28_aif(t, scale = 1.0):
-    A1, A2, A3 = 22.0, 3.2, 0.25   # kBq/mL-scale amplitudes
-    lam1, lam2, lam3 = 3.1, 0.23, 0.015  # 1/min decay rates
-
-    return scale * (A1*  np.exp(-lam1 * t) +
-            A2 *  np.exp(-lam2 * t) +
-            A3 *  np.exp(-lam3 * t))
+from .aif import pbr28_aif
 
 
 
 @dataclass
 class PBR28Tracer(Tracer):
     scale: float = 1.0
+    pbr28_params: dict | None  = None
+
+    def __post_init__(self):
+        #Merge user overrides with defaults for params
+        base = PBR28_DEFAULT.copy()
+        if self.pbr28_params is not None: 
+            base.update(self.pbr28_params)
+        self.pbr28_params = base
+        
     def aif(self, t_abs: np.ndarray, delta_min: float = 0.0):
         t_rel = np.maximum(t_abs - delta_min, 0.0)
         return pbr28_aif(t_rel, scale = self.scale)
