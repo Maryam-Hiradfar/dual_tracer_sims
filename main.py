@@ -31,7 +31,7 @@ def main():
     RUN_NOTES = """
     Testing new gamma basis library (version 3)
     - FDG scale = 1.0
-    - PBR scale = 1.2
+    - PBR scale = 2.0
     - Delays: 0–50 min (1-min steps)
     Expect better unmixing around D ≈ 15 min
     """
@@ -61,16 +61,12 @@ def main():
         # Example: 0–120 min in 2-min frames → 61 edges, 60 frames
     timestamp = datetime.now().strftime("%Y_%m_%d_%H%M%S")
 
-
-
-
-
     # ----- 2) Define tracers -----
     # Half-lives: 11C ≈ 20.4 min, 18F ≈ 109.8 min
     pbr = PBR28Tracer(
         name="PBR28",
         half_life_min=20.4, 
-        scale = 1.2,
+        scale = 2.0,
         pbr28_params = (PBR_OVERRIDES if PBR_OVERRIDES else None),
         )
     fdg = FDGTracer(
