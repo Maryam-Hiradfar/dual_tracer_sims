@@ -87,20 +87,3 @@ sim_20251209_164518_91e01,2025-12-09 16:45:18,figures/sim_20251209_164518_91e01/
     )
     - Gamma basis: n_t0 = 60, n_tau = 30
     Expect better unmixing around D ≈ 15 min"
-sim_20251209_165121_9655c,2025-12-09 16:51:21,figures/sim_20251209_165121_9655c/nrmse_vs_delay_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/tac_grid_part1_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/tac_grid_part2_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/tac_grid_part3_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/tac_grid_part4_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/tac_grid_part5_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/fdg_aligned_true_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/fdg_aligned_estimated_2025_12_09_165121.png; figures/sim_20251209_165121_9655c/gamma_library_2025_12_09_165121.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120",params/sim_20251209_165121_9655c.csv,d503bb50a941fc8a64af83f77ca9c20b0c965068,"Testing new gamma basis library (version 3)
-    - FDG scale = 1.0
-    - PBR scale = 1.0
-    - Delays: 0–50 min (1-min steps)
-    - Frame edges:frame_durations_min = np.array(
-        [2/60.0] * 20    # 20 × 2 s  = 40 s
-        + [5/60.0] * 12    # 12 × 5 s  = 60 s
-        + [10/60.0] * 12   # 12 × 10 s = 120 s
-        + [20/60.0] * 12   # 12 × 20 s = 240 s
-        + [30/60.0] * 8    # 8 × 30 s  = 240 s
-        + [1.0]     * 6    # 6 × 60 s  = 360 s
-        + [2.0]     * 5    # 5 × 120 s = 600 s
-        + [5.0]     * 8    # 8 × 300 s = 2400 s
-        + [10.0]    * 4    # 4 × 600 s = 2400 s
-    )
-    - Gamma basis: n_t0 = 60, n_tau = 60
-    Expect better unmixing around D ≈ 15 min"

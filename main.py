@@ -31,8 +31,20 @@ def main():
     RUN_NOTES = """
     Testing new gamma basis library (version 3)
     - FDG scale = 1.0
-    - PBR scale = 2.0
+    - PBR scale = 1.0
     - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 60, n_tau = 60
     Expect better unmixing around D ≈ 15 min
     """
     key_params = "FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120"
@@ -56,6 +68,21 @@ def main():
         # "lam3": 0.015
     }
     # ==============================
+    # Frame durations in MINUTES
+    frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    FRAME_DURATIONS_MIN  = frame_durations_min
+    FRAME_EDGES = np.concatenate([[0.0], np.cumsum(frame_durations_min)])
+
     DELAYS = np.arange(0, 50, 1)  # Δ = 0..15 min this is for the delay sweep
     FRAME_EDGES = np.linspace(0.0, 120.0, 361)  # [0, 2, 4, ..., 120], this is for section "Define dynamic frame schedule"
         # Example: 0–120 min in 2-min frames → 61 edges, 60 frames
@@ -66,7 +93,7 @@ def main():
     pbr = PBR28Tracer(
         name="PBR28",
         half_life_min=20.4, 
-        scale = 2.0,
+        scale = 1.0,
         pbr28_params = (PBR_OVERRIDES if PBR_OVERRIDES else None),
         )
     fdg = FDGTracer(
