@@ -104,3 +104,406 @@ sim_20251209_165121_9655c,2025-12-09 16:51:21,figures/sim_20251209_165121_9655c/
     )
     - Gamma basis: n_t0 = 60, n_tau = 60
     Expect better unmixing around D ≈ 15 min"
+sim_20251210_131440_53fac,2025-12-10 13:14:40,figures/heatmap_pbr_nrmse_2025_12_10_131440.png; figures/heatmap_fdg_nrmse_2025_12_10_131440.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_131440_53fac.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_140450_31e63,2025-12-10 14:04:50,figures/heatmap_pbr_nrmse_2025_12_10_140450.png; figures/heatmap_fdg_nrmse_2025_12_10_140450.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_140450_31e63.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_140621_c6437,2025-12-10 14:06:21,figures/heatmap_pbr_nrmse_2025_12_10_140621.png; figures/heatmap_fdg_nrmse_2025_12_10_140621.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_140621_c6437.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_140738_73f22,2025-12-10 14:07:38,figures/heatmap_pbr_nrmse_2025_12_10_140738.png; figures/heatmap_fdg_nrmse_2025_12_10_140738.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_140738_73f22.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_140839_fd852,2025-12-10 14:08:39,figures/heatmap_pbr_nrmse_2025_12_10_140839.png; figures/heatmap_fdg_nrmse_2025_12_10_140839.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_140839_fd852.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_140921_26ee3,2025-12-10 14:09:21,figures/heatmap_pbr_nrmse_2025_12_10_140921.png; figures/heatmap_fdg_nrmse_2025_12_10_140921.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_140921_26ee3.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_141018_28455,2025-12-10 14:10:18,figures/heatmap_pbr_nrmse_2025_12_10_141018.png; figures/heatmap_fdg_nrmse_2025_12_10_141018.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_141018_28455.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_141212_fc536,2025-12-10 14:12:12,figures/heatmap_pbr_nrmse_2025_12_10_141212.png; figures/heatmap_fdg_nrmse_2025_12_10_141212.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_141212_fc536.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_141256_2b1cc,2025-12-10 14:12:56,figures/heatmap_pbr_nrmse_2025_12_10_141256.png; figures/heatmap_fdg_nrmse_2025_12_10_141256.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_141256_2b1cc.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_141400_f48c6,2025-12-10 14:14:00,figures/heatmap_pbr_nrmse_2025_12_10_141400.png; figures/heatmap_fdg_nrmse_2025_12_10_141400.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_141400_f48c6.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_141442_00d35,2025-12-10 14:14:42,figures/heatmap_pbr_nrmse_2025_12_10_141442.png; figures/heatmap_fdg_nrmse_2025_12_10_141442.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 30, ntau = 30), framing=realistic_nonuniform",params/sim_20251210_141442_00d35.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_141738_e84bc,2025-12-10 14:17:38,figures/heatmap_pbr_nrmse_2025_12_10_141738.png; figures/heatmap_fdg_nrmse_2025_12_10_141738.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 60, ntau = 60), framing=realistic_nonuniform",params/sim_20251210_141738_e84bc.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 30, ntau = 30)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251210_143758_00ea5,2025-12-10 14:37:58,figures/scale_diagnostics/scale_diagnostics_delay20_2025_12_10_143818.png,PBR vs FDG scale diagnostic: AIFs + TACs,"diagnostic=scale_vs_fdg, delay=20.0 min, scales=[0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]",params/sim_20251210_143758_00ea5.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Diagnostic run to verify that FDG scale is fixed (1.0)
+    and PBR amplitude varies according to scale_values.
+    Plots AIFs and biological TACs over all scale ratios for a single delay."
+sim_20251211_083342_e9f0b,2025-12-11 08:33:42,figures/heatmap_pbr_nrmse_2025_12_11_083342.png; figures/heatmap_fdg_nrmse_2025_12_11_083342.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 15, ntau = 15), framing=realistic_nonuniform",params/sim_20251211_083342_e9f0b.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 15, ntau = 15)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_083905_d2472,2025-12-11 08:39:05,figures/heatmap_pbr_nrmse_2025_12_11_083905.png; figures/heatmap_fdg_nrmse_2025_12_11_083905.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 20, ntau = 20), framing=realistic_nonuniform",params/sim_20251211_083905_d2472.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 20, ntau = 20)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_084111_ce9bb,2025-12-11 08:41:11,figures/heatmap_pbr_nrmse_2025_12_11_084111.png; figures/heatmap_fdg_nrmse_2025_12_11_084111.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 16, ntau = 16), framing=realistic_nonuniform",params/sim_20251211_084111_ce9bb.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 16, ntau = 16)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_084302_2ad77,2025-12-11 08:43:02,figures/heatmap_pbr_nrmse_2025_12_11_084302.png; figures/heatmap_fdg_nrmse_2025_12_11_084302.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 17, ntau = 17), framing=realistic_nonuniform",params/sim_20251211_084302_2ad77.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 17, ntau = 17)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_084402_a7fc3,2025-12-11 08:44:02,figures/heatmap_pbr_nrmse_2025_12_11_084402.png; figures/heatmap_fdg_nrmse_2025_12_11_084402.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 18, ntau = 18), framing=realistic_nonuniform",params/sim_20251211_084402_a7fc3.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 18, ntau = 18)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_084459_9b444,2025-12-11 08:44:59,figures/heatmap_pbr_nrmse_2025_12_11_084459.png; figures/heatmap_fdg_nrmse_2025_12_11_084459.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 19, ntau = 19), framing=realistic_nonuniform",params/sim_20251211_084459_9b444.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 19, ntau = 19)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_084620_d34d1,2025-12-11 08:46:20,figures/heatmap_pbr_nrmse_2025_12_11_084620.png; figures/heatmap_fdg_nrmse_2025_12_11_084620.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 25, ntau = 25), framing=realistic_nonuniform",params/sim_20251211_084620_d34d1.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 25, ntau = 25)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_084734_710c1,2025-12-11 08:47:34,figures/heatmap_pbr_nrmse_2025_12_11_084734.png; figures/heatmap_fdg_nrmse_2025_12_11_084734.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 27, ntau = 27), framing=realistic_nonuniform",params/sim_20251211_084734_710c1.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 27, ntau = 27)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_084852_c2b3a,2025-12-11 08:48:52,figures/heatmap_pbr_nrmse_2025_12_11_084852.png; figures/heatmap_fdg_nrmse_2025_12_11_084852.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 35, ntau = 35), framing=realistic_nonuniform",params/sim_20251211_084852_c2b3a.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 35, ntau = 35)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_085119_3efb3,2025-12-11 08:51:19,figures/heatmap_pbr_nrmse_2025_12_11_085119.png; figures/heatmap_fdg_nrmse_2025_12_11_085119.png,Delay × PBR-scale NRMSE heatmaps (FDG + PBR28),"heatmap, FDG/PBR, delays=0–49 min, scale_ratios=0.5–2.0, gamma=(nt0 = 40, ntau = 40), framing=realistic_nonuniform",params/sim_20251211_085119_3efb3.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Exploring identifiability region:
+    - Delays: 0–49 min in 1-min steps
+    - PBR:FDG scale ratios: 0.5–2.0
+    - Fixed gamma library (nt0 = 40, ntau = 40)
+    - Realistic non-uniform framing
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )"
+sim_20251211_124606_1cd02,2025-12-11 12:46:06,figures/sim_20251211_124606_1cd02/nrmse_vs_delay_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/tac_grid_part1_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/tac_grid_part2_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/tac_grid_part3_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/tac_grid_part4_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/tac_grid_part5_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/fdg_aligned_true_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/fdg_aligned_estimated_2025_12_11_124606.png; figures/sim_20251211_124606_1cd02/gamma_library_2025_12_11_124606.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=50, n_tau=50)",params/sim_20251211_124606_1cd02.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Testing new gamma basis library (version 3)
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 50, n_tau = 50"
+sim_20251211_124831_babc2,2025-12-11 12:48:31,figures/sim_20251211_124831_babc2/nrmse_vs_delay_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/tac_grid_part1_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/tac_grid_part2_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/tac_grid_part3_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/tac_grid_part4_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/tac_grid_part5_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/fdg_aligned_true_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/fdg_aligned_estimated_2025_12_11_124831.png; figures/sim_20251211_124831_babc2/gamma_library_2025_12_11_124831.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=30, n_tau=30)",params/sim_20251211_124831_babc2.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Testing new gamma basis library (version 3)
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 30, n_tau = 30"
+sim_20251211_125348_fde11,2025-12-11 12:53:48,figures/sim_20251211_125348_fde11/nrmse_vs_delay_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/tac_grid_part1_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/tac_grid_part2_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/tac_grid_part3_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/tac_grid_part4_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/tac_grid_part5_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/fdg_aligned_true_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/fdg_aligned_estimated_2025_12_11_125348.png; figures/sim_20251211_125348_fde11/gamma_library_2025_12_11_125348.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=70, n_tau=80)",params/sim_20251211_125348_fde11.csv,bca242daa5bffe5345570814f29bfa6f772f9635,"Testing new gamma basis library (version 3)
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 70, n_tau = 80"

@@ -44,10 +44,12 @@ def main():
         + [5.0]     * 8    # 8 × 300 s = 2400 s
         + [10.0]    * 4    # 4 × 600 s = 2400 s
     )
-    - Gamma basis: n_t0 = 60, n_tau = 60
-    Expect better unmixing around D ≈ 15 min
+    - Gamma basis: n_t0 = 70, n_tau = 80
     """
-    key_params = "FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120"
+    GAMMA_N_T0 = 70
+    GAMMA_N_TAU = 80
+    key_params = "FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=70, n_tau=80)"
+    
 
     #optional overrides for default parameters
     FDG_OVERRIDES = {
@@ -125,6 +127,10 @@ def main():
     },   
     "delays" : DELAYS,
     "frame_edges" : FRAME_EDGES, 
+    "gamma_basis": {
+            "n_t0": GAMMA_N_T0,
+            "n_tau": GAMMA_N_TAU,
+        },
     }
     run_info = start_run(params, description="Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0")
     #=======================================================
@@ -132,7 +138,11 @@ def main():
     # =======================================================
     # ----- 1) Define dynamic frame schedule -----
     timegrid = TimeGrid(frame_edges=FRAME_EDGES, internal_dt_min=1/60.0)  # 1 sec internal
-    gamma_lib, Gamma = build_gamma_library(timegrid.frame_mids)
+    gamma_lib, Gamma = build_gamma_library(
+        timegrid.frame_mids, 
+        n_t0=GAMMA_N_T0,
+        n_tau=GAMMA_N_TAU,
+        )
 
     # ----- 4) Prepare delay sweep -----
     rng = np.random.default_rng(42)
