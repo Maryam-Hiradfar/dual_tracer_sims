@@ -52,4 +52,8 @@ def pbr28_aif(t, A1 = 22.0, A2 = 3.2, A3 = 0.25, lam1 = 3.1, lam2 = 0.23, lam3 =
     return scale * (A1*  np.exp(-lam1 * t) +
             A2 *  np.exp(-lam2 * t) +
             A3 *  np.exp(-lam3 * t))
-
+def estimated_injected_dose(aif_func, blood_volume_ml = 5000): 
+    C_0  = aif_func(0.0)  # AIF value at time zero (peak concentration)
+    dose_kbq = C_0 * blood_volume_ml  # Total activity in kBq
+    dose_mCi = dose_kbq / 37000.0  # Convert kBq to mCi (1 mCi = 37,000 kBq)
+    return dose_kbq, dose_mCi
