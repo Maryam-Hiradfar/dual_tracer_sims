@@ -1,7 +1,7 @@
 # sim/tac_simulator.py
 import numpy as np
 from kinetics.twotcm import simulate_2tcm
-from core.noise import uexplorer_poisson
+from core.noise import add_noise_voxel, add_noise_roi
 from utils.frame_average import frame_average
 from scipy.optimize import nnls
 
@@ -47,17 +47,23 @@ def simulate_dual_tac(timegrid, rac, fdg, protocol, gamma_lib, Gamma, rng, use_j
     Ct2_phys = Ct2_bio * decay2
     y_clean = Ct1_phys + Ct2_phys
 
-    y_meas = uexplorer_poisson(y_clean, timegrid.frame_durs, rng=rng)
+    y_meas =  add_noise_voxel(y_clean, timegrid.frame_durs, voxel_size_mm=4.0,
+                    scanner_name="panorama_gs", rng=None)[0]
 
     Phi_rac, Phi_fdg = make_tracer_bases(Ct1_bio, Ct2_bio, gamma_lib, Gamma, decay1, decay2)
+    # Check the condition number of the basis matrices
+    # cond_rac = np.linalg.cond(Phi_rac)
+    # cond_fdg = np.linalg.cond(Phi_fdg)
+    # print(f"Condition number of PBR basis: {cond_rac:.2e}")
+    # print(f"Condition number of FDG basis: {cond_fdg:.2e}") 
 
     if use_joint:
-        from separation.joint_nnls import joint_unmix
-        rac_est_phys, fdg_est_phys = joint_unmix(y_meas, Phi_rac, Phi_fdg)
+        from separation.sequential_nnls import joint_unmix
+        rac_est_phys, fdg_est_phys,info = joint_unmix(y_clean, Phi_rac, Phi_fdg, t_frames, t_cut=protocol.early_cut())
     else:
-        from separation.sequential_nnls import sequential_unmix
+        from separation.sequential_nnls import sequential_unmix_l2
         t_cut = protocol.early_cut()
-        rac_est_phys, fdg_est_phys = sequential_unmix(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut)
+        rac_est_phys, fdg_est_phys = sequential_unmix_l2(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut, alpha=0.3)
 
     Ct1_est_bio = rac_est_phys * np.exp(+lam1 * t_rel1)
     Ct2_est_bio = fdg_est_phys * np.exp(+lam2 * t_rel2)

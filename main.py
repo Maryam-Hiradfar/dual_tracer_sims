@@ -14,7 +14,7 @@ from datetime import datetime
 import os
 from utils.run_logger import start_run, finalize_run, get_figure_path
 
-FIG_DIR = "/Users/maryamhiradfar/desktop/catana_lab_local/dual_tracer/dualtracer/figures/PBR_scale_1.2_fdg_scale_1"
+FIG_DIR = " /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/figures/PBR_scale_1_fdg_scale_1"
 
 # Create directory if it doesn't exist
 os.makedirs(FIG_DIR, exist_ok=True)
@@ -27,9 +27,9 @@ def main():
     # USER-RUN SETTINGS (EDIT HERE)
     # ==============================
 
-    RUN_DESCRIPTION = "FDG/PBR delay sweep (#2) with updated Feng params"
+    RUN_DESCRIPTION = "FDG/PBR delay sweep"
     RUN_NOTES = """
-    Testing new gamma basis library (version 3)
+    Gamma basis library: uniform 
     - FDG scale = 1.0
     - PBR scale = 1.0
     - Delays: 0–50 min (1-min steps)
@@ -44,11 +44,12 @@ def main():
         + [5.0]     * 8    # 8 × 300 s = 2400 s
         + [10.0]    * 4    # 4 × 600 s = 2400 s
     )
-    - Gamma basis: n_t0 = 70, n_tau = 80
+    - Gamma basis: n_t0 = 30, n_tau = 30
+    - With L2 regularization with alpha = 0.3 for nnls fits (this is set inside the separation code, not here in main)
     """
-    GAMMA_N_T0 = 70
-    GAMMA_N_TAU = 80
-    key_params = "FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=70, n_tau=80)"
+    GAMMA_N_T0 = 30
+    GAMMA_N_TAU = 30
+    key_params = "FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=30, n_tau=30)"
     
 
     #optional overrides for default parameters
@@ -226,7 +227,7 @@ def main():
             ax.plot(t, Ct1_est, "--", lw=1.2, label="PBR est")
             ax.plot(t, Ct2_true, lw=2, label="FDG true")
             ax.plot(t, Ct2_est, "--", lw=1.2, label="FDG est")
-
+            ax.set_ylim(0, 5)
             ax.set_title(f"Δ = {D} min")
             ax.grid(True, alpha=0.2)
 

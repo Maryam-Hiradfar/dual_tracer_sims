@@ -507,3 +507,321 @@ sim_20251211_125348_fde11,2025-12-11 12:53:48,figures/sim_20251211_125348_fde11/
         + [10.0]    * 4    # 4 × 600 s = 2400 s
     )
     - Gamma basis: n_t0 = 70, n_tau = 80"
+sim_20260210_121642_1a426,2026-02-10 12:16:42,figures/sim_20260210_121642_1a426/nrmse_vs_delay_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/tac_grid_part1_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/tac_grid_part2_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/tac_grid_part3_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/tac_grid_part4_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/tac_grid_part5_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/fdg_aligned_true_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/fdg_aligned_estimated_2026_02_10_121642.png; figures/sim_20260210_121642_1a426/gamma_library_2026_02_10_121642.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=70, n_tau=80)",params/sim_20260210_121642_1a426.csv,020187ddf97588d0008950d3632112307e0e397d,"Testing new gamma basis library (version 3)
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 70, n_tau = 80"
+sim_20260210_131926_95e16,2026-02-10 13:19:26,figures/sim_20260210_131926_95e16/nrmse_vs_delay_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/tac_grid_part1_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/tac_grid_part2_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/tac_grid_part3_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/tac_grid_part4_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/tac_grid_part5_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/fdg_aligned_true_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/fdg_aligned_estimated_2026_02_10_131926.png; figures/sim_20260210_131926_95e16/gamma_library_2026_02_10_131926.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=70, n_tau=80)",params/sim_20260210_131926_95e16.csv,020187ddf97588d0008950d3632112307e0e397d,"Testing new gamma basis library (version 3)
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 70, n_tau = 80"
+sim_20260210_132410_14690,2026-02-10 13:24:10,figures/sim_20260210_132410_14690/nrmse_vs_delay_2026_02_10_132410.png; figures/sim_20260210_132410_14690/tac_grid_part1_2026_02_10_132410.png; figures/sim_20260210_132410_14690/tac_grid_part2_2026_02_10_132410.png; figures/sim_20260210_132410_14690/tac_grid_part3_2026_02_10_132410.png; figures/sim_20260210_132410_14690/tac_grid_part4_2026_02_10_132410.png; figures/sim_20260210_132410_14690/tac_grid_part5_2026_02_10_132410.png; figures/sim_20260210_132410_14690/fdg_aligned_true_2026_02_10_132410.png; figures/sim_20260210_132410_14690/fdg_aligned_estimated_2026_02_10_132410.png; figures/sim_20260210_132410_14690/gamma_library_2026_02_10_132410.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=70, n_tau=80)",params/sim_20260210_132410_14690.csv,020187ddf97588d0008950d3632112307e0e397d,"Testing new gamma basis library (version 3)
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 70, n_tau = 80"
+sim_20260210_132737_2401c,2026-02-10 13:27:37,figures/sim_20260210_132737_2401c/nrmse_vs_delay_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/tac_grid_part1_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/tac_grid_part2_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/tac_grid_part3_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/tac_grid_part4_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/tac_grid_part5_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/fdg_aligned_true_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/fdg_aligned_estimated_2026_02_10_132737.png; figures/sim_20260210_132737_2401c/gamma_library_2026_02_10_132737.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=20, n_tau=20)",params/sim_20260210_132737_2401c.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 20, n_tau = 20"
+sim_20260210_132831_fff08,2026-02-10 13:28:31,figures/sim_20260210_132831_fff08/nrmse_vs_delay_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/tac_grid_part1_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/tac_grid_part2_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/tac_grid_part3_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/tac_grid_part4_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/tac_grid_part5_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/fdg_aligned_true_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/fdg_aligned_estimated_2026_02_10_132831.png; figures/sim_20260210_132831_fff08/gamma_library_2026_02_10_132831.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=10, n_tau=10)",params/sim_20260210_132831_fff08.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 10, n_tau = 10"
+sim_20260210_132927_cfa8a,2026-02-10 13:29:27,figures/sim_20260210_132927_cfa8a/nrmse_vs_delay_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/tac_grid_part1_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/tac_grid_part2_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/tac_grid_part3_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/tac_grid_part4_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/tac_grid_part5_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/fdg_aligned_true_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/fdg_aligned_estimated_2026_02_10_132927.png; figures/sim_20260210_132927_cfa8a/gamma_library_2026_02_10_132927.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_132927_cfa8a.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 5, n_tau = 5"
+sim_20260210_141434_0fcc7,2026-02-10 14:14:34,figures/sim_20260210_141434_0fcc7/nrmse_vs_delay_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/tac_grid_part1_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/tac_grid_part2_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/tac_grid_part3_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/tac_grid_part4_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/tac_grid_part5_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/fdg_aligned_true_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/fdg_aligned_estimated_2026_02_10_141434.png; figures/sim_20260210_141434_0fcc7/gamma_library_2026_02_10_141434.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_141434_0fcc7.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 5, n_tau = 5"
+sim_20260210_141648_c384e,2026-02-10 14:16:48,figures/sim_20260210_141648_c384e/nrmse_vs_delay_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/tac_grid_part1_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/tac_grid_part2_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/tac_grid_part3_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/tac_grid_part4_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/tac_grid_part5_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/fdg_aligned_true_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/fdg_aligned_estimated_2026_02_10_141647.png; figures/sim_20260210_141648_c384e/gamma_library_2026_02_10_141647.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_141648_c384e.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 5, n_tau = 5"
+sim_20260210_150851_951dc,2026-02-10 15:08:51,figures/sim_20260210_150851_951dc/nrmse_vs_delay_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/tac_grid_part1_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/tac_grid_part2_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/tac_grid_part3_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/tac_grid_part4_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/tac_grid_part5_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/fdg_aligned_true_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/fdg_aligned_estimated_2026_02_10_150851.png; figures/sim_20260210_150851_951dc/gamma_library_2026_02_10_150851.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_150851_951dc.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 5, n_tau = 5"
+sim_20260210_151242_9337c,2026-02-10 15:12:42,figures/sim_20260210_151242_9337c/nrmse_vs_delay_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/tac_grid_part1_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/tac_grid_part2_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/tac_grid_part3_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/tac_grid_part4_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/tac_grid_part5_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/fdg_aligned_true_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/fdg_aligned_estimated_2026_02_10_151242.png; figures/sim_20260210_151242_9337c/gamma_library_2026_02_10_151242.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_151242_9337c.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 40, n_tau = 40
+    - With L2 regularization with alpha = 0.01 for nnls fits (this is set inside the separation code, not here in main)"
+sim_20260210_151401_23ecf,2026-02-10 15:14:01,figures/sim_20260210_151401_23ecf/nrmse_vs_delay_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/tac_grid_part1_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/tac_grid_part2_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/tac_grid_part3_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/tac_grid_part4_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/tac_grid_part5_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/fdg_aligned_true_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/fdg_aligned_estimated_2026_02_10_151401.png; figures/sim_20260210_151401_23ecf/gamma_library_2026_02_10_151401.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_151401_23ecf.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 40, n_tau = 40
+    - With L2 regularization with alpha = 0.1 for nnls fits (this is set inside the separation code, not here in main)"
+sim_20260210_151518_d758a,2026-02-10 15:15:18,figures/sim_20260210_151518_d758a/nrmse_vs_delay_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/tac_grid_part1_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/tac_grid_part2_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/tac_grid_part3_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/tac_grid_part4_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/tac_grid_part5_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/fdg_aligned_true_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/fdg_aligned_estimated_2026_02_10_151518.png; figures/sim_20260210_151518_d758a/gamma_library_2026_02_10_151518.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_151518_d758a.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 40, n_tau = 40
+    - With L2 regularization with alpha = 1 for nnls fits (this is set inside the separation code, not here in main)"
+sim_20260210_151710_e1814,2026-02-10 15:17:10,figures/sim_20260210_151710_e1814/nrmse_vs_delay_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/tac_grid_part1_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/tac_grid_part2_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/tac_grid_part3_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/tac_grid_part4_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/tac_grid_part5_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/fdg_aligned_true_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/fdg_aligned_estimated_2026_02_10_151710.png; figures/sim_20260210_151710_e1814/gamma_library_2026_02_10_151710.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_151710_e1814.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 40, n_tau = 40
+    - With L2 regularization with alpha = 0.5 for nnls fits (this is set inside the separation code, not here in main)"
+sim_20260210_152043_0aac0,2026-02-10 15:20:43,figures/sim_20260210_152043_0aac0/nrmse_vs_delay_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/tac_grid_part1_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/tac_grid_part2_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/tac_grid_part3_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/tac_grid_part4_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/tac_grid_part5_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/fdg_aligned_true_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/fdg_aligned_estimated_2026_02_10_152043.png; figures/sim_20260210_152043_0aac0/gamma_library_2026_02_10_152043.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=5, n_tau=5)",params/sim_20260210_152043_0aac0.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 40, n_tau = 40
+    - With L2 regularization with alpha = 0.3 for nnls fits (this is set inside the separation code, not here in main)"
+sim_20260210_152324_b4fcb,2026-02-10 15:23:24,figures/sim_20260210_152324_b4fcb/nrmse_vs_delay_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/tac_grid_part1_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/tac_grid_part2_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/tac_grid_part3_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/tac_grid_part4_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/tac_grid_part5_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/fdg_aligned_true_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/fdg_aligned_estimated_2026_02_10_152324.png; figures/sim_20260210_152324_b4fcb/gamma_library_2026_02_10_152324.png,Delay sweep for PBR28 and FDG with PBR scale 1.2 and FDG scale 1.0,"FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=30, n_tau=30)",params/sim_20260210_152324_b4fcb.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 30, n_tau = 30
+    - With L2 regularization with alpha = 0.3 for nnls fits (this is set inside the separation code, not here in main)"
+sim_20260212_120452_e2eb9,2026-02-12 12:04:52,figures/sim_20260212_120452_e2eb9/nrmse_vs_delay_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/tac_grid_part1_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/tac_grid_part2_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/tac_grid_part3_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/tac_grid_part4_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/tac_grid_part5_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/fdg_aligned_true_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/fdg_aligned_estimated_2026_02_12_120452.png; figures/sim_20260212_120452_e2eb9/gamma_library_2026_02_12_120452.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=30 and n_tau=30.","joint_unmix, no regularization, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=30, n_tau=30)",params/sim_20260212_120452_e2eb9.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 30, n_tau = 30
+    - Without L2 regularization 
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260212_120748_56bd2,2026-02-12 12:07:48,figures/sim_20260212_120748_56bd2/nrmse_vs_delay_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/tac_grid_part1_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/tac_grid_part2_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/tac_grid_part3_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/tac_grid_part4_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/tac_grid_part5_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/fdg_aligned_true_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/fdg_aligned_estimated_2026_02_12_120748.png; figures/sim_20260212_120748_56bd2/gamma_library_2026_02_12_120748.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, no regularization, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)",params/sim_20260212_120748_56bd2.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 15, n_tau = 15
+    - Without L2 regularization 
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260212_121132_8650b,2026-02-12 12:11:32,figures/sim_20260212_121132_8650b/nrmse_vs_delay_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/tac_grid_part1_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/tac_grid_part2_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/tac_grid_part3_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/tac_grid_part4_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/tac_grid_part5_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/fdg_aligned_true_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/fdg_aligned_estimated_2026_02_12_121132.png; figures/sim_20260212_121132_8650b/gamma_library_2026_02_12_121132.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)",params/sim_20260212_121132_8650b.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 15, n_tau = 15
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260212_122138_0df5c,2026-02-12 12:21:38,figures/sim_20260212_122138_0df5c/nrmse_vs_delay_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/tac_grid_part1_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/tac_grid_part2_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/tac_grid_part3_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/tac_grid_part4_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/tac_grid_part5_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/fdg_aligned_true_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/fdg_aligned_estimated_2026_02_12_122138.png; figures/sim_20260212_122138_0df5c/gamma_library_2026_02_12_122138.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)",params/sim_20260212_122138_0df5c.csv,020187ddf97588d0008950d3632112307e0e397d,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 15, n_tau = 15
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
