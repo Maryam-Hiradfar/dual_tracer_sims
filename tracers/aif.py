@@ -31,6 +31,10 @@ FENG_FDG_DEFAULT = {
 }
 def feng_aif(t_since_inj, A1 = 1854.66, A2 = 8.168, A3 = 2.731, lam1 = 20.031, lam2 = 0.355, lam3 = 0.0178, tau = 0.27, scale = 1.0):
     t_shift = np.maximum(t_since_inj - tau, 0.0)
+    # t_since_inj is the time since injection of FDG
+    # tau is the rise time (time to peak) of the AIF
+    # note that the Feng AIF by design is zero for t<tau
+    # Hence t_shift is the time since the AIF starts rising, and is zero until t_since_inj exceeds tau
     term1 = (A1 * t_shift - A2 - A3) * np.exp(-lam1 * t_shift)
     term2 = A2 * np.exp(-lam2 * t_shift)
     term3 = A3 * np.exp(-lam3 * t_shift)

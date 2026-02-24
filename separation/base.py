@@ -1,7 +1,7 @@
 # separation/base.py
 from __future__ import annotations
-from dataclasses import dataclass
-from abc import ABC, abstractmethod, field
+from dataclasses import dataclass, field
+from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
 import numpy as np
 

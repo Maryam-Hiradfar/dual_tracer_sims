@@ -1,8 +1,8 @@
 from __future__ import annotations
 import numpy as np
 from typing import Any, Dict, Optional
-from .base import SeparationAlgorithm, SeparationResult
 from .registry import register
+from .base import SeparationAlgorithm, SeparationResult
 from scipy.optimize import nnls
 
 @register
@@ -37,5 +37,4 @@ class joint_unmix(SeparationAlgorithm):
                 "w_1": w_1,
                 "w_2": w_2
             }
-          
-    )
+         )

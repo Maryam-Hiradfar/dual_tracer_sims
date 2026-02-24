@@ -91,7 +91,7 @@ def sequential_unmix_l2(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut, alpha):
 
 
 
-def sequential_joint_unmix(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut,
+def joint_unmix(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut,
                      n_top=5, alpha_early=1, alpha_joint=1):
     """
     Maryam Method 1: Learn relevant RAC bases, then jointly fit.

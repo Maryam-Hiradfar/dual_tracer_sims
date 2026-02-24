@@ -15,7 +15,7 @@ import uuid
 from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 
 import pandas as pd
 
@@ -35,12 +35,13 @@ RUN_LOG_PATH = LOGS_DIR / "run_log.csv"
 class RunInfo:
     run_id: str
     git_sha: str
-    params_path: str
+    params_path: Path
     description: str
     start_time: str
-    figure_dir: str
+    figure_dir: Path
 
-
+def __post_init__(self):
+    self.figure_dir.mkdir(parents=True, exist_ok=True)
 # ---------- Internal helpers ----------
 
 def _ensure_base_dirs() -> None:
@@ -89,6 +90,19 @@ def _write_params_csv(run_id: str, params: Dict, git_sha: str) -> Path:
             writer.writerow([k, v])
 
     return path
+def _write_params_csv_to_path(path: Path, params: Dict, git_sha: str) -> Path:
+    params_copy = dict(params)
+    params_copy["run_id"] = path.stem  # use filename (without .csv) as run_id
+    params_copy["git_sha"] = git_sha
+
+    with path.open("w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["key", "value"])
+        for k, v in params_copy.items():
+            writer.writerow([k, v])
+
+    return path
+
 
 
 def _append_run_log(row_dict: Dict) -> None:
@@ -101,7 +115,7 @@ def _append_run_log(row_dict: Dict) -> None:
 
 # ---------- Public API ----------
 
-def start_run(param_dict: Dict, description: str = "") -> RunInfo:
+def start_run(param_dict: Dict, description: str = "", *, output_root:Optional[Path] = None,) -> RunInfo:
     """
     Creates run_id, figure folder, CSV param file.
     """
@@ -109,23 +123,30 @@ def start_run(param_dict: Dict, description: str = "") -> RunInfo:
 
     git_sha = _get_git_sha()
     run_id = _generate_run_id()
+    
+    if output_root is None:
+        # create figures/<run_id>/
+        fig_dir = FIGURES_DIR / run_id
+        params_path = _write_params_csv(run_id, param_dict, git_sha)
+    else:
+        output_root = Path(output_root)
+        fig_dir = output_root / "figures" / run_id
+        fig_dir.mkdir(parents=True, exist_ok=True)
 
-    # create figures/<run_id>/
-    fig_dir = FIGURES_DIR / run_id
-    fig_dir.mkdir(parents=True, exist_ok=True)
-
-    # write params/<run_id>.csv
-    params_path = _write_params_csv(run_id, param_dict, git_sha)
+        params_dir = output_root / "params"
+        params_dir.mkdir(parents=True, exist_ok=True)
+        params_path = params_dir / f"{run_id}.csv"
+        _write_params_csv_to_path(params_path, param_dict, git_sha)
 
     start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     return RunInfo(
         run_id=run_id,
         git_sha=git_sha,
-        params_path=str(params_path.relative_to(PROJECT_ROOT)),
+        params_path=params_path,
         description=description,
         start_time=start_time,
-        figure_dir=str(fig_dir.relative_to(PROJECT_ROOT)),
+        figure_dir= fig_dir,
     )
 
 
@@ -133,7 +154,7 @@ def get_figure_path(run_info: RunInfo, filename: str) -> Path:
     """
     Returns the full path to a figure inside this run’s folder.
     """
-    fig_dir = PROJECT_ROOT / run_info.figure_dir
+    fig_dir = run_info.figure_dir
     fig_dir.mkdir(parents=True, exist_ok=True)
     return fig_dir / filename
 
@@ -148,16 +169,10 @@ def finalize_run(
     """
     Writes a row to logs/run_log.csv for Excel tracking.
     """
-    if isinstance(figure_filenames, str):
+    if isinstance(figure_filenames, (str,Path)):
         figure_filenames = [figure_filenames]
 
-    normalized = []
-    for f in figure_filenames:
-        p = Path(f)
-        try:
-            normalized.append(str(p.relative_to(PROJECT_ROOT)))
-        except ValueError:
-            normalized.append(str(p))
+    normalized = [str(Path(f).resolve()) for f in figure_filenames]
 
     row = {
         "Run ID": run_info.run_id,
