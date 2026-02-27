@@ -915,3 +915,525 @@ sim_20260224_124510_0dead,2026-02-24 12:45:10,/Users/maryamhiradfar/Documents/Gi
     - Gamma basis: n_t0 = 15, n_tau = 15
     - With L2 regularization, alpha = 1
     - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_130708_b538c,2026-02-24 13:07:08,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/nrmse_vs_delay_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/tac_grid_part1_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/tac_grid_part2_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/tac_grid_part3_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/tac_grid_part4_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/tac_grid_part5_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/fdg_aligned_true_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/fdg_aligned_estimated_2026_02_24_130708.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_130708_b538c/gamma_library_2026_02_24_130708.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_130708_b538c.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 15, n_tau = 15
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_131228_6d680,2026-02-24 13:12:28,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/nrmse_vs_delay_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/tac_grid_part1_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/tac_grid_part2_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/tac_grid_part3_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/tac_grid_part4_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/tac_grid_part5_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/fdg_aligned_true_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/fdg_aligned_estimated_2026_02_24_131228.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131228_6d680/gamma_library_2026_02_24_131228.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_131228_6d680.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 15, n_tau = 15
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_131259_1afc1,2026-02-24 13:12:59,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/nrmse_vs_delay_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/tac_grid_part1_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/tac_grid_part2_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/tac_grid_part3_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/tac_grid_part4_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/tac_grid_part5_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/fdg_aligned_true_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/fdg_aligned_estimated_2026_02_24_131259.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131259_1afc1/gamma_library_2026_02_24_131259.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_131259_1afc1.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 15, n_tau = 15
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_131330_6a3bc,2026-02-24 13:13:30,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/nrmse_vs_delay_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/tac_grid_part1_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/tac_grid_part2_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/tac_grid_part3_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/tac_grid_part4_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/tac_grid_part5_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/fdg_aligned_true_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/fdg_aligned_estimated_2026_02_24_131330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_131330_6a3bc/gamma_library_2026_02_24_131330.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_131330_6a3bc.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_132157_da3b5,2026-02-24 13:21:57,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/nrmse_vs_delay_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/tac_grid_part1_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/tac_grid_part2_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/tac_grid_part3_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/tac_grid_part4_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/tac_grid_part5_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/fdg_aligned_true_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/fdg_aligned_estimated_2026_02_24_132157.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132157_da3b5/gamma_library_2026_02_24_132157.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_132157_da3b5.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_132231_742a5,2026-02-24 13:22:31,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/nrmse_vs_delay_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/tac_grid_part1_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/tac_grid_part2_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/tac_grid_part3_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/tac_grid_part4_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/tac_grid_part5_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/fdg_aligned_true_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/fdg_aligned_estimated_2026_02_24_132231.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132231_742a5/gamma_library_2026_02_24_132231.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_132231_742a5.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_132314_2bfbc,2026-02-24 13:23:14,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/nrmse_vs_delay_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/tac_grid_part1_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/tac_grid_part2_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/tac_grid_part3_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/tac_grid_part4_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/tac_grid_part5_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/fdg_aligned_true_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/fdg_aligned_estimated_2026_02_24_132314.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132314_2bfbc/gamma_library_2026_02_24_132314.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_132314_2bfbc.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_132355_0af06,2026-02-24 13:23:55,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/nrmse_vs_delay_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/tac_grid_part1_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/tac_grid_part2_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/tac_grid_part3_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/tac_grid_part4_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/tac_grid_part5_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/fdg_aligned_true_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/fdg_aligned_estimated_2026_02_24_132355.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132355_0af06/gamma_library_2026_02_24_132355.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_132355_0af06.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_132726_90b8a,2026-02-24 13:27:26,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/nrmse_vs_delay_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/tac_grid_part1_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/tac_grid_part2_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/tac_grid_part3_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/tac_grid_part4_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/tac_grid_part5_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/fdg_aligned_true_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/fdg_aligned_estimated_2026_02_24_132726.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132726_90b8a/gamma_library_2026_02_24_132726.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_132726_90b8a.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_132817_8ede8,2026-02-24 13:28:17,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/nrmse_vs_delay_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/tac_grid_part1_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/tac_grid_part2_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/tac_grid_part3_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/tac_grid_part4_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/tac_grid_part5_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/fdg_aligned_true_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/fdg_aligned_estimated_2026_02_24_132817.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_132817_8ede8/gamma_library_2026_02_24_132817.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_132817_8ede8.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133028_5f926,2026-02-24 13:30:28,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/nrmse_vs_delay_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/tac_grid_part1_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/tac_grid_part2_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/tac_grid_part3_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/tac_grid_part4_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/tac_grid_part5_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/fdg_aligned_true_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/fdg_aligned_estimated_2026_02_24_133028.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133028_5f926/gamma_library_2026_02_24_133028.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133028_5f926.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133130_00698,2026-02-24 13:31:30,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/nrmse_vs_delay_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/tac_grid_part1_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/tac_grid_part2_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/tac_grid_part3_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/tac_grid_part4_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/tac_grid_part5_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/fdg_aligned_true_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/fdg_aligned_estimated_2026_02_24_133130.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133130_00698/gamma_library_2026_02_24_133130.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133130_00698.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133251_6209e,2026-02-24 13:32:51,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/nrmse_vs_delay_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/tac_grid_part1_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/tac_grid_part2_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/tac_grid_part3_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/tac_grid_part4_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/tac_grid_part5_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/fdg_aligned_true_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/fdg_aligned_estimated_2026_02_24_133251.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133251_6209e/gamma_library_2026_02_24_133251.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133251_6209e.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133330_f1b7e,2026-02-24 13:33:30,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/nrmse_vs_delay_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/tac_grid_part1_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/tac_grid_part2_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/tac_grid_part3_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/tac_grid_part4_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/tac_grid_part5_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/fdg_aligned_true_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/fdg_aligned_estimated_2026_02_24_133330.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133330_f1b7e/gamma_library_2026_02_24_133330.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133330_f1b7e.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133417_33cb0,2026-02-24 13:34:17,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/nrmse_vs_delay_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/tac_grid_part1_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/tac_grid_part2_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/tac_grid_part3_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/tac_grid_part4_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/tac_grid_part5_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/fdg_aligned_true_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/fdg_aligned_estimated_2026_02_24_133417.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133417_33cb0/gamma_library_2026_02_24_133417.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133417_33cb0.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133505_83533,2026-02-24 13:35:05,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/nrmse_vs_delay_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/tac_grid_part1_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/tac_grid_part2_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/tac_grid_part3_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/tac_grid_part4_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/tac_grid_part5_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/fdg_aligned_true_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/fdg_aligned_estimated_2026_02_24_133505.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133505_83533/gamma_library_2026_02_24_133505.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133505_83533.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133542_41f30,2026-02-24 13:35:42,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/nrmse_vs_delay_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/tac_grid_part1_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/tac_grid_part2_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/tac_grid_part3_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/tac_grid_part4_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/tac_grid_part5_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/fdg_aligned_true_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/fdg_aligned_estimated_2026_02_24_133542.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133542_41f30/gamma_library_2026_02_24_133542.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133542_41f30.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133628_4bedd,2026-02-24 13:36:28,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/nrmse_vs_delay_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/tac_grid_part1_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/tac_grid_part2_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/tac_grid_part3_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/tac_grid_part4_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/tac_grid_part5_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/fdg_aligned_true_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/fdg_aligned_estimated_2026_02_24_133628.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133628_4bedd/gamma_library_2026_02_24_133628.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133628_4bedd.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133736_e9a19,2026-02-24 13:37:36,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/nrmse_vs_delay_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/tac_grid_part1_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/tac_grid_part2_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/tac_grid_part3_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/tac_grid_part4_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/tac_grid_part5_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/fdg_aligned_true_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/fdg_aligned_estimated_2026_02_24_133736.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133736_e9a19/gamma_library_2026_02_24_133736.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133736_e9a19.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133822_dc8bc,2026-02-24 13:38:22,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/nrmse_vs_delay_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/tac_grid_part1_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/tac_grid_part2_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/tac_grid_part3_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/tac_grid_part4_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/tac_grid_part5_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/fdg_aligned_true_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/fdg_aligned_estimated_2026_02_24_133822.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133822_dc8bc/gamma_library_2026_02_24_133822.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133822_dc8bc.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_133847_3d8b8,2026-02-24 13:38:47,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/nrmse_vs_delay_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/tac_grid_part1_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/tac_grid_part2_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/tac_grid_part3_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/tac_grid_part4_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/tac_grid_part5_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/fdg_aligned_true_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/fdg_aligned_estimated_2026_02_24_133847.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_133847_3d8b8/gamma_library_2026_02_24_133847.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_133847_3d8b8.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_134012_91978,2026-02-24 13:40:12,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/nrmse_vs_delay_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/tac_grid_part1_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/tac_grid_part2_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/tac_grid_part3_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/tac_grid_part4_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/tac_grid_part5_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/fdg_aligned_true_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/fdg_aligned_estimated_2026_02_24_134012.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134012_91978/gamma_library_2026_02_24_134012.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_134012_91978.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_134048_f43dd,2026-02-24 13:40:48,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/nrmse_vs_delay_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/tac_grid_part1_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/tac_grid_part2_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/tac_grid_part3_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/tac_grid_part4_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/tac_grid_part5_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/fdg_aligned_true_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/fdg_aligned_estimated_2026_02_24_134048.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134048_f43dd/gamma_library_2026_02_24_134048.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_134048_f43dd.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_134141_8f184,2026-02-24 13:41:41,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/nrmse_vs_delay_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/tac_grid_part1_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/tac_grid_part2_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/tac_grid_part3_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/tac_grid_part4_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/tac_grid_part5_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/fdg_aligned_true_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/fdg_aligned_estimated_2026_02_24_134141.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134141_8f184/gamma_library_2026_02_24_134141.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_134141_8f184.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_134526_2c1c7,2026-02-24 13:45:26,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/nrmse_vs_delay_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/tac_grid_part1_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/tac_grid_part2_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/tac_grid_part3_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/tac_grid_part4_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/tac_grid_part5_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/fdg_aligned_true_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/fdg_aligned_estimated_2026_02_24_134526.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_134526_2c1c7/gamma_library_2026_02_24_134526.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_134526_2c1c7.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_135647_cf1e7,2026-02-24 13:56:47,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/nrmse_vs_delay_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part1_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part2_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part3_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part4_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part5_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/fdg_aligned_true_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/fdg_aligned_estimated_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/gamma_library_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part1_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part2_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part3_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part4_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/tac_grid_part5_2026_02_24_135647.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135647_cf1e7/fdg_aligned_true_2026_02_24_135647.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_135647_cf1e7.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_135934_2b28e,2026-02-24 13:59:34,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/nrmse_vs_delay_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part1_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part2_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part3_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part4_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part5_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/fdg_aligned_true_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/fdg_aligned_estimated_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/gamma_library_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part1_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part2_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part3_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part4_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/tac_grid_part5_2026_02_24_135934.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_135934_2b28e/fdg_aligned_true_2026_02_24_135934.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_135934_2b28e.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_140321_a8951,2026-02-24 14:03:21,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/nrmse_vs_delay_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/tac_grid_part1_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/tac_grid_part2_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/tac_grid_part3_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/tac_grid_part4_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/tac_grid_part5_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/fdg_aligned_true_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/fdg_aligned_estimated_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/gamma_library_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/measured_tac_grid_part1_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/measured_tac_grid_part2_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/measured_tac_grid_part3_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/measured_tac_grid_part4_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/measured_tac_grid_part5_2026_02_24_140321.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140321_a8951/fdg_aligned_true_2026_02_24_140321.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_140321_a8951.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"
+sim_20260224_140850_3d221,2026-02-24 14:08:50,/Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/nrmse_vs_delay_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/tac_grid_part1_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/tac_grid_part2_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/tac_grid_part3_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/tac_grid_part4_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/tac_grid_part5_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/fdg_aligned_true_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/fdg_aligned_estimated_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/gamma_library_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/measured_tac_grid_part1_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/measured_tac_grid_part2_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/measured_tac_grid_part3_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/measured_tac_grid_part4_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/measured_tac_grid_part5_2026_02_24_140850.png; /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/ /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/figures/sim_20260224_140850_3d221/fdg_aligned_true_2026_02_24_140850.png,"Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.","joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)", /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs/params/sim_20260224_140850_3d221.csv,1dfc27842bcffbf5f45e19577ef1252dfd878448,"Gamma basis library: uniform 
+    - FDG scale = 1.0
+    - PBR scale = 1.0
+    - Delays: 0–50 min (1-min steps)
+    - Frame edges:frame_durations_min = np.array(
+        [2/60.0] * 20    # 20 × 2 s  = 40 s
+        + [5/60.0] * 12    # 12 × 5 s  = 60 s
+        + [10/60.0] * 12   # 12 × 10 s = 120 s
+        + [20/60.0] * 12   # 12 × 20 s = 240 s
+        + [30/60.0] * 8    # 8 × 30 s  = 240 s
+        + [1.0]     * 6    # 6 × 60 s  = 360 s
+        + [2.0]     * 5    # 5 × 120 s = 600 s
+        + [5.0]     * 8    # 8 × 300 s = 2400 s
+        + [10.0]    * 4    # 4 × 600 s = 2400 s
+    )
+    - Gamma basis: n_t0 = 25, n_tau = 25
+    - With L2 regularization, alpha = 1
+    - joint separation algorithm (this is set inside the separation code, not here in main)"

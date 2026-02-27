@@ -30,6 +30,8 @@ def sweep_delays(delays, timegrid, rac, fdg, gamma_lib, Gamma, rng, separation_a
             Delta=D,
             nrmse_est_1_bio=nrmse(sim["Ct1_bio"], sim["Ct1_est_bio"]),
             nrmse_est_2_bio=nrmse(sim["Ct2_bio"], sim["Ct2_est_bio"]),
+            nrmse_est_1_meas=nrmse(sim["Ct1_phys"], sim["ct_1_est_meas"]),
+            nrmse_est_2_meas=nrmse(sim["Ct2_phys"], sim["ct_2_est_meas"]),
             sim=sim
         ))
 

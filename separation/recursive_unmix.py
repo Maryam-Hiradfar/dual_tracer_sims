@@ -41,10 +41,10 @@ class RecursiveUnmix(SeparationAlgorithm):
         est_2 = Phi_2 @ w_2 #tracer 2 estimate
         for i in range(num_iters):
              resid_1 = np.clip(y - est_2, 0, None)
-             w_3, _ = nnls(Phi_1, resid_1)
+             w_3= nnls_l2(Phi_1, resid_1, alpha = alpha_val/1.15)
              est_3 = Phi_1 @ w_3 #tracer 1 estimate
              resid_2 = np.clip(y - est_3, 0, None)
-             w_4, _ = nnls(Phi_2, resid_2) 
+             w_4 = nnls_l2(Phi_2, resid_2, alpha = alpha_val/2.7) 
              est_4 = Phi_2 @ w_4 #tracer 2 estimate
              # Update estimates for next iteration
              est_1 = est_3 #tracer 1 estimate

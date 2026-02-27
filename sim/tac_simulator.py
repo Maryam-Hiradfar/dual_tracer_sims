@@ -82,6 +82,8 @@ def simulate_dual_tac_any_alg(timegrid, rac, fdg, protocol, gamma_lib, Gamma, rn
         y_meas=y_meas,
         Ct1_est_bio=Ct1_est_bio,
         Ct2_est_bio=Ct2_est_bio,
+        ct_1_est_meas = separation_result.tracer1_curve,
+        ct_2_est_meas = separation_result.tracer2_curve,
         nrmse_est_1_bio=nrmse_est_1_bio,
         nrmse_est_2_bio=nrmse_est_2_bio
     )

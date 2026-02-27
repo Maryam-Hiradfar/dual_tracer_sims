@@ -37,7 +37,9 @@ def main():
     # USER-RUN SETTINGS (EDIT HERE)
     # ==============================
     RUN_DESCRIPTION = "testing to see if my classes work as I just implemented them."
-    separation_alg = "recirsive_unmix" #options include "joint_unmix", "recursive_unmix", "sequential_unmix", "nnls_2", or any other algorithm registered in separation/registry.py
+    separation_alg = "recursive_unmix" #options include "joint_unmix", "recursive_unmix", "sequential_unmix", "nnls_2", or any other algorithm registered in separation/registry.py
+    #algorithm sepcific context params 
+    num_iters = 20 #example of passing an additional parameter to the separation algorithm
     RUN_DESCRIPTION = "FDG/PBR delay sweep"
     RUN_NOTES = """
     Gamma basis library: uniform 
@@ -55,12 +57,12 @@ def main():
         + [5.0]     * 8    # 8 × 300 s = 2400 s
         + [10.0]    * 4    # 4 × 600 s = 2400 s
     )
-    - Gamma basis: n_t0 = 15, n_tau = 15
+    - Gamma basis: n_t0 = 25, n_tau = 25
     - With L2 regularization, alpha = 1
     - joint separation algorithm (this is set inside the separation code, not here in main)
     """
-    GAMMA_N_T0 = 15
-    GAMMA_N_TAU = 15
+    GAMMA_N_T0 = 30
+    GAMMA_N_TAU = 30
     key_params = "joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)"
     
 
@@ -158,7 +160,6 @@ def main():
         )
     # ----- 2) Run delay sweep -----
     #choose the separation algorithm to use for the sweep
-    separation_alg = "recursive_unmix" #options include "joint_unmix", "recursive_unmix", "sequential_unmix", "nnls_2", or any other algorithm registered in separation/registry.py
     if separation_alg not in available():
         raise ValueError(f"Separation algorithm '{separation_alg}' not found. Available algorithms: {available()}")
     alg_instance = create(separation_alg, alpha=1.0) #example of passing
@@ -172,12 +173,13 @@ def main():
         rng = rng,
         delays=DELAYS, 
         separation_alg=alg_instance,
-        context={
+        context = {
             "Phi_1": None, #will be set inside the separation code
             "Phi_2": None, #will be set inside the separation code
             "t_frames": timegrid.frame_mids, #will be set inside the separation code
             "t_cut": 10.0, #will be set inside the separation code
-            "alpha": 1.0 #example of passing an additional parameter to the separation algorithm
+            "alpha": 1.0, #example of passing an additional parameter to the separation algorithm
+            "num_iters": num_iters #example of passing an additional parameter to the separation algorithm
         }
     )
 
@@ -358,6 +360,110 @@ def main():
     plt.savefig(fig5_path, dpi=300)
     plt.close()
     fig_paths.append(fig5_path)
+
+    #--------- Figure 5: measured estimate grid (individual curves are not decay correct) ---------#
+     # ===== FIGURE 2: Grid of true vs estimated biological TACs across delays, split into multiple files =====
+   
+    n_results = len(results)
+    n_cols = 4
+    n_rows_per_fig = 3    # adjust here
+    plots_per_fig = n_cols * n_rows_per_fig
+
+    n_figs = int(np.ceil(n_results / plots_per_fig))
+
+    for f in range(n_figs):
+        start = f * plots_per_fig
+        end = min(start + plots_per_fig, n_results)
+        chunk = results[start:end]
+
+        # number of rows for this figure
+        n_rows = int(np.ceil(len(chunk) / n_cols))
+
+        fig, axes = plt.subplots(
+            n_rows, n_cols,
+            figsize=(18, 4 * n_rows),
+            sharex=True, sharey=True
+        )
+
+        # Keep axes 2D for consistency
+        if n_rows == 1:
+            axes = np.expand_dims(axes, axis=0)
+
+        for idx, r in enumerate(chunk):
+            i, j = divmod(idx, n_cols)
+            ax = axes[i, j]
+
+            D = r["Delta"]
+            sim = r["sim"]
+
+            t = sim["t_frames"]
+            ct1_true_meas, ct1_est_meas = sim["Ct1_phys"], sim["ct_1_est_meas"]
+            ct2_true_meas, ct2_est_meas = sim["Ct2_phys"], sim["ct_2_est_meas"]
+
+            ax.plot(t, ct1_true_meas, lw=2, label="PBR true")
+            ax.plot(t, ct1_est_meas, "--", lw=1.2, label="PBR est")
+            ax.plot(t, ct2_true_meas, lw=2, label="FDG true")
+            ax.plot(t, ct2_est_meas, "--", lw=1.2, label="FDG est")
+            ax.plot(t, ct1_true_meas + ct2_true_meas , color="black", lw=1, alpha=0.7, label="FDG + PBR sum")
+            ax.scatter(t, sim["y_meas"], color="grey", s=10, alpha=0.5, label="Measured")
+            ax.set_ylim(0, 5)
+            ax.set_title(f"Δ = {D} min")
+            ax.grid(True, alpha=0.2)
+
+        # turn off unused axes in last row
+        total_slots = n_rows * n_cols
+        for k in range(len(chunk), total_slots):
+            i, j = divmod(k, n_cols)
+            axes[i, j].axis("off")
+
+        # global legend
+        handles, labels = axes[0, 0].get_legend_handles_labels()
+        fig.legend(handles, labels, loc="upper center", ncol=4, fontsize=12)
+
+        fig.text(0.5, 0.04, "Time (min)", ha="center", fontsize=14)
+        fig.text(0.04, 0.5, "Measured concentration, no individual decay correction", va="center",
+                rotation="vertical", fontsize=14)
+        fig2_path = get_figure_path(run_info, f"measured_tac_grid_part{f+1}_{timestamp}.png")
+        plt.tight_layout(rect=[0.03, 0.05, 1, 0.95])
+        plt.savefig(fig2_path, dpi=300)
+        plt.close()
+        fig_paths.append(fig2_path)
+
+
+
+
+    # ===== FIGURE 3: FDG biological TACs aligned by time since FDG injection =====
+    plt.figure(figsize=(8, 5))
+
+    for r in results:
+        D = r["Delta"]
+        sim = r["sim"]
+
+        t = sim["t_frames"]
+        Ct2_true = sim["Ct2_bio"]
+
+        tau = np.maximum(t - D, 0.0)
+        mask = t >= D
+
+        plt.plot(tau[mask], Ct2_true[mask], label=f"Δ={D} min")
+
+    plt.xlabel("Time since FDG injection τ (min)")
+    plt.ylabel("FDG biological TAC")
+    plt.title("FDG biological TACs aligned by biological time")
+    plt.xlim(0, 60)
+    plt.grid(True, alpha=0.3)
+
+    plt.legend(
+        bbox_to_anchor=(1.02, 1),      # place legend outside right
+        loc="upper left",
+        borderaxespad=0
+    )
+
+    plt.tight_layout()
+    fig3_path = get_figure_path(run_info, f"fdg_aligned_true_{timestamp}.png")
+    plt.savefig(fig3_path, dpi=300, bbox_inches="tight")
+    plt.close()
+    fig_paths.append(fig3_path)
     #==================================
     # ------- Finalize run logging ----------#
     #==================================
