@@ -8,7 +8,7 @@ from tracers.rac import RacloprideTracer
 from tracers.fdg import FDGTracer
 from tracers.pbr28 import PBR28Tracer
 
-from kinetics.basis_gamma import build_gamma_library
+from kinetics.basis_gamma import build_gamma_library, build_gamma_library_for_two_tracers
 from sim.sweep import sweep_delays
 from datetime import datetime
 import os
@@ -36,7 +36,7 @@ def main():
      # ==============================
     # USER-RUN SETTINGS (EDIT HERE)
     # ==============================
-    RUN_DESCRIPTION = "testing to see if my classes work as I just implemented them."
+    RUN_DESCRIPTION = "code test:tuning different alphas for the L2 regularizations for each tracer."
     separation_alg = "recursive_unmix" #options include "joint_unmix", "recursive_unmix", "sequential_unmix", "nnls_2", or any other algorithm registered in separation/registry.py
     #algorithm sepcific context params 
     num_iters = 20 #example of passing an additional parameter to the separation algorithm
@@ -61,9 +61,14 @@ def main():
     - With L2 regularization, alpha = 1
     - joint separation algorithm (this is set inside the separation code, not here in main)
     """
-    GAMMA_N_T0 = 30
-    GAMMA_N_TAU = 30
-    key_params = "joint_unmix, with L2 regularization alpha = 1, FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=15, n_tau=15)"
+    GAMMA_N_T0_TRACER_1 = 1
+    GAMMA_N_TAU_TRACER_1= 40
+    GAMMA_N_T0_TRACER_2 = 40
+    GAMMA_N_TAU_TRACER_2 = 40
+    ALPHA_TRACER_1 = 1.0
+    ALPHA_TRACER_2 = 1.0
+    key_params = f"joint_unmix, with L2 regularization, alpha = {ALPHA_TRACER_1} for tracer 1, and alpha = {ALPHA_TRACER_2}. FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma for tracer a = {GAMMA_N_T0_TRACER_1}x{GAMMA_N_TAU_TRACER_1}, gamma for tracer b = {GAMMA_N_T0_TRACER_2}x{GAMMA_N_TAU_TRACER_2}"
+    
     
 
     #optional overrides for default parameters
@@ -119,6 +124,16 @@ def main():
         scale = 1.0, 
         feng_params = (FDG_OVERRIDES if FDG_OVERRIDES else None),
         )
+    timegrid = TimeGrid(frame_edges=FRAME_EDGES, internal_dt_min=1/60.0)  # 1 sec internal
+    context = {
+            "Phi_1": None, #will be set inside the separation code
+            "Phi_2": None, #will be set inside the separation code
+            "t_frames": timegrid.frame_mids, #will be set inside the separation code
+            "t_cut": 10.0, #will be set inside the separation code
+            "alpha_1": ALPHA_TRACER_1, #example of passing an additional parameter to the separation algorithm
+            "alpha_2": ALPHA_TRACER_2, #example of passing an additional parameter to the separation algorithm
+            "num_iters": num_iters #example of passing an additional parameter to the separation algorithm
+        }
     
     #===============================
     # ------- Run logging setup --------#
@@ -142,9 +157,18 @@ def main():
     "delays" : DELAYS,
     "frame_edges" : FRAME_EDGES, 
     "gamma_basis": {
-            "n_t0": GAMMA_N_T0,
-            "n_tau": GAMMA_N_TAU,
+            "n_t0_1": GAMMA_N_T0_TRACER_1,
+            "n_tau_1": GAMMA_N_TAU_TRACER_1,
+            "n_t0_2": GAMMA_N_T0_TRACER_2,
+            "n_tau_2": GAMMA_N_TAU_TRACER_2,
         },
+    "separation_alg": separation_alg,
+    "context"  : {
+            "t_cut": context["t_cut"],
+            "alpha_1": context["alpha_1"],
+            "alpha_2": context["alpha_2"],
+            "num_iters": context["num_iters"]
+        }
     }
     run_info = start_run(params, description="Delay sweep for PBR28 and FDG with PBR scale 1 and FDG scale 1.0, with joint separation and no regularization. Gamma basis library with n_t0=15 and n_tau=15.",
                          output_root = FIG_DIR)
@@ -152,35 +176,31 @@ def main():
     # 3) Build time grid, gamma basis, and run delay sweep
     # =======================================================
     # ----- 1) Define dynamic frame schedule -----
-    timegrid = TimeGrid(frame_edges=FRAME_EDGES, internal_dt_min=1/60.0)  # 1 sec internal
-    gamma_lib, Gamma = build_gamma_library(
+    gamma_lib_1, Gamma_1, gamma_lib_2, Gamma_2 = build_gamma_library_for_two_tracers(
         timegrid.frame_mids, 
-        n_t0=GAMMA_N_T0,
-        n_tau=GAMMA_N_TAU,
+        n_t0_1=GAMMA_N_T0_TRACER_1,
+        n_tau_1=GAMMA_N_TAU_TRACER_2,
+        n_t0_2=GAMMA_N_T0_TRACER_2,
+        n_tau_2=GAMMA_N_TAU_TRACER_2,
         )
     # ----- 2) Run delay sweep -----
     #choose the separation algorithm to use for the sweep
     if separation_alg not in available():
         raise ValueError(f"Separation algorithm '{separation_alg}' not found. Available algorithms: {available()}")
-    alg_instance = create(separation_alg, alpha=1.0) #example of passing
+    alg_instance = create(separation_alg, alpha_1 = ALPHA_TRACER_1, alpha_2 = ALPHA_TRACER_2) #example of passing
     rng = np.random.default_rng(42)
     results = sweep_delays(
         rac=pbr, 
         fdg=fdg, 
         timegrid=timegrid, 
-        gamma_lib=gamma_lib, 
-        Gamma=Gamma, 
+        gamma_lib_1 = gamma_lib_1, 
+        Gamma_1 = Gamma_1, 
+        gamma_lib_2 = gamma_lib_2,
+        Gamma_2 = Gamma_2,
         rng = rng,
         delays=DELAYS, 
         separation_alg=alg_instance,
-        context = {
-            "Phi_1": None, #will be set inside the separation code
-            "Phi_2": None, #will be set inside the separation code
-            "t_frames": timegrid.frame_mids, #will be set inside the separation code
-            "t_cut": 10.0, #will be set inside the separation code
-            "alpha": 1.0, #example of passing an additional parameter to the separation algorithm
-            "num_iters": num_iters #example of passing an additional parameter to the separation algorithm
-        }
+        context = context
     )
 
      # results is a list of dicts; convert to arrays for plotting
@@ -344,19 +364,35 @@ def main():
     plt.close()
     fig_paths.append(fig4_path)
 
-    # ------- Figure 4: gamma library----------#
+    # ------- Figure 4: gamma libraries----------#
     plt.figure(figsize=(8,5))
     t_basis_plot = np.linspace(t[0], t[-1], 360)
 
-    for g in gamma_lib:
+    for g in gamma_lib_1:
         plt.plot(t_basis_plot, g, alpha = 0.3)
     plt.xlabel("Time (min)")
     plt.ylabel("Amplitude")
-    plt.title("Gamma basis library (all functions)")
+    plt.title("Gamma basis library (all functions) for tracer 1")
     plt.grid(True, alpha = 0.3)
 
     plt.tight_layout()
-    fig5_path = get_figure_path(run_info, f"gamma_library_{timestamp}.png")
+    fig5_path = get_figure_path(run_info, f"gamma_library_tracer_1_{timestamp}.png")
+    plt.savefig(fig5_path, dpi=300)
+    plt.close()
+    fig_paths.append(fig5_path)
+
+    plt.figure(figsize=(8,5))
+    t_basis_plot = np.linspace(t[0], t[-1], 360)
+
+    for g in gamma_lib_2:
+        plt.plot(t_basis_plot, g, alpha = 0.3)
+    plt.xlabel("Time (min)")
+    plt.ylabel("Amplitude")
+    plt.title("Gamma basis library (all functions) for tracer 1")
+    plt.grid(True, alpha = 0.3)
+
+    plt.tight_layout()
+    fig5_path = get_figure_path(run_info, f"gamma_library_tracer_2_{timestamp}.png")
     plt.savefig(fig5_path, dpi=300)
     plt.close()
     fig_paths.append(fig5_path)

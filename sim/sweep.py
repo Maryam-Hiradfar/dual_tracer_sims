@@ -8,7 +8,7 @@ def nrmse(true, est):
 
 
 
-def sweep_delays(delays, timegrid, rac, fdg, gamma_lib, Gamma, rng, separation_alg = SeparationAlgorithm, context = None):
+def sweep_delays(delays, timegrid, rac, fdg, gamma_lib_1, Gamma_1, gamma_lib_2, Gamma_2, rng, separation_alg = SeparationAlgorithm, context = None):
     out = []
     for D in delays:
         from core.protocol import Protocol
@@ -19,8 +19,10 @@ def sweep_delays(delays, timegrid, rac, fdg, gamma_lib, Gamma, rng, separation_a
             rac=rac,
             fdg=fdg,
             protocol=protocol,
-            gamma_lib=gamma_lib,
-            Gamma=Gamma,
+            gamma_lib_1=gamma_lib_1,
+            Gamma_1=Gamma_1,
+            gamma_lib_2= gamma_lib_2,
+            Gamma_2=Gamma_2,
             rng=rng,
             separation_alg=separation_alg,
             context=context

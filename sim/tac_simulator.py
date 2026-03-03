@@ -6,22 +6,22 @@ from utils.frame_average import frame_average
 from scipy.optimize import nnls
 from separation.base import SeparationAlgorithm, SeparationResult
 
-def make_tracer_bases(Ct1_bio, Ct2_bio, gamma_lib, Gamma, decay1, decay2, eps=1e-6):
-    w1, _ = nnls(Gamma, Ct1_bio)
-    w2, _ = nnls(Gamma, Ct2_bio) #first fit the biological curves to the gamma basis
+def make_tracer_bases(Ct1_bio, Ct2_bio, gamma_lib_1, Gamma_1, gamma_lib_2, Gamma_2, decay1, decay2, eps=1e-6):
+    w1, _ = nnls(Gamma_1, Ct1_bio)
+    w2, _ = nnls(Gamma_2, Ct2_bio) #first fit the biological curves to the gamma basis
 
     idx1 = np.where(w1 > eps)[0] #only keep the basis functions that contribute significantly, this step is only done in simulation to speed things up, i
     #in real data we would not know this and would have to use the full basis
     idx2 = np.where(w2 > eps)[0]
 
-    psi1 = gamma_lib[idx1] 
-    psi2 = gamma_lib[idx2]
+    psi1 = gamma_lib_1[idx1] 
+    psi2 = gamma_lib_2[idx2]
 
     phi1 = psi1 * decay1[np.newaxis, :] #gnerate the basis functions scaled by the decay
     phi2 = psi2 * decay2[np.newaxis, :]
 
     return phi1.T, phi2.T
-def simulate_dual_tac_any_alg(timegrid, rac, fdg, protocol, gamma_lib, Gamma, rng, separation_alg: SeparationAlgorithm, context = None):
+def simulate_dual_tac_any_alg(timegrid, rac, fdg, protocol, gamma_lib_1, Gamma_1, gamma_lib_2, Gamma_2, rng, separation_alg: SeparationAlgorithm, context = None):
     t_int = timegrid.t_internal
     t_frames = timegrid.frame_mids
     Delta = protocol.delta_min
@@ -50,7 +50,7 @@ def simulate_dual_tac_any_alg(timegrid, rac, fdg, protocol, gamma_lib, Gamma, rn
     y_meas =  add_noise_voxel(y_clean, timegrid.frame_durs, voxel_size_mm=4.0,
                     scanner_name="panorama_gs", rng=None)[0]
 
-    Phi_rac, Phi_fdg = make_tracer_bases(Ct1_bio, Ct2_bio, gamma_lib, Gamma, decay1, decay2)
+    Phi_rac, Phi_fdg = make_tracer_bases(Ct1_bio, Ct2_bio, gamma_lib_1, Gamma_1,gamma_lib_2, Gamma_2, decay1, decay2)
     context["Phi_1"] = Phi_rac
     context["Phi_2"] = Phi_fdg
     context["t_frames"] = context.get("t_frames", t_frames)
@@ -89,7 +89,7 @@ def simulate_dual_tac_any_alg(timegrid, rac, fdg, protocol, gamma_lib, Gamma, rn
     )
 
 
-def simulate_dual_tac(timegrid, rac, fdg, protocol, gamma_lib, Gamma, rng, use_joint=False):
+def simulate_dual_tac(timegrid, rac, fdg, protocol, gamma_lib_1, Gamma_1, gamma_lib_2, Gamma_2, rng, use_joint=False):
     t_int = timegrid.t_internal
     t_frames = timegrid.frame_mids
     Delta = protocol.delta_min
@@ -118,7 +118,7 @@ def simulate_dual_tac(timegrid, rac, fdg, protocol, gamma_lib, Gamma, rng, use_j
     y_meas =  add_noise_voxel(y_clean, timegrid.frame_durs, voxel_size_mm=4.0,
                     scanner_name="panorama_gs", rng=None)[0]
 
-    Phi_rac, Phi_fdg = make_tracer_bases(Ct1_bio, Ct2_bio, gamma_lib, Gamma, decay1, decay2)
+    Phi_rac, Phi_fdg = make_tracer_bases(Ct1_bio, Ct2_bio, gamma_lib_1, Gamma_1, gamma_lib_2, Gamma_2, decay1, decay2)
     # Check the condition number of the basis matrices
     # cond_rac = np.linalg.cond(Phi_rac)
     # cond_fdg = np.linalg.cond(Phi_fdg)

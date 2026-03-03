@@ -24,7 +24,8 @@ class RecursiveUnmix(SeparationAlgorithm):
         Phi_1 = context.get("Phi_1")
         Phi_2 = context.get("Phi_2")
         num_iters = context.get("num_iters", 5)
-        alpha_val = context.get("alpha", 0.1)
+        alpha_1 = context.get("alpha_1", 0.1)
+        alpha_2 = context.get("alpha_2", 0.1)
         if Phi_1 is None or Phi_2 is None:
             raise ValueError("RecursiveUnmix requires 'Phi_1' and 'Phi_2' in context")
         t_frames = np.asarray(context.get("t_frames", t), dtype=float).reshape(-1)
@@ -34,17 +35,17 @@ class RecursiveUnmix(SeparationAlgorithm):
         # First fit the first tracer using only the early time points, then use the residual to fit the second tracer,
         # and then iterate this process a few times, each time using the residual from the previous step to refine the fits. 
         # This is a simple form of recursive separation that can help improve separation when there is significant overlap between the tracers.
-        w_1 = nnls_l2(Phi_1[early_mask, :], y[early_mask], alpha = alpha_val)
+        w_1 = nnls_l2(Phi_1[early_mask, :], y[early_mask], alpha = alpha_1)
         est_1 = Phi_1 @ w_1
         resid = np.clip(y - est_1, 0, None)
-        w_2 = nnls_l2(Phi_2, resid, alpha = alpha_val)
+        w_2 = nnls_l2(Phi_2, resid, alpha = alpha_2)
         est_2 = Phi_2 @ w_2 #tracer 2 estimate
         for i in range(num_iters):
              resid_1 = np.clip(y - est_2, 0, None)
-             w_3= nnls_l2(Phi_1, resid_1, alpha = alpha_val/1.15)
+             w_3= nnls_l2(Phi_1, resid_1, alpha = alpha_1)
              est_3 = Phi_1 @ w_3 #tracer 1 estimate
              resid_2 = np.clip(y - est_3, 0, None)
-             w_4 = nnls_l2(Phi_2, resid_2, alpha = alpha_val/2.7) 
+             w_4 = nnls_l2(Phi_2, resid_2, alpha = alpha_2) 
              est_4 = Phi_2 @ w_4 #tracer 2 estimate
              # Update estimates for next iteration
              est_1 = est_3 #tracer 1 estimate
@@ -58,7 +59,8 @@ class RecursiveUnmix(SeparationAlgorithm):
                 "t_cut": t_cut,
                 "early_mask": early_mask,
                 "num_iters": num_iters,
-                "alpha": alpha_val
+                "alpha_1": alpha_1,
+                "alpha_2": alpha_2
             }
         )
     
