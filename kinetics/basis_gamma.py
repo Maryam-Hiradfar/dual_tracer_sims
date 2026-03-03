@@ -25,3 +25,21 @@ def build_gamma_library_for_two_tracers(t, n_t0_1, n_tau_1, n_t0_2, n_tau_2, sca
 # uses the peak finder to set the average peak of the gamma functions in each library to the provided scale for that tracer, then builds libraries by 
 # varying 
 # """
+def build_gamma_library_for_two_specific_injection_time_points(t, t0_values_1, n_tau_1, t0_values_2, n_tau_2, scale_1= 1, scale_2=1):
+    lib_1 = []
+    for t0 in t0_values_1:
+        tau_values = np.linspace(0.3, 40, n_tau_1)
+        for tau in tau_values:
+            lib_1.append(gamma_shape(t, t0, tau, scale=scale_1))
+    lib_1 = np.array(lib_1)
+    Gamma_1 = lib_1.T
+
+    lib_2 = []
+    for t0 in t0_values_2:
+        tau_values = np.linspace(0.3, 40, n_tau_2)
+        for tau in tau_values:
+            lib_2.append(gamma_shape(t, t0, tau, scale=scale_2))
+    lib_2 = np.array(lib_2)
+    Gamma_2 = lib_2.T
+
+    return lib_1, Gamma_1, lib_2, Gamma_2
