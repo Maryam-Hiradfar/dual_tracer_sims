@@ -39,6 +39,6 @@ class uniform_gamma_vary_height(GammaLibraryBuilder):
             lib_2.append(lib_2_temp)
         Gamma_1 = lib_1.T
         Gamma_2 = lib_2.T
-
+ 
         return GammaLibraryResult(lib_1=lib_1, Gamma_1=Gamma_1, lib_2=lib_2, Gamma_2=Gamma_2)
         

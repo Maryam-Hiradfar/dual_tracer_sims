@@ -5,6 +5,8 @@ from .registry import register
 from dataclasses import dataclass
 from __future__ import annotations
 from typing import Any, Dict, Optional
+from .basis_gamma import build_gamma_library_for_two_tracers
+
 
 @register
 class uniform_gamma_fixed_height(GammaLibraryBuilder):
@@ -19,7 +21,6 @@ class uniform_gamma_fixed_height(GammaLibraryBuilder):
         scale_1 = context.get("scale_1", 1.0)
         scale_2 = context.get("scale_2", 1.0)
 
-        from .basis_gamma import build_gamma_library_for_two_tracers
         lib_1, Gamma_1, lib_2, Gamma_2 = build_gamma_library_for_two_tracers(
             t, n_t0_1, n_tau_1, n_t0_2, n_tau_2, scale_1, scale_2
         )
