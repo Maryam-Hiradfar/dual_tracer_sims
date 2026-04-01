@@ -1,4 +1,4 @@
-# kinetics/models/twotcm.py
+# kinetics/twotcm.py
 import numpy as np
 
 def simulate_2tcm(K1, k2, k3, k4, Cp, t):

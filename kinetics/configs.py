@@ -75,7 +75,7 @@ class GammaBasisConfig:
 
     def validate(self) -> None: 
         if self.n_t0 <1: 
-            riase ValueError("n_t0 must be at least 1")
+            raise ValueError("n_t0 must be at least 1")
         if self.n_tau <1:
             raise ValueError("n_tau must be at least 1")
         if self.tau_min <= 0 or self.tau_max <= 0:
@@ -84,6 +84,36 @@ class GammaBasisConfig:
             raise ValueError("tau_min must be less than tau_max")
         if self.t0_max_offset < 0:
             raise ValueError("t0_max_offset must be positive")
+        
+@dataclass 
+class InjectionCenteredGammaBasisConfig:
+    """
+    Gamma basis config for one tracer where t0 values are centered
+    around a nominal injection time rather than spread uniformly
+    over the whole scan.
+    """
+    injection_time: float = 0.0
+    variation_range: float = 5.0
+    num_t0: int = 5
+
+    n_tau: int = 5
+    scale: float = 1.0
+
+    tau_min: float = 0.3
+    tau_max: float = 40.0
+
+    def validate(self) -> None:
+        if self.num_t0 < 1:
+            raise ValueError("num_t0 must be at least 1")
+        if self.n_tau < 1:
+            raise ValueError("n_tau must be at least 1")
+        if self.variation_range < 0:
+            raise ValueError("variation_range must be non-negative")
+        if self.tau_min <= 0 or self.tau_max <= 0:
+            raise ValueError("tau_min and tau_max must be positive")
+        if self.tau_min >= self.tau_max:
+            raise ValueError("tau_min must be less than tau_max")
+
 #----------------------------------------
 # factory functions
 #----------------------------------------
