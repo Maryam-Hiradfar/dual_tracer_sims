@@ -1,28 +1,25 @@
 from __future__ import annotations
 import numpy as np
 from typing import Any, Dict, Optional
-from .registry import register
-from .base import SeparationAlgorithm, SeparationResult
+from .. registry import register
+from .. base import SeparationAlgorithm, SeparationResult
 from scipy.optimize import nnls
+from ..configs import JointGammaSeparationConfig
 
 @register
-class joint_unmix(SeparationAlgorithm):
-    name  = "joint_unmix"
+class JointGammaSeparation(SeparationAlgorithm):
+    name  = "joint_unmix_gamma"
+    def __init__(self, config:JointGammaSeparationConfig):
+        self.config = config
     def separate (
-            self, 
-            y:np.ndarray, 
-            t: np.ndarray, 
-            *, 
-            context: Optional[Dict[str, Any]] = None, 
-    ) -> SeparationResult:
-        if context is None or "Phi_1" not in context or "Phi_2" not in context:
-                raise ValueError("JointUnmix requires 'phi_1' and 'phi_2' in context")
-        Phi_1 = context.get("Phi_1")
-        Phi_2 = context.get("Phi_2")
-        if Phi_1 is None or Phi_2 is None:
-            raise ValueError("JointUnmix requires 'Phi_1' and 'Phi_2' in context")
-        # Stack the basis functions for both tracers together and solve for all coefficients at once
-        Phi = np.hstack([Phi_1, Phi_2])  
+              self, 
+              y: np.ndarray, 
+              Phi_1: np.ndarray, 
+              Phi_2: np.ndarray,
+ ) -> SeparationResult:
+        # Construct the combined library matrix
+        Phi = np.concatenate([Phi_1, Phi_2], axis=1)
+          
         
         # Solve non-negative least squares to find coefficients for both tracers simultaneously
         w, _ = nnls(Phi, y)
@@ -33,8 +30,7 @@ class joint_unmix(SeparationAlgorithm):
         return SeparationResult(
             tracer1_curve=est_1,
             tracer2_curve=est_2,
-            extras={
-                "w_1": w_1,
-                "w_2": w_2
-            }
+            w1 = w_1,
+            w2 = w_2,
+            metadata={"method": self.name}
          )

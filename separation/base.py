@@ -13,30 +13,23 @@ class SeparationResult:
         was used."""
         tracer1_curve: np.ndarray
         tracer2_curve: np.ndarray
-        extras: Dict[str, Any] = field(default_factory=dict)
+        w1: np.ndarray | None = None
+        w2: np.ndarray | None = None
+        metadata: dict | None = None
 class SeparationAlgorithm(ABC): 
     """
     All separation methods must implement this interface
     """
     name: str
-    def __init__(self, **params: Any):
-        self.params = params
+    
     @abstractmethod
     def separate(
         self, 
-        y: np.ndarray,
-        t: np.ndarray,
-        *,
-        context: Optional[Dict[str, Any]] = None, 
+        y_mix: np.ndarray, 
+        Gamma_1: np.ndarray,
+        Gamma_2: np.ndarray,
     ) -> SeparationResult: 
-        """
-        y: measured mixture curve (T, )
-        t: time vector (T,)
-        context: optional dict that can contain any additional information needed for separation, e.g. 
-            - tracer AIFs
-            - basis functions
-            - protocol info (e.g. early/late cut times)
-         """
+      
         raise NotImplementedError
     
         
