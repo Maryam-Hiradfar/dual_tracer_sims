@@ -12,7 +12,7 @@ def default_frame_edges():
         + [5.0]     * 8    # 8 × 300 s = 2400 s
         + [10.0]    * 4    # 4 × 600 s = 2400 s
     )
-    return np.concatenate(([0,0], np.cumsum(frame_durations_min)))
+    return np.concatenate(([0.0], np.cumsum(frame_durations_min)))
 def uniform_frame_edges(tmax:float = 120.0, dt: float = 2.0) -> np.ndarray:
     return np.linspace(0.0, tmax, int(tmax/dt) + 1)
 

@@ -5,6 +5,7 @@ from typing import Any
 import matplotlib.pyplot as plt
 
 from utils.run_logger import  get_figure_path
+from kinetics.helpers.basis_gamma import gamma_shape
 
 def plot_nrmse_vs_delay(
     delays_min: np.ndarray,
@@ -67,14 +68,15 @@ def plot_bio_tac_grid(
             i, j = divmod(idx, ncols)
             ax = axes[i, j]
 
-            D = r["Delta"]
             sim = r["sim"]
+            D = sim.Delta
 
-            t = sim["t_frames"]
-            ct1_true = sim["Ct1_bio"]
-            ct1_est = sim["Ct1_est_bio"]
-            ct2_true = sim["Ct2_bio"]
-            ct2_est = sim["Ct2_est_bio"]
+
+            t = sim.t_frames
+            ct1_true = sim.Ct1_bio
+            ct1_est = sim.Ct1_est_bio
+            ct2_true = sim.Ct2_bio
+            ct2_est = sim.Ct2_est_bio
 
             ax.plot(t, ct1_true, lw=2, label="PBR true")
             ax.plot(t, ct1_est, "--", lw=1.2, label="PBR est")
@@ -136,22 +138,22 @@ def plot_measured_tac_grid(
         for idx, r in enumerate(chunk):
             i, j = divmod(idx, ncols)
             ax = axes[i, j]
-
-            D = r["Delta"]
             sim = r["sim"]
+            D = sim.Delta
+          
 
-            t = sim["t_frames"]
-            ct1_true_meas = sim["Ct1_phys"]
-            ct1_est_meas = sim["ct_1_est_meas"]
-            ct2_true_meas = sim["Ct2_phys"]
-            ct2_est_meas = sim["ct_2_est_meas"]
+            t = sim.t_frames
+            ct1_true_meas = sim.Ct1_phys
+            ct1_est_meas = sim.ct_1_est_meas
+            ct2_true_meas = sim.Ct2_phys
+            ct2_est_meas = sim.ct_2_est_meas
 
             ax.plot(t, ct1_true_meas, lw=2, label="PBR true")
             ax.plot(t, ct1_est_meas, "--", lw=1.2, label="PBR est")
             ax.plot(t, ct2_true_meas, lw=2, label="FDG true")
             ax.plot(t, ct2_est_meas, "--", lw=1.2, label="FDG est")
             ax.plot(t, ct1_true_meas + ct2_true_meas, color="black", lw=1, alpha=0.7, label="FDG + PBR sum")
-            ax.scatter(t, sim["y_meas"], color="grey", s=10, alpha=0.5, label="Measured")
+            ax.scatter(t, sim.y_meas, color="grey", s=10, alpha=0.5, label="Measured")
             ax.set_ylim(*ylim)
             ax.set_title(f"Δ = {D} min")
             ax.grid(True, alpha=0.2)
@@ -189,11 +191,12 @@ def plot_fdg_aligned(
     plt.figure(figsize=(8, 5))
 
     for r in results:
-        D = r["Delta"]
         sim = r["sim"]
+        D = sim.Delta
+        
 
-        t = sim["t_frames"]
-        y = sim["Ct2_est_bio"] if estimated else sim["Ct2_bio"]
+        t = sim.t_frames
+        y = sim.Ct2_est_bio if estimated else sim.Ct2_bio
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D
@@ -215,16 +218,22 @@ def plot_fdg_aligned(
 
 
 def plot_gamma_library(
-    gamma_lib: list[np.ndarray],
+    t: np.ndarray,
+    params: list[tuple[float, float]],
+    scale: float,
     title: str,
     filename_stub: str,
     run_info,
     timestamp: str,
 ) -> str:
+    t_plot = np.linspace(float(t[0]), float(t[-1]), 1000)
+
     plt.figure(figsize=(8, 5))
-    for g in gamma_lib:
-        plt.plot(g, alpha=0.3)
-    plt.xlabel("Frame index")
+    for t0, tau in params:
+        g_plot = gamma_shape(t_plot, t0, tau, scale=scale)
+        plt.plot(t_plot, g_plot, alpha=0.3)
+
+    plt.xlabel("Time (min)")
     plt.ylabel("Amplitude")
     plt.title(title)
     plt.grid(True, alpha=0.3)

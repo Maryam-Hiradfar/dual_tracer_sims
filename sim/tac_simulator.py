@@ -138,6 +138,12 @@ def simulate_clean_dual_tac(timegrid, rac, fdg, protocol, rng=None) -> DualTacSi
         scanner_name="panorama_gs",
         rng=rng,
     )[0]
+    print("y_clean has nan:", np.isnan(y_clean).any(), "inf:", np.isinf(y_clean).any())
+    print("y_clean min/max:", np.nanmin(y_clean), np.nanmax(y_clean))
+
+    print("y_meas has nan:", np.isnan(y_meas).any(), "inf:", np.isinf(y_meas).any())
+    print("y_meas min/max:", np.nanmin(y_meas), np.nanmax(y_meas))
+    print("y_meas:", y_meas)
 
     return DualTacSimulation(
         t_frames=t_frames,
@@ -186,7 +192,6 @@ def simulate_dual_tac_any_alg(
     Gamma_2: np.ndarray,
     rng,
     separation_alg: SeparationAlgorithm,
-    context: dict[str, Any] | None = None,
 ) -> DualTacResult:
     """
     Simulate a noisy dual-tracer TAC and separate it with an arbitrary algorithm.
@@ -210,19 +215,13 @@ def simulate_dual_tac_any_alg(
         sim.decay2,
     )
 
-    run_context = dict(context or {})
-    run_context["Phi_1"] = Phi_rac
-    run_context["Phi_2"] = Phi_fdg
-    run_context.setdefault("t_frames", sim.t_frames)
-    run_context.setdefault("t_cut", 10.0)
-    run_context.setdefault("alpha", 1.0)
-
     separation_result: SeparationResult = separation_alg.separate(
         y=sim.y_meas,
         t_frames = sim.t_frames,
         Phi_1= Phi_rac,
         Phi_2= Phi_fdg,
     )
+
 
     Ct1_est_bio, Ct2_est_bio = estimate_biological_curves(
         tracer1_meas=separation_result.tracer1_curve,

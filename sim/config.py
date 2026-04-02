@@ -52,6 +52,7 @@ class PlotConfig:
     save_fdg_aligned_true: bool = True
     save_fdg_aligned_est: bool = True
     save_gamma_plots: bool = True
+    save_gamma_library: bool = True
 
     tac_grid_ncols: int = 4
     tac_grid_nrows_per_fig: int = 3

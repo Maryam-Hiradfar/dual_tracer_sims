@@ -25,11 +25,11 @@ class SeparationAlgorithm(ABC):
     @abstractmethod
     def separate(
         self, 
-        y_mix: np.ndarray, 
+        y: np.ndarray, 
+        t_frames: np.ndarray,
         Phi_1: np.ndarray,
         Phi_2: np.ndarray,
     ) -> SeparationResult: 
-      
-        raise NotImplementedError
+       raise NotImplementedError
     
         

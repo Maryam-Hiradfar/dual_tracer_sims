@@ -47,6 +47,18 @@ class RecursiveUnmix(SeparationAlgorithm):
         # First fit the first tracer using only the early time points, then use the residual to fit the second tracer,
         # and then iterate this process a few times, each time using the residual from the previous step to refine the fits. 
         # This is a simple form of recursive separation that can help improve separation when there is significant overlap between the tracers.
+        print("early_mask any:", np.any(early_mask))
+        print("Phi_1 early shape:", Phi_1[early_mask, :].shape)
+        print("y early shape:", y[early_mask].shape)
+
+        print("Phi_1 has nan:", np.isnan(Phi_1).any(), "inf:", np.isinf(Phi_1).any())
+        print("Phi_2 has nan:", np.isnan(Phi_2).any(), "inf:", np.isinf(Phi_2).any())
+        print("y has nan:", np.isnan(y).any(), "inf:", np.isinf(y).any())
+
+        print("Phi_1 early has nan:", np.isnan(Phi_1[early_mask, :]).any(), "inf:", np.isinf(Phi_1[early_mask, :]).any())
+        print("y early has nan:", np.isnan(y[early_mask]).any(), "inf:", np.isinf(y[early_mask]).any())
+
+        print("alpha_1:", alpha_1)
         w_1 = nnls_l2(Phi_1[early_mask, :], y[early_mask], alpha = alpha_1)
         est_1 = Phi_1 @ w_1
         resid = np.clip(y - est_1, 0, None)
@@ -65,7 +77,7 @@ class RecursiveUnmix(SeparationAlgorithm):
         return SeparationResult(
             tracer1_curve=est_1,
             tracer2_curve=est_2,
-            extras={
+            metadata={
                 "w_1": w_1,
                 "w_2": w_2,
                 "t_cut": t_cut,

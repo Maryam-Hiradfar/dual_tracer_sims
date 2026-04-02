@@ -11,6 +11,7 @@ from tracers.pbr28 import PBR28Tracer
 
 from separation.registry import create, available
 from sim.config import ExperimentConfig
+from kinetics.helpers.basis_gamma import build_uniform_gamma_library, build_injection_centered_gamma_library
 
 # ============================================================
 # Builders
@@ -39,6 +40,17 @@ def build_timegrid(cfg: ExperimentConfig) -> TimeGrid:
         frame_edges=cfg.frame_edges_min,
         internal_dt_min=cfg.internal_dt_min,
     )
+def build_basis(t, basis_cfg):
+    from kinetics.configs import GammaBasisConfig, InjectionCenteredGammaBasisConfig
+
+    if isinstance(basis_cfg, GammaBasisConfig):
+        return build_uniform_gamma_library(t, basis_cfg)
+
+    elif isinstance(basis_cfg, InjectionCenteredGammaBasisConfig):
+        return build_injection_centered_gamma_library(t, basis_cfg)
+
+    else:
+        raise ValueError(f"Unsupported basis type: {type(basis_cfg)}")
 
 
 def build_algorithm(cfg: ExperimentConfig):
@@ -91,7 +103,7 @@ def build_key_params_str(cfg: ExperimentConfig) -> str:
         f"alpha_stage_1={cfg.algorithm_config.alpha_stage_1}, "
         f"alpha_stage_2={cfg.algorithm_config.alpha_stage_2}, "
         f"num_iters={cfg.algorithm_config.num_iters}, "
-        f"t_cut={cfg.algorithm_config.t_cut_min}, "
+        f"t_cut={cfg.algorithm_config.t_cut}, "
         f"FDG scale={cfg.tracer.fdg_scale}, "
         f"PBR scale={cfg.tracer.pbr_scale}, "
         f"gamma1={cfg.gamma_library.tracer_1_basis.n_t0}x{cfg.gamma_library.tracer_1_basis.n_tau}, "

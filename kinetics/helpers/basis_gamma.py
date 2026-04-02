@@ -16,13 +16,16 @@ def build_uniform_gamma_library(t: np.ndarray, config: GammaBasisConfig):
     t0_values = np.linspace(config.t0_min, t0_max, config.n_t0)
     tau_values = np.linspace(config.tau_min, config.tau_max, config.n_tau)
 
-    lib = [
-        gamma_shape(t, t0, tau, scale=config.scale)
-        for t0 in t0_values
-        for tau in tau_values
-    ]
+    lib = []
+    params = []
+
+    for t0 in t0_values:
+        for tau in tau_values:
+            lib.append(gamma_shape(t, t0, tau, scale=config.scale))
+            params.append((t0, tau))
+
     lib = np.asarray(lib)
-    return lib, lib.T
+    return lib, lib.T, params
 def build_injection_centered_gamma_library(
     t: np.ndarray,
     config: InjectionCenteredGammaBasisConfig,

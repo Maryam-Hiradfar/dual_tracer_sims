@@ -16,8 +16,16 @@ from kinetics.helpers.basis_gamma import build_uniform_gamma_library
 from sim.sweep import sweep_delays
 
 from sim.config import ExperimentConfig, ExperimentSummary
-from sim.builders import build_tracers, build_timegrid, build_algorithm, build_run_params
-from utils.run_logger import start_run, finalize_run, build_key_params_str
+from sim.builders import (
+    build_tracers,
+    build_timegrid,
+    build_algorithm,
+    build_run_params, 
+    build_key_params_str,
+    build_basis,
+)
+from utils.run_logger import start_run, finalize_run
+
 
 
 
@@ -32,13 +40,14 @@ def run_single_experiment(cfg: ExperimentConfig) -> ExperimentSummary:
     pbr, fdg = build_tracers(cfg)
     timegrid = build_timegrid(cfg)
     if cfg.gamma_library is not None:
-        gamma_lib_1, Gamma_1 = build_uniform_gamma_library(
+        gamma_lib_1, Gamma_1, gamma_params_1 = build_basis(
             timegrid.frame_mids,
             cfg.gamma_library.tracer_1_basis,
         )
-        gamma_lib_2, Gamma_2 = build_uniform_gamma_library(
-            timegrid.frame_mids,
-            cfg.gamma_library.tracer_2_basis,
+
+        gamma_lib_2, Gamma_2, gamma_params_2  = build_basis(
+             timegrid.frame_mids,
+             cfg.gamma_library.tracer_2_basis,
         )
 
     elif cfg.kinetics_library is not None:
@@ -90,7 +99,7 @@ def run_single_experiment(cfg: ExperimentConfig) -> ExperimentSummary:
             )
         )
 
-    if cfg.plots.save_bio_tac_grid:
+    if cfg.plots.save_bio_grid:
         fig_paths.extend(
             plot_bio_tac_grid(
                 results=results,
@@ -102,7 +111,7 @@ def run_single_experiment(cfg: ExperimentConfig) -> ExperimentSummary:
             )
         )
 
-    if cfg.plots.save_measured_tac_grid:
+    if cfg.plots.save_measured_grid:
         fig_paths.extend(
             plot_measured_tac_grid(
                 results=results,
@@ -123,16 +132,22 @@ def run_single_experiment(cfg: ExperimentConfig) -> ExperimentSummary:
     if cfg.plots.save_gamma_library:
         fig_paths.append(
             plot_gamma_library(
-                gamma_lib_1,
+                t = timegrid.frame_mids,
+                params  = gamma_params_1,
+                scale = cfg.gamma_library.tracer_1_basis.scale,
                 title="Gamma basis library for tracer 1",
                 filename_stub="gamma_library_tracer_1",
                 run_info=run_info,
                 timestamp=timestamp,
             )
         )
+
+        
         fig_paths.append(
             plot_gamma_library(
-                gamma_lib_2,
+                t = timegrid.frame_mids,
+                params = gamma_params_2,
+                scale  = cfg.gamma_library.tracer_2_basis.scale,
                 title="Gamma basis library for tracer 2",
                 filename_stub="gamma_library_tracer_2",
                 run_info=run_info,
