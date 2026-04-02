@@ -26,8 +26,8 @@ class SeparationAlgorithm(ABC):
     def separate(
         self, 
         y_mix: np.ndarray, 
-        Gamma_1: np.ndarray,
-        Gamma_2: np.ndarray,
+        Phi_1: np.ndarray,
+        Phi_2: np.ndarray,
     ) -> SeparationResult: 
       
         raise NotImplementedError

@@ -8,7 +8,7 @@ from tracers.rac import RacloprideTracer
 from tracers.fdg import FDGTracer
 from tracers.pbr28 import PBR28Tracer
 
-from kinetics.basis_gamma import build_gamma_library, build_gamma_library_for_two_tracers
+from kinetics.helpers.basis_gamma import build_gamma_library, build_gamma_library_for_two_tracers
 from sim.sweep import sweep_delays
 from datetime import datetime
 import os

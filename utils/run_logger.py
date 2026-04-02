@@ -191,3 +191,24 @@ def finalize_run(
 
 def runinfo_to_dict(run_info: RunInfo) -> Dict:
     return asdict(run_info)
+
+def build_key_params_str(cfg) -> str:
+    alg = cfg.algorithm_config
+
+    parts = [
+        f"alg={cfg.algorithm_name}",
+    ]
+
+    # generic handling of algorithm config
+    if hasattr(alg, "__dict__"):
+        for k, v in alg.__dict__.items():
+            parts.append(f"{k}={v}")
+
+    # gamma library
+    if hasattr(cfg, "gamma_library"):
+        g1 = cfg.gamma_library.tracer_1
+        g2 = cfg.gamma_library.tracer_2
+        parts.append(f"gamma1={g1.n_t0}x{g1.n_tau}")
+        parts.append(f"gamma2={g2.n_t0}x{g2.n_tau}")
+
+    return ", ".join(parts)

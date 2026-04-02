@@ -16,6 +16,7 @@ class RecursiveGammaSeparationConfig:
     alpha_stage_1: float = 1e-3
     alpha_stage_2: float = 1e-3
     t_cut : float = 20.0
+    num_iters: int = 5
     positive_only: bool = True
     
 @dataclass

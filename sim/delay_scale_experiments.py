@@ -2,7 +2,7 @@
 #this file contains functions to build base simulation objects for delay and scale experiments
 #these objects include time grid, gamma library, and FDG tracer (scale=1) that are common to all experiments
 from core.timegrid import TimeGrid
-from kinetics.basis_gamma import build_gamma_library
+from kinetics.helpers.basis_gamma import build_gamma_library
 from tracers.fdg import FDGTracer
 from tracers.pbr28 import PBR28Tracer
 from sim.config import SimulationConfig

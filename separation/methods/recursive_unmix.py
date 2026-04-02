@@ -38,8 +38,8 @@ class RecursiveUnmix(SeparationAlgorithm):
         
         t_cut = float(self.config.t_cut)
         num_iters = self.config.num_iters
-        alpha_1 = self.config.alpha_1
-        alpha_2 = self.config.alpha_2
+        alpha_1 = self.config.alpha_stage_1
+        alpha_2 = self.config.alpha_stage_2
 
         early_mask = t_frames <= t_cut
         if not np.any(early_mask):

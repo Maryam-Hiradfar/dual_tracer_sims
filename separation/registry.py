@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Dict, Type
 
 from .base import SeparationAlgorithm
+import importlib
 
 
 _REGISTRY: Dict[str, Type[SeparationAlgorithm]] = {}
@@ -35,7 +36,9 @@ def create(name: str, config) -> SeparationAlgorithm:
 
     algorithm_cls = _REGISTRY[key]
     return algorithm_cls(config)
-
-
+def register_all_algorithms() -> None:
+    importlib.import_module("separation.methods.recursive_unmix")
+    importlib.import_module("separation.methods.sequential_unmix")
+    importlib.import_module("separation.methods.joint_unmix")
 def available() -> list[str]:
     return sorted(_REGISTRY.keys())
