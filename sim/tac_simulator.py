@@ -16,7 +16,7 @@ from separation.base import SeparationAlgorithm, SeparationResult
 @dataclass
 class DualTacSimulation:
     t_frames: np.ndarray
-    Delta: float
+    delta_min: float
 
     Cp1: np.ndarray
     Cp2: np.ndarray
@@ -101,28 +101,34 @@ def make_tracer_bases(
     return phi1.T, phi2.T
 
 
-def simulate_clean_dual_tac(timegrid, rac, fdg, protocol, rng=None) -> DualTacSimulation:
+def simulate_clean_dual_tac(
+        timegrid: Any, 
+        tracer1: Any,
+        tracer2: Any, 
+        protocol: Any, 
+        rng=None,
+        ) -> DualTacSimulation:
     """
     Simulate biological and physical TACs for both tracers and add measurement noise.
     """
     t_int = timegrid.t_internal
     t_frames = timegrid.frame_mids
-    Delta = protocol.delta_min
+    delta_min = protocol.delta_min
 
-    Cp1_int = rac.aif(t_int)
-    Cp2_int = fdg.aif(t_int, delta_min=Delta)
+    Cp1_int = tracer1.aif(t_int)
+    Cp2_int = tracer2.aif(t_int, delta_min=delta_min)
 
-    Ct1_int, _, _ = simulate_2tcm(**rac.true_params(), Cp=Cp1_int, t=t_int)
-    Ct2_int, _, _ = simulate_2tcm(**fdg.true_params(), Cp=Cp2_int, t=t_int)
+    Ct1_int, _, _ = simulate_2tcm(**tracer1.true_params(), Cp=Cp1_int, t=t_int)
+    Ct2_int, _, _ = simulate_2tcm(**tracer2.true_params(), Cp=Cp2_int, t=t_int)
 
     Ct1_bio = frame_average(t_int, Ct1_int, timegrid.frame_edges)
     Ct2_bio = frame_average(t_int, Ct2_int, timegrid.frame_edges)
 
-    lam1 = np.log(2.0) / rac.half_life_min
-    lam2 = np.log(2.0) / fdg.half_life_min
+    lam1 = np.log(2.0) / tracer1.half_life_min
+    lam2 = np.log(2.0) / tracer2.half_life_min
 
     t_rel1 = t_frames
-    t_rel2 = np.maximum(t_frames - Delta, 0.0)
+    t_rel2 = np.maximum(t_frames - delta_min, 0.0)
 
     decay1 = np.exp(-lam1 * t_rel1)
     decay2 = np.exp(-lam2 * t_rel2)
@@ -147,7 +153,7 @@ def simulate_clean_dual_tac(timegrid, rac, fdg, protocol, rng=None) -> DualTacSi
 
     return DualTacSimulation(
         t_frames=t_frames,
-        Delta=Delta,
+        delta_min=delta_min,
         Cp1=Cp1_int,
         Cp2=Cp2_int,
         Ct1_bio=Ct1_bio,
@@ -198,8 +204,8 @@ def simulate_dual_tac_any_alg(
     """
     sim = simulate_clean_dual_tac(
         timegrid=timegrid,
-        rac=rac,
-        fdg=fdg,
+        tracer1=rac,
+        tracer2=fdg,
         protocol=protocol,
         rng=rng,
     )
