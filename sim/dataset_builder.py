@@ -1,5 +1,6 @@
 #canonicalize channel order, stack arrays, save a clean dataset object
 import numpy as np
+import json
 def canonicalize_sample(sample, spec): 
     """
     force output channels to always mean:
@@ -36,7 +37,7 @@ def stack_samples(samples, spec):
     canon = [canonicalize_sample(s, sp) for s, sp in zip(samples, spec)]
     X = np.stack([c["x"] for c in canon], axis = 0)   #[N, T]
     Y_fdg = np.stack([c["y_fdg"] for c in canon], axis = 0) #[N,T]
-    Y_pbr  = np.stack([c["y_pbr"] for c in canon], axis = 0) #[N,T]
+    Y_pbr  = np.stack([c["y_pbr28"] for c in canon], axis = 0) #[N,T]
     #neural networks expect (batch, chanels, time), so we need to slice the arrays to also include number of channels
     X = X[:, None, :]
     Y  = np.stack([Y_fdg, Y_pbr], axis = 1)
@@ -45,6 +46,20 @@ def stack_samples(samples, spec):
     return X, Y, metadata
 
 def save_datasets_npz(path, X, Y, metadata):
+    #save arrays
+    np.savez_compressed(path, X = X, Y = Y)
 
-
+    #save metadata as JSON
+    meta_path = path.replace(".npz", "_metadata.json")
+    with open(meta_path, "w") as f: 
+        json.dump(metadata, f, indent = 2)
 def load_dataset_npz(path):
+    data = np.load(path)
+    X  = data["X"]
+    Y = data["Y"]
+
+
+    meta_path = path.replace(".npz", "_metadata.json")
+    with open(meta_path, "r") as f: 
+        metadata = json.load()
+    return X, Y, metadata 
