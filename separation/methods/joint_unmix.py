@@ -14,6 +14,7 @@ class JointGammaSeparation(SeparationAlgorithm):
     def separate (
               self, 
               y: np.ndarray, 
+              t_frames: np.ndarray,
               Phi_1: np.ndarray, 
               Phi_2: np.ndarray,
  ) -> SeparationResult:
@@ -30,7 +31,7 @@ class JointGammaSeparation(SeparationAlgorithm):
         return SeparationResult(
             tracer1_curve=est_1,
             tracer2_curve=est_2,
-            w1 = w_1,
-            w2 = w_2,
+            coef_1 = w_1,
+            coef_2 = w_2,
             metadata={"method": self.name}
          )

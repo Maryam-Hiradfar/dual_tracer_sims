@@ -8,10 +8,10 @@ import numpy as np
 @dataclass
 class HybridSample: 
     y_meas: np.ndarray 
-    y_tracer1_true: np.ndarray
-    y_tracer2_true: np.ndarray
-    y_tracer1_phys: np.ndarray
-    y_tracer2_phys: np.ndarray
+    y_tracer1_true: np.ndarray #non-decayed
+    y_tracer2_true: np.ndarray #non-decayed
+    y_tracer1_phys: np.ndarray #decayed
+    y_tracer2_phys: np.ndarray #decayed
     metadata: Dict[str, Any] = field(default_factory = dict)
 @dataclass 
 class SampleSpec: 
@@ -78,7 +78,7 @@ class DatasetGenerator:
         scale_2 = self.rng.uniform(*self.config.scale_range)
         delta_min = self.rng.choice(self.config.delta_choices_min)
 
-        if tracer1_first: 
+        if tracer1_first: # in the future we will make tracer1 and tracer2 to be configurable and not limited to PBR28 and FDG
             tracer1, tracer2 = "PBR28", "FDG"
         else: 
             tracer1, tracer2 = "FDG", "PBR28"

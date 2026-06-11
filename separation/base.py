@@ -13,8 +13,8 @@ class SeparationResult:
         was used."""
         tracer1_curve: np.ndarray
         tracer2_curve: np.ndarray
-        w1: np.ndarray | None = None
-        w2: np.ndarray | None = None
+        coef_1: np.ndarray | None = None
+        coef_2: np.ndarray | None = None
         metadata: dict | None = None
 class SeparationAlgorithm(ABC): 
     """

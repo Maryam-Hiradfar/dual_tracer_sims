@@ -70,13 +70,14 @@ def plot_bio_tac_grid(
 
             sim = r["sim"]
             D = sim.Delta
+            t = sim.t_int
 
 
-            t = sim.t_frames
-            ct1_true = sim.Ct1_bio
-            ct1_est = sim.Ct1_est_bio
-            ct2_true = sim.Ct2_bio
-            ct2_est = sim.Ct2_est_bio
+            #t = sim.t_frames
+            ct1_true = sim.Ct1_bio_int
+            ct1_est = sim.Ct1_est_bio_int
+            ct2_true = sim.Ct2_bio_int
+            ct2_est = sim.Ct2_est_bio_int
 
             ax.plot(t, ct1_true, lw=2, label="PBR true")
             ax.plot(t, ct1_est, "--", lw=1.2, label="PBR est")
@@ -139,21 +140,23 @@ def plot_measured_tac_grid(
             i, j = divmod(idx, ncols)
             ax = axes[i, j]
             sim = r["sim"]
-            D = sim.Delta
+            D = sim.Delta 
+            
           
 
-            t = sim.t_frames
-            ct1_true_meas = sim.Ct1_phys
-            ct1_est_meas = sim.ct_1_est_meas
-            ct2_true_meas = sim.Ct2_phys
-            ct2_est_meas = sim.ct_2_est_meas
+            t = sim.t_int
+            t_meas = sim.t_frames
+            ct1_true_meas = sim.Ct1_phys_int
+            ct1_est_meas = sim.ct_1_est_meas_int
+            ct2_true_meas = sim.Ct2_phys_int
+            ct2_est_meas = sim.ct_2_est_meas_int
 
             ax.plot(t, ct1_true_meas, lw=2, label="PBR true")
             ax.plot(t, ct1_est_meas, "--", lw=1.2, label="PBR est")
             ax.plot(t, ct2_true_meas, lw=2, label="FDG true")
             ax.plot(t, ct2_est_meas, "--", lw=1.2, label="FDG est")
             ax.plot(t, ct1_true_meas + ct2_true_meas, color="black", lw=1, alpha=0.7, label="FDG + PBR sum")
-            ax.scatter(t, sim.y_meas, color="grey", s=10, alpha=0.5, label="Measured")
+            ax.scatter(sim.t_int, sim.y_meas, color="grey", s=10, alpha=0.5, label="Measured")
             ax.set_ylim(*ylim)
             ax.set_title(f"Δ = {D} min")
             ax.grid(True, alpha=0.2)
@@ -195,8 +198,8 @@ def plot_fdg_aligned(
         D = sim.Delta
         
 
-        t = sim.t_frames
-        y = sim.Ct2_est_bio if estimated else sim.Ct2_bio
+        t = sim.t_int
+        y = sim.Ct2_est_bio_int if estimated else sim.Ct2_bio_int
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D

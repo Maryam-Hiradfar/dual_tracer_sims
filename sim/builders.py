@@ -98,15 +98,35 @@ def build_run_params(
 
 
 def build_key_params_str(cfg: ExperimentConfig) -> str:
-    return (
-        f"{cfg.algorithm_name}, "
-        f"alpha_stage_1={cfg.algorithm_config.alpha_stage_1}, "
-        f"alpha_stage_2={cfg.algorithm_config.alpha_stage_2}, "
-        f"num_iters={cfg.algorithm_config.num_iters}, "
-        f"t_cut={cfg.algorithm_config.t_cut}, "
-        f"FDG scale={cfg.tracer.fdg_scale}, "
-        f"PBR scale={cfg.tracer.pbr_scale}, "
-        f"gamma1={cfg.gamma_library.tracer_1_basis.n_t0}x{cfg.gamma_library.tracer_1_basis.n_tau}, "
-        f"gamma2={cfg.gamma_library.tracer_2_basis.n_t0}x{cfg.gamma_library.tracer_2_basis.n_tau}"
-    )
+    alg_cfg = cfg.algorithm_config
 
+    parts = [
+        cfg.algorithm_name,
+        f"FDG scale={cfg.tracer.fdg_scale}",
+        f"PBR scale={cfg.tracer.pbr_scale}",
+    ]
+
+    optional_alg_params = [
+        "alpha_stage_1",
+        "alpha_stage_2",
+        "alpha",
+        "num_iters",
+        "t_cut",
+    ]
+
+    for name in optional_alg_params:
+        value = getattr(alg_cfg, name, None)
+        if value is not None:
+            parts.append(f"{name}={value}")
+
+    if cfg.gamma_library is not None:
+        parts.append(
+            f"gamma1={cfg.gamma_library.tracer_1_basis.num_t0}x"
+            f"{cfg.gamma_library.tracer_1_basis.n_tau}"
+        )
+        parts.append(
+            f"gamma2={cfg.gamma_library.tracer_2_basis.num_t0}x"
+            f"{cfg.gamma_library.tracer_2_basis.n_tau}"
+        )
+
+    return ", ".join(parts)

@@ -77,6 +77,8 @@ class RecursiveUnmix(SeparationAlgorithm):
         return SeparationResult(
             tracer1_curve=est_1,
             tracer2_curve=est_2,
+            coef_1=w_1,
+            coef_2= w_2,
             metadata={
                 "w_1": w_1,
                 "w_2": w_2,

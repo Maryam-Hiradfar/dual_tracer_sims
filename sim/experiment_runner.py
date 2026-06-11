@@ -68,6 +68,8 @@ def run_single_experiment(cfg: ExperimentConfig) -> ExperimentSummary:
     )
 
     rng = np.random.default_rng(cfg.random_seed)
+    scale_1 = cfg.gamma_library.tracer_1_basis.scale
+    scale_2 = cfg.gamma_library.tracer_2_basis.scale
 
     results = sweep_delays(
         delays=cfg.delays_min,
@@ -76,13 +78,14 @@ def run_single_experiment(cfg: ExperimentConfig) -> ExperimentSummary:
         fdg=fdg,
         gamma_lib_1=gamma_lib_1,
         Gamma_1=Gamma_1,
+        gamma_params_1 = gamma_params_1,
         gamma_lib_2=gamma_lib_2,
         Gamma_2=Gamma_2,
+        gamma_params_2 = gamma_params_2,
         rng=rng,
-        separation_alg=separation_alg,
-        # if your refactor removed context, stop here.
-        # if sweep_delays still temporarily expects t_cut/context-like info,
-        # pass only the typed pieces it still needs.
+        scale_1 = scale_1,
+        scale_2 = scale_2,
+        separation_alg=separation_alg,  
     )
 
 

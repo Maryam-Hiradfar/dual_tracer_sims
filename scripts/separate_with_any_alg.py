@@ -1,4 +1,5 @@
 # separate_any_alg.py
+#likely legacy
 
 import numpy as np
 import matplotlib.pyplot as plt

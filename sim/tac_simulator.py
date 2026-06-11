@@ -11,11 +11,13 @@ from kinetics.helpers.twotcm import simulate_2tcm
 from core.noise import add_noise_voxel
 from utils.frame_average import frame_average
 from separation.base import SeparationAlgorithm, SeparationResult
+from kinetics.helpers.basis_gamma import gamma_shape
 
 
 @dataclass
 class DualTacSimulation:
     t_frames: np.ndarray
+    t_int: np.ndarray
     delta_min: float
 
     Cp1: np.ndarray
@@ -26,6 +28,11 @@ class DualTacSimulation:
 
     Ct1_phys: np.ndarray
     Ct2_phys: np.ndarray
+
+    Ct1_bio_int: np.ndarray # we need the curves on internal timelines as well for smooth plotting purposes
+    Ct2_bio_int: np.ndarray
+    Ct1_phys_int: np.ndarray
+    Ct2_phys_int: np.ndarray
 
     y_clean: np.ndarray
     y_meas: np.ndarray
@@ -41,28 +48,44 @@ class DualTacSimulation:
 @dataclass
 class DualTacResult:
     t_frames: np.ndarray
+    t_int: np.ndarray
     Delta: float
 
     Cp1: np.ndarray
     Cp2: np.ndarray
 
-    Ct1_bio: np.ndarray
-    Ct2_bio: np.ndarray
+    Ct1_bio_int: np.ndarray  #true biological curve for tracer 1, internal time grid
+    Ct2_bio_int: np.ndarray  #true biological curve for tracer 2, internal time grid
+    Ct1_phys_int: np.ndarray #true biological curve for tracer 1, internal time grid, decayed
+    Ct2_phys_int: np.ndarray #true biological curve for tracer 2, internal time grid, decayed
 
-    Ct1_phys: np.ndarray
-    Ct2_phys: np.ndarray
+    Ct1_bio: np.ndarray #true biological curve for tracer 1, frame-averaged
+    Ct2_bio: np.ndarray #true biological curve for tracer 2, frame-averaged
 
-    y_clean: np.ndarray
-    y_meas: np.ndarray
+    Ct1_phys: np.ndarray #true physical curve for tracer 1, frame-averaged, decay-corrected 
+    Ct2_phys: np.ndarray #true physical curve for tracer 2, frame-averaged, decay-corrected 
 
-    Ct1_est_bio: np.ndarray
-    Ct2_est_bio: np.ndarray
+    y_clean: np.ndarray  #clean frame-level measured-domain sum: Ct1_phys + Ct2_phys
+    y_meas: np.ndarray  #noisy frame-level measured data
 
-    ct_1_est_meas: np.ndarray
-    ct_2_est_meas: np.ndarray
+   
+
+    Ct1_est_bio: np.ndarray # estimated biological TAC for tracer 1 on frame grid (because we assume it's realistic measurements)
+    Ct2_est_bio: np.ndarray # estimated biological TAC for tracer 2 on frame grid (because we assume it's realistic measurements)
+
+    ct_1_est_meas: np.ndarray # estimated measured-domain tracer 1 TAC on frame grid (because we assume it's realistic measurements)
+    ct_2_est_meas: np.ndarray # estimated measured-domain tracer 2 TAC on frame grid (because we assume it's realistic measurements)
+
+    ct_1_est_meas_int: np.ndarray # reconstruction of the curves using the internal time grid as opposed to frame grids, to make a smooth curve
+    ct_2_est_meas_int: np.ndarray
+    Ct1_est_bio_int: np.ndarray  # decay-corrected reconstruction of the curves using the internal time grid as opposed to frame grids, to make a smooth curve
+    Ct2_est_bio_int: np.ndarray
 
     nrmse_est_1_bio: float
     nrmse_est_2_bio: float
+
+    coef_1: np.ndarray | None = None 
+    coef_2: np.ndarray | None = None
 
 
 def nrmse(y_true: np.ndarray, y_pred: np.ndarray, eps: float = 1e-6) -> float:
@@ -98,7 +121,7 @@ def make_tracer_bases(
     phi1 = psi1 * decay1[np.newaxis, :]
     phi2 = psi2 * decay2[np.newaxis, :]
 
-    return phi1.T, phi2.T
+    return phi1.T, phi2.T, idx1, idx2
 
 
 def simulate_clean_dual_tac(
@@ -121,11 +144,23 @@ def simulate_clean_dual_tac(
     Ct1_int, _, _ = simulate_2tcm(**tracer1.true_params(), Cp=Cp1_int, t=t_int)
     Ct2_int, _, _ = simulate_2tcm(**tracer2.true_params(), Cp=Cp2_int, t=t_int)
 
+    Ct1_bio_int = Ct1_int #need curves on internal timeframes for smooth plotting purposes
+    Ct2_bio_int = Ct2_int
+
     Ct1_bio = frame_average(t_int, Ct1_int, timegrid.frame_edges)
     Ct2_bio = frame_average(t_int, Ct2_int, timegrid.frame_edges)
 
     lam1 = np.log(2.0) / tracer1.half_life_min
     lam2 = np.log(2.0) / tracer2.half_life_min
+
+    t_rel1_int = t_int  #once again anything with _int here is because we need curves in internal frames for smooth plotting purposes
+    t_rel2_int = np.maximum(t_int - delta_min, 0.0)
+
+    decay1_int = np.exp(-lam1 * t_rel1_int)
+    decay2_int = np.exp(-lam2 * t_rel2_int)
+
+    Ct1_phys_int = Ct1_bio_int * decay1_int
+    Ct2_phys_int = Ct2_bio_int * decay2_int
 
     t_rel1 = t_frames
     t_rel2 = np.maximum(t_frames - delta_min, 0.0)
@@ -135,7 +170,8 @@ def simulate_clean_dual_tac(
 
     Ct1_phys = Ct1_bio * decay1
     Ct2_phys = Ct2_bio * decay2
-    y_clean = Ct1_phys + Ct2_phys
+    # y_clean = Ct1_phys + Ct2_phys
+    y_clean = Ct1_phys_int + Ct2_phys_int
 
     y_meas = add_noise_voxel(
         y_clean,
@@ -153,6 +189,7 @@ def simulate_clean_dual_tac(
 
     return DualTacSimulation(
         t_frames=t_frames,
+        t_int = t_int,
         delta_min=delta_min,
         Cp1=Cp1_int,
         Cp2=Cp2_int,
@@ -160,6 +197,10 @@ def simulate_clean_dual_tac(
         Ct2_bio=Ct2_bio,
         Ct1_phys=Ct1_phys,
         Ct2_phys=Ct2_phys,
+        Ct1_bio_int=Ct1_bio_int, #anything with _int is for smooth plotting purposes
+        Ct2_bio_int=Ct2_bio_int,
+        Ct1_phys_int=Ct1_phys_int,
+        Ct2_phys_int=Ct2_phys_int,
         y_clean=y_clean,
         y_meas=y_meas,
         decay1=decay1,
@@ -194,8 +235,12 @@ def simulate_dual_tac_any_alg(
     protocol,
     gamma_lib_1: np.ndarray,
     Gamma_1: np.ndarray,
+    gamma_params_1: list[tuple[float, float]],
+    scale_1: float,
     gamma_lib_2: np.ndarray,
     Gamma_2: np.ndarray,
+    gamma_params_2: list[tuple[float,float]],
+    scale_2: float,
     rng,
     separation_alg: SeparationAlgorithm,
 ) -> DualTacResult:
@@ -210,7 +255,7 @@ def simulate_dual_tac_any_alg(
         rng=rng,
     )
 
-    Phi_rac, Phi_fdg = make_tracer_bases(
+    Phi_rac, Phi_fdg, idx1, idx2 = make_tracer_bases(
         sim.Ct1_bio,
         sim.Ct2_bio,
         gamma_lib_1,
@@ -238,21 +283,62 @@ def simulate_dual_tac_any_alg(
         t_rel2=sim.t_rel2,
     )
 
+    active_params_1 = [gamma_params_1[i] for i in idx1]
+    active_params_2 = [gamma_params_2[i] for i in idx2]
+
+    psi1_int = np.array([
+        gamma_shape(sim.t_int, t0, tau, scale = scale_1)
+        for t0, tau in active_params_1])
+    
+    psi2_int = np.array([
+        gamma_shape(sim.t_int, t0, tau, scale=scale_2)
+        for t0, tau in active_params_2
+    ])
+
+    t_rel1_int = sim.t_int
+    t_rel2_int = np.maximum(sim.t_int - sim.delta_min, 0.0)
+
+    decay1_int = np.exp(-sim.lam1 * t_rel1_int)
+    decay2_int = np.exp(-sim.lam2 * t_rel2_int)
+
+    Phi1_int = (psi1_int * decay1_int[np.newaxis, :]).T
+    Phi2_int = (psi2_int * decay2_int[np.newaxis, :]).T
+
+    print("Phi1_int shape:", Phi1_int.shape)
+    print("coef_1:", separation_result.coef_1)
+    print("coef_1 shape:", np.shape(separation_result.coef_1))
+    ct_1_est_meas_int = Phi1_int @ separation_result.coef_1
+    ct_2_est_meas_int = Phi2_int @ separation_result.coef_2
+
+    Ct1_est_bio_int = ct_1_est_meas_int * np.exp(sim.lam1 * t_rel1_int)
+    Ct2_est_bio_int = ct_2_est_meas_int * np.exp(sim.lam2 * t_rel2_int)
+
     return DualTacResult(
         t_frames=sim.t_frames,
-        Delta=sim.Delta,
+        t_int = sim.t_int,
+        Delta= sim.delta_min,
         Cp1=sim.Cp1,
         Cp2=sim.Cp2,
         Ct1_bio=sim.Ct1_bio,
         Ct2_bio=sim.Ct2_bio,
+        Ct1_bio_int = sim.Ct1_bio_int,
+        Ct2_bio_int = sim.Ct2_bio_int,
         Ct1_phys=sim.Ct1_phys,
         Ct2_phys=sim.Ct2_phys,
+        Ct1_phys_int = sim.Ct1_phys_int,
+        Ct2_phys_int = sim.Ct2_phys_int,
         y_clean=sim.y_clean,
         y_meas=sim.y_meas,
         Ct1_est_bio=Ct1_est_bio,
         Ct2_est_bio=Ct2_est_bio,
         ct_1_est_meas=separation_result.tracer1_curve,
         ct_2_est_meas=separation_result.tracer2_curve,
+        ct_1_est_meas_int=ct_1_est_meas_int,
+        ct_2_est_meas_int=ct_2_est_meas_int,
+        Ct1_est_bio_int=Ct1_est_bio_int,
+        Ct2_est_bio_int=Ct2_est_bio_int,
+        coef_1 = separation_result.coef_1,
+        coef_2 = separation_result.coef_2,
         nrmse_est_1_bio=nrmse(sim.Ct1_bio, Ct1_est_bio),
         nrmse_est_2_bio=nrmse(sim.Ct2_bio, Ct2_est_bio),
     )
@@ -324,6 +410,7 @@ def simulate_dual_tac_legacy(
     )
 
     return {
+        "timegrid" : timegrid,
         "t_frames": sim.t_frames,
         "Delta": sim.Delta,
         "Cp1": sim.Cp1,

@@ -2,6 +2,7 @@
 from __future__ import annotations
 import numpy as np
 from ..configs import GammaBasisConfig, InjectionCenteredGammaBasisConfig
+from core.timegrid import frame_average
 
 
 
@@ -32,20 +33,21 @@ def build_injection_centered_gamma_library(
 ):
     config.validate()
 
-    inj = config.injection
-    t0_low = max(0.0, inj.injection_time - inj.variation_range)
-    t0_high = inj.injection_time + inj.variation_range
+    t0_low = max(0.0, config.injection_time - config.variation_range)
+    t0_high = config.injection_time + config.variation_range
 
-    t0_values = np.linspace(t0_low, t0_high, inj.num_variations)
+    t0_values = np.linspace(t0_low, t0_high, config.num_t0)
     tau_values = np.linspace(config.tau_min, config.tau_max, config.n_tau)
 
-    lib = [
-        gamma_shape(t, t0, tau, scale=config.scale)
-        for t0 in t0_values
-        for tau in tau_values
-    ]
+    params = []
+    lib = []
+
+    for t0 in t0_values: 
+        for tau in tau_values:
+            lib.append(gamma_shape(t, t0, tau, scale=config.scale))
+            params.append((t0,tau))
     lib = np.asarray(lib)
-    return lib, lib.T
+    return lib, lib.T, params
 
 
 # def build_two_tcm_library(t, t_0_vals, tracer_name, scale=1.0, tracer_params = None, param_variations = None):

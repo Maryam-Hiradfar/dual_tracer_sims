@@ -2,17 +2,17 @@
 import numpy as np
 from scipy.optimize import nnls
 
-def sequential_unmix(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut):
-    early_mask = t_frames <= t_cut
+# def sequential_unmix(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut):
+#     early_mask = t_frames <= t_cut
 
-    w_rac, _ = nnls(Phi_rac[early_mask, :], y_meas[early_mask])
-    rac_est = Phi_rac @ w_rac
+#     w_rac, _ = nnls(Phi_rac[early_mask, :], y_meas[early_mask])
+#     rac_est = Phi_rac @ w_rac
 
-    resid = np.clip(y_meas - rac_est, 0, None)
-    w_fdg, _ = nnls(Phi_fdg, resid)
-    fdg_est = Phi_fdg @ w_fdg
+#     resid = np.clip(y_meas - rac_est, 0, None)
+#     w_fdg, _ = nnls(Phi_fdg, resid)
+#     fdg_est = Phi_fdg @ w_fdg
 
-    return rac_est, fdg_est
+    # return rac_est, fdg_est
 def nnls_l2 (Phi, y, alpha):
     """
     NNLS with L2 Regularization (Tikohonov)
@@ -68,17 +68,17 @@ def nnls_l2 (Phi, y, alpha):
     # Solve the augmented NNLS problem
     w, _ = nnls(Phi_aug, y_aug)
     return w
-def sequential_unmix_l2(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut, alpha):
-    early_mask = t_frames <= t_cut
+# def sequential_unmix_l2(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut, alpha):
+#     early_mask = t_frames <= t_cut
 
-    w_rac = nnls_l2(Phi_rac[early_mask, :], y_meas[early_mask], alpha)
-    rac_est = Phi_rac @ w_rac
+#     w_rac = nnls_l2(Phi_rac[early_mask, :], y_meas[early_mask], alpha)
+#     rac_est = Phi_rac @ w_rac
 
-    resid = np.clip(y_meas - rac_est, 0, None)
-    w_fdg = nnls_l2(Phi_fdg, resid, alpha)
-    fdg_est = Phi_fdg @ w_fdg
+#     resid = np.clip(y_meas - rac_est, 0, None)
+#     w_fdg = nnls_l2(Phi_fdg, resid, alpha)
+#     fdg_est = Phi_fdg @ w_fdg
 
-    return rac_est, fdg_est
+#     return rac_est, fdg_est
 # def joint_unmix(y_meas, Phi_rac, Phi_fdg, alpha):
 #     Phi_joint = np.hstack([Phi_rac, Phi_fdg])
 #     #w_joint, _ = nnls_l2(Phi_joint, y_meas, alpha)   # ← unpack with _ for regular nnls
@@ -91,95 +91,95 @@ def sequential_unmix_l2(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut, alpha):
 
 
 
-def joint_unmix(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut,
-                     n_top=5, alpha_early=1, alpha_joint=1):
-    """
-    Maryam Method 1: Learn relevant RAC bases, then jointly fit.
+# def joint_unmix(y_meas, Phi_rac, Phi_fdg, t_frames, t_cut,
+#                      n_top=5, alpha_early=1, alpha_joint=1):
+#     """
+#     Maryam Method 1: Learn relevant RAC bases, then jointly fit.
 
-    Stage 1: Fit RAC to single-tracer region (before t_cut)
-             Select top-n most relevant basis functions
-    Stage 2: Joint NNLS on mixed region using
-             reduced RAC basis + full FDG basis
+#     Stage 1: Fit RAC to single-tracer region (before t_cut)
+#              Select top-n most relevant basis functions
+#     Stage 2: Joint NNLS on mixed region using
+#              reduced RAC basis + full FDG basis
 
-    Parameters
-    ----------
-    y_meas : np.ndarray, shape (T,)
-        Combined noisy TAC.
-    Phi_rac : np.ndarray, shape (T, n_rac)
-        Full RAC basis matrix.
-    Phi_fdg : np.ndarray, shape (T, n_fdg)
-        Full FDG basis matrix.
-    t_frames : np.ndarray, shape (T,)
-        Time points (minutes).
-    t_cut : float
-        Injection time of second tracer.
-    n_top : int
-        Number of top RAC basis functions to keep.
-    alpha_early : float
-        Regularization for Stage 1 (early fit).
-    alpha_joint : float
-        Regularization for Stage 2 (joint fit).
+#     Parameters
+#     ----------
+#     y_meas : np.ndarray, shape (T,)
+#         Combined noisy TAC.
+#     Phi_rac : np.ndarray, shape (T, n_rac)
+#         Full RAC basis matrix.
+#     Phi_fdg : np.ndarray, shape (T, n_fdg)
+#         Full FDG basis matrix.
+#     t_frames : np.ndarray, shape (T,)
+#         Time points (minutes).
+#     t_cut : float
+#         Injection time of second tracer.
+#     n_top : int
+#         Number of top RAC basis functions to keep.
+#     alpha_early : float
+#         Regularization for Stage 1 (early fit).
+#     alpha_joint : float
+#         Regularization for Stage 2 (joint fit).
 
-    Returns
-    -------
-    rac_est : np.ndarray, shape (T,)
-        Estimated RAC TAC.
-    fdg_est : np.ndarray, shape (T,)
-        Estimated FDG TAC.
-    info : dict
-        Diagnostics.
-    """
-    early_mask = t_frames <= t_cut
-    late_mask = t_frames > t_cut
+#     Returns
+#     -------
+#     rac_est : np.ndarray, shape (T,)
+#         Estimated RAC TAC.
+#     fdg_est : np.ndarray, shape (T,)
+#         Estimated FDG TAC.
+#     info : dict
+#         Diagnostics.
+#     """
+#     early_mask = t_frames <= t_cut
+#     late_mask = t_frames > t_cut
 
-    # ──────────────────────────────────────────
-    # Stage 1: Fit RAC to early (single-tracer) region
-    # ──────────────────────────────────────────
-    w_early = nnls_l2(Phi_rac[early_mask, :], y_meas[early_mask], alpha_early)
+#     # ──────────────────────────────────────────
+#     # Stage 1: Fit RAC to early (single-tracer) region
+#     # ──────────────────────────────────────────
+#     w_early = nnls_l2(Phi_rac[early_mask, :], y_meas[early_mask], alpha_early)
 
-    # Find the top-n basis functions by weight magnitude
-    top_indices = np.argsort(w_early)[::-1][:n_top]
-    top_indices = np.sort(top_indices)  # keep in original order
+#     # Find the top-n basis functions by weight magnitude
+#     top_indices = np.argsort(w_early)[::-1][:n_top]
+#     top_indices = np.sort(top_indices)  # keep in original order
 
-    # Reduced RAC basis (only the top-n columns)
-    Phi_rac_reduced = Phi_rac[:, top_indices]
+#     # Reduced RAC basis (only the top-n columns)
+#     Phi_rac_reduced = Phi_rac[:, top_indices]
 
-    # ──────────────────────────────────────────
-    # Stage 2: Joint NNLS on mixed region
-    # ──────────────────────────────────────────
+#     # ──────────────────────────────────────────
+#     # Stage 2: Joint NNLS on mixed region
+#     # ──────────────────────────────────────────
 
-    # Build joint basis for late region only
-    Phi_joint_late = np.hstack([
-        Phi_rac_reduced[late_mask, :],   # reduced RAC bases
-        Phi_fdg[late_mask, :],           # full FDG bases
-    ])
-    y_late = y_meas[late_mask]
+#     # Build joint basis for late region only
+#     Phi_joint_late = np.hstack([
+#         Phi_rac_reduced[late_mask, :],   # reduced RAC bases
+#         Phi_fdg[late_mask, :],           # full FDG bases
+#     ])
+#     y_late = y_meas[late_mask]
 
-    # Regularized joint NNLS
-    w_joint = nnls_l2(Phi_joint_late, y_late, alpha_joint)
+#     # Regularized joint NNLS
+#     w_joint = nnls_l2(Phi_joint_late, y_late, alpha_joint)
 
-    # Split weights
-    w_rac_joint = w_joint[:n_top]
-    w_fdg_joint = w_joint[n_top:]
+#     # Split weights
+#     w_rac_joint = w_joint[:n_top]
+#     w_fdg_joint = w_joint[n_top:]
 
-    # ──────────────────────────────────────────
-    # Reconstruct full TACs (all time points)
-    # ──────────────────────────────────────────
-    rac_est = Phi_rac_reduced @ w_rac_joint
-    fdg_est = Phi_fdg @ w_fdg_joint
+#     # ──────────────────────────────────────────
+#     # Reconstruct full TACs (all time points)
+#     # ──────────────────────────────────────────
+#     rac_est = Phi_rac_reduced @ w_rac_joint
+#     fdg_est = Phi_fdg @ w_fdg_joint
 
-    info = {
-        "top_indices": top_indices,
-        "w_early_full": w_early,
-        "w_early_top": w_early[top_indices],
-        "w_rac_joint": w_rac_joint,
-        "w_fdg_joint": w_fdg_joint,
-        "n_rac_original": Phi_rac.shape[1],
-        "n_rac_reduced": n_top,
-        "n_fdg": Phi_fdg.shape[1],
-    }
+#     info = {
+#         "top_indices": top_indices,
+#         "w_early_full": w_early,
+#         "w_early_top": w_early[top_indices],
+#         "w_rac_joint": w_rac_joint,
+#         "w_fdg_joint": w_fdg_joint,
+#         "n_rac_original": Phi_rac.shape[1],
+#         "n_rac_reduced": n_top,
+#         "n_fdg": Phi_fdg.shape[1],
+#     }
 
-    return rac_est, fdg_est, info
+#     return rac_est, fdg_est, info
 
 
 

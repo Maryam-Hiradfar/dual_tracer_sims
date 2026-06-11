@@ -35,7 +35,7 @@ def split_dataset(X,Y,metadata, train_frac = 0.7  , val_frac = 0.15 ):
     else:
         raise ValueError ("inconsistent lengths for one or all datasets with train, val and test")
     if len(X_train) + len(X_val) + len(X_test) != N: 
-            raise ValueError(f"The sum of the different sample classes don't add up to total number of samples: number of training samples = {len(X_train)}, number of validation samples = {len(X_val)}, and the number of validation samples = {len(X_test)} ")
+            raise ValueError(f"The sum of the different sample classes don't add up to total number of samples: number of training samples = {len(X_train)}, number of validation samples = {len(X_val)}, and the number of test samples = {len(X_test)} ")
     
     return (X_train, Y_train, metadata_train, 
             X_val, Y_val, metadata_val, 
