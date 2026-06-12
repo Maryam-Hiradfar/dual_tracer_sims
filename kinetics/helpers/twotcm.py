@@ -6,12 +6,12 @@ import numpy as np
 
 from ..configs import KineticsInformedTracerConfig
 from kinetics.models.twotcm import simulate_2tcm
-from tracers.aif import fdg_aif, pbr28_aif
+from tracers.aif import feng_aif, pbr28_aif
 
 def get_aif_func(tracer_name: str):
     tracer_name = tracer_name.upper()
     if tracer_name == "FDG":
-        return fdg_aif
+        return feng_aif
     if tracer_name in {"PBR", "PBR28"}:
         return pbr28_aif
     raise ValueError(f"Unsupported tracer_name: {tracer_name}")
