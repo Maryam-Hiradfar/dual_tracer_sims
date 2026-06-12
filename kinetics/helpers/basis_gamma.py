@@ -33,8 +33,8 @@ def build_injection_centered_gamma_library(
 ):
     config.validate()
 
-    t0_low = max(0.0, config.injection_time - config.variation_range)
-    t0_high = config.injection_time + config.variation_range
+    t0_low = max(0.0, config.injection_time - config.variation_range_before)
+    t0_high = config.injection_time + config.variation_range_after
 
     t0_values = np.linspace(t0_low, t0_high, config.num_t0)
     tau_values = np.linspace(config.tau_min, config.tau_max, config.n_tau)

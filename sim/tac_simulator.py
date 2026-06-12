@@ -172,16 +172,18 @@ def simulate_clean_dual_tac(
     Ct2_phys = Ct2_bio * decay2
     # y_clean = Ct1_phys + Ct2_phys
     y_clean = Ct1_phys_int + Ct2_phys_int
+    #need to frame average y_clean
+    y_clean_frame_average = frame_average(t_int, y_clean, timegrid.frame_edges)
 
     y_meas = add_noise_voxel(
-        y_clean,
+        y_clean_frame_average,
         timegrid.frame_durs,
         voxel_size_mm=4.0,
         scanner_name="panorama_gs",
         rng=rng,
     )[0]
-    print("y_clean has nan:", np.isnan(y_clean).any(), "inf:", np.isinf(y_clean).any())
-    print("y_clean min/max:", np.nanmin(y_clean), np.nanmax(y_clean))
+    print("y_clean has nan:", np.isnan(y_clean_frame_average).any(), "inf:", np.isinf(y_clean_frame_average).any())
+    print("y_clean min/max:", np.nanmin(y_clean_frame_average), np.nanmax(y_clean_frame_average))
 
     print("y_meas has nan:", np.isnan(y_meas).any(), "inf:", np.isinf(y_meas).any())
     print("y_meas min/max:", np.nanmin(y_meas), np.nanmax(y_meas))

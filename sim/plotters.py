@@ -150,13 +150,13 @@ def plot_measured_tac_grid(
             ct1_est_meas = sim.ct_1_est_meas_int
             ct2_true_meas = sim.Ct2_phys_int
             ct2_est_meas = sim.ct_2_est_meas_int
-
+    
             ax.plot(t, ct1_true_meas, lw=2, label="PBR true")
             ax.plot(t, ct1_est_meas, "--", lw=1.2, label="PBR est")
             ax.plot(t, ct2_true_meas, lw=2, label="FDG true")
             ax.plot(t, ct2_est_meas, "--", lw=1.2, label="FDG est")
             ax.plot(t, ct1_true_meas + ct2_true_meas, color="black", lw=1, alpha=0.7, label="FDG + PBR sum")
-            ax.scatter(sim.t_int, sim.y_meas, color="grey", s=10, alpha=0.5, label="Measured")
+            ax.scatter(t_meas, sim.y_meas, color="grey", s=10, alpha=0.5, label="Measured")
             ax.set_ylim(*ylim)
             ax.set_title(f"Δ = {D} min")
             ax.grid(True, alpha=0.2)

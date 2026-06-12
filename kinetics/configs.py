@@ -93,7 +93,8 @@ class InjectionCenteredGammaBasisConfig:
     over the whole scan.
     """
     injection_time: float = 0.0
-    variation_range: float = 5.0
+    variation_range_after: float = 5.0
+    variation_range_before: float = 5.0
     num_t0: int = 5
 
     n_tau: int = 5
@@ -107,7 +108,9 @@ class InjectionCenteredGammaBasisConfig:
             raise ValueError("num_t0 must be at least 1")
         if self.n_tau < 1:
             raise ValueError("n_tau must be at least 1")
-        if self.variation_range < 0:
+        if self.variation_range_before < 0:
+            raise ValueError("variation_range must be non-negative")
+        if self.variation_range_after < 0:
             raise ValueError("variation_range must be non-negative")
         if self.tau_min <= 0 or self.tau_max <= 0:
             raise ValueError("tau_min and tau_max must be positive")

@@ -1,4 +1,5 @@
 # tracers/rac.py
+# Old tracer, can ignore this one for now (06/12/2026) - Maryam Hiradfar
 from dataclasses import dataclass
 import numpy as np
 from .base import Tracer

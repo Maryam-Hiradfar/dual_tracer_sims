@@ -1,4 +1,5 @@
 #kinetics.kinetic_informed_library.py
+#Incomplete and in development (06/12/2026) - Maryam Hiradfar
 import numpy as np
 from ..base import LibraryBuilder, LibraryResult
 from ..registry import register

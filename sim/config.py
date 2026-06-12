@@ -7,8 +7,8 @@ import numpy as np
 
 @dataclass
 class TracerConfig:
-    fdg_scale: float = 1.0
-    pbr_scale: float = 1.0
+    fdg_scale: float = 10.0
+    pbr_scale: float = 10.0
     fdg_overrides: dict[str, Any] = field(default_factory=dict)
     pbr_overrides: dict[str, Any] = field(default_factory=dict)
 
@@ -56,7 +56,7 @@ class PlotConfig:
 
     tac_grid_ncols: int = 4
     tac_grid_nrows_per_fig: int = 3
-    tac_ylim: tuple[float, float] = (0.0, 5.0)
+    tac_ylim: tuple[float, float] = (0.0, 40.0)
     nrmse_ylim: tuple[float, float] | None = (0.0, 0.6)
 
 
