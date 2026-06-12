@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Mac
+.DS_Store
+
+# Data
+data/
+figures/
+logs/
+
+# Outputs
+outputs/
+results/
+figures/
+
+# Models
+*.pth
+*.pt
+*.h5
+*.ckpt
+
+# Numpy
+*.npy
+*.npz
+
+# Pickles
+*.pkl
+
+# Local configs
+local_params/
