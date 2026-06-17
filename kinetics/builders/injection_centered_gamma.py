@@ -1,9 +1,10 @@
 #kinetics.injection_centered_gamma.py
+from __future__ import annotations
+
 import numpy as np
 from ..base import LibraryResult, LibraryBuilder
 from ..registry import register
 from dataclasses import dataclass
-from __future__ import annotations
 from typing import Any, Dict, Optional
 from ..helpers.basis_gamma import build_injection_centered_gamma_library
 from ..configs import InjectionCenteredGammaBasisConfig
