@@ -1,0 +1,12 @@
+# Python-generated cache files
+__pycache__/
+*.py[cod]
+
+# macOS-generated metadata
+.DS_Store
+
+# Editor and temporary files
+.vscode/
+.idea/
+*.swp
+*~
