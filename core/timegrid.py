@@ -9,8 +9,21 @@ class TimeGrid:
 
     def __post_init__(self):
         self.frame_edges = np.asarray(self.frame_edges, dtype=float)
+        if self.frame_edges.ndim != 1 or len(self.frame_edges) < 2:
+            raise ValueError("frame_edges must be a one-dimensional array of length >= 2")
+        if not np.isfinite(self.frame_edges).all():
+            raise ValueError("frame_edges must contain only finite values")
+        if not np.isfinite(self.internal_dt_min) or self.internal_dt_min <= 0:
+            raise ValueError("internal_dt_min must be finite and positive")
+        if np.any(np.diff(self.frame_edges) <= 0):
+            raise ValueError("frame_edges must be strictly increasing")
+
         self.frame_mids = 0.5*(self.frame_edges[:-1] + self.frame_edges[1:])
         self.frame_durs = self.frame_edges[1:] - self.frame_edges[:-1]
+        if np.any(self.frame_durs < self.internal_dt_min):
+            raise ValueError(
+                "every frame duration must be at least as long as internal_dt_min"
+            )
 
         # high-res internal time vector for ODE
         self.t_internal = np.arange(
@@ -22,12 +35,3 @@ class TimeGrid:
     @property
     def n_frames(self):
         return len(self.frame_mids)
-    
-    # core/timegrid.py (or core/utils.py)
-def frame_average(t_internal, Ct_internal, frame_edges):
-    Ct_frames = np.zeros(len(frame_edges)-1)
-    for i in range(len(Ct_frames)):
-        m = (t_internal >= frame_edges[i]) & (t_internal < frame_edges[i+1])#this is a boolean mask, it is an array of True/False values. true if t_internal is in the frame
-        Ct_frames[i] = Ct_internal[m].mean() if np.any(m) else 0.0 #np.amy(m) checks if there is any True value in the mask
-    return Ct_frames
-

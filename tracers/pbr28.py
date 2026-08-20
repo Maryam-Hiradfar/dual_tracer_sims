@@ -20,7 +20,7 @@ class PBR28Tracer(Tracer):
         
     def aif(self, t_abs: np.ndarray, delta_min: float = 0.0):
         t_rel = np.maximum(t_abs - delta_min, 0.0)
-        return pbr28_aif(t_rel, scale = self.scale)
+        return pbr28_aif(t_rel, **self.pbr28_params, scale=self.scale)
 
     def true_params(self):
         return dict(
