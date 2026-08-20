@@ -1,0 +1,46 @@
+{
+  "source_physical_predictions": "ml/experiments/mixture_30ep/evaluation/test_predictions.npz",
+  "test_samples": 100,
+  "channel_order": [
+    "FDG",
+    "PBR28"
+  ],
+  "method": "Divide each physical frame TAC by its frame-integrated tracer-specific radioactive survival factor.",
+  "units": {
+    "mse": "(kBq/mL)^2",
+    "rmse": "kBq/mL",
+    "mae": "kBq/mL"
+  },
+  "overall_mse": 0.014934401515190668,
+  "by_tracer": {
+    "FDG": {
+      "mse": 0.008136580980525962,
+      "rmse": 0.0902029987335563,
+      "mae": 0.0639138236111442,
+      "nrmse_by_global_range": 0.021719106456345522
+    },
+    "PBR28": {
+      "mse": 0.02173222204985537,
+      "rmse": 0.14741852682025883,
+      "mae": 0.10461729199103395,
+      "nrmse_by_global_range": 0.0840715098429661
+    }
+  },
+  "frame_averaging_correction_floor_by_tracer": {
+    "FDG": {
+      "mse": 2.9538341851565747e-08,
+      "rmse": 0.00017186722157399808,
+      "mae": 4.989916573544127e-05,
+      "nrmse_by_global_range": 4.1382243762738155e-05
+    },
+    "PBR28": {
+      "mse": 3.601698359043271e-08,
+      "rmse": 0.0001897814100233021,
+      "mae": 9.640175641262244e-05,
+      "nrmse_by_global_range": 0.00010823069545552804
+    }
+  },
+  "corrected_prediction_file": "ml/experiments/mixture_30ep/decay_correction/biological_predictions.npz",
+  "plot_file": "ml/experiments/mixture_30ep/decay_correction/biological_prediction_examples.png",
+  "physical_input_biological_output_plot_file": "ml/experiments/mixture_30ep/decay_correction/physical_input_and_biological_predictions.png"
+}

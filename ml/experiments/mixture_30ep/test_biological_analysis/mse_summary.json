@@ -1,0 +1,115 @@
+{
+  "note": "These are the 100 held-out test samples, not training samples.",
+  "mse_units": "(kBq/mL)^2",
+  "sample_mse_definition": "Mean squared biological error across both tracers and all 62 frames.",
+  "minimum_sample_mse": {
+    "test_index": 20,
+    "sample_id": 600,
+    "delay_min": 10.0,
+    "combined_mse": 0.005410819501704508,
+    "fdg_mse": 0.004755449215900026,
+    "pbr28_mse": 0.00606618978750899
+  },
+  "maximum_sample_mse": {
+    "test_index": 88,
+    "sample_id": 239,
+    "delay_min": 5.0,
+    "combined_mse": 0.03663849633314812,
+    "fdg_mse": 0.007733571928225441,
+    "pbr28_mse": 0.0655434207380708
+  },
+  "best_3": [
+    {
+      "test_index": 20,
+      "sample_id": 600,
+      "delay_min": 10.0,
+      "combined_mse": 0.005410819501704508,
+      "fdg_mse": 0.004755449215900026,
+      "pbr28_mse": 0.00606618978750899
+    },
+    {
+      "test_index": 73,
+      "sample_id": 178,
+      "delay_min": 5.0,
+      "combined_mse": 0.007183139620345403,
+      "fdg_mse": 0.004603324726666215,
+      "pbr28_mse": 0.009762954514024593
+    },
+    {
+      "test_index": 35,
+      "sample_id": 769,
+      "delay_min": 10.0,
+      "combined_mse": 0.007307205709823102,
+      "fdg_mse": 0.004468211165116816,
+      "pbr28_mse": 0.010146200254529388
+    }
+  ],
+  "worst_3": [
+    {
+      "test_index": 88,
+      "sample_id": 239,
+      "delay_min": 5.0,
+      "combined_mse": 0.03663849633314812,
+      "fdg_mse": 0.007733571928225441,
+      "pbr28_mse": 0.0655434207380708
+    },
+    {
+      "test_index": 80,
+      "sample_id": 306,
+      "delay_min": 10.0,
+      "combined_mse": 0.029210536644574573,
+      "fdg_mse": 0.007230002253712687,
+      "pbr28_mse": 0.05119107103543645
+    },
+    {
+      "test_index": 47,
+      "sample_id": 569,
+      "delay_min": 5.0,
+      "combined_mse": 0.029094077282942953,
+      "fdg_mse": 0.008970900003970878,
+      "pbr28_mse": 0.04921725456191502
+    }
+  ],
+  "schedule_blocks": [
+    {
+      "name": "14 \u00d7 5 s",
+      "frame_indices": [
+        0,
+        13
+      ],
+      "fdg_mse": 0.018225510027355615,
+      "pbr28_mse": 0.009447647386477093,
+      "combined_mse": 0.013836578706916354
+    },
+    {
+      "name": "3 \u00d7 30 s",
+      "frame_indices": [
+        14,
+        16
+      ],
+      "fdg_mse": 0.015499861902161051,
+      "pbr28_mse": 0.013095549532732727,
+      "combined_mse": 0.01429770571744689
+    },
+    {
+      "name": "5 \u00d7 60 s",
+      "frame_indices": [
+        17,
+        21
+      ],
+      "fdg_mse": 0.013032209327758488,
+      "pbr28_mse": 0.013197131998186307,
+      "combined_mse": 0.013114670662972398
+    },
+    {
+      "name": "40 \u00d7 120 s",
+      "frame_indices": [
+        22,
+        61
+      ],
+      "fdg_mse": 0.0034412563459397293,
+      "pbr28_mse": 0.027746459899395906,
+      "combined_mse": 0.015593858122667817
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "checkpoint": "ml/experiments/mixture_30ep/best_tcn_prototype.pt",
+  "checkpoint_epoch": 29,
+  "checkpoint_validation_loss": 0.0003744519466999918,
+  "device": "cpu",
+  "test_samples": 100,
+  "normalization_scale": 4.134465217590332,
+  "channel_order": [
+    "FDG",
+    "PBR28"
+  ],
+  "training_config": {
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "mixture_weight": 0.1,
+    "seed": 123,
+    "causal": true
+  },
+  "normalized_metrics": {
+    "overall_mse": 0.00033534024260006845,
+    "mixture_mse": 0.0002684380451682955,
+    "by_tracer": {
+      "FDG": {
+        "mse": 0.0004331118834670633,
+        "rmse": 0.02081134026119085,
+        "mae": 0.013963866978883743
+      },
+      "PBR28": {
+        "mse": 0.00023756857262924314,
+        "rmse": 0.01541325963672977,
+        "mae": 0.01044329535216093
+      }
+    }
+  },
+  "physical_metrics": {
+    "units": {
+      "mse": "(kBq/mL)^2",
+      "rmse": "kBq/mL",
+      "mae": "kBq/mL"
+    },
+    "overall_mse": 0.005732239689677954,
+    "mixture_mse": 0.00458862679079175,
+    "by_tracer": {
+      "FDG": {
+        "mse": 0.0074035292491316795,
+        "rmse": 0.08604376356907965,
+        "mae": 0.057733114808797836
+      },
+      "PBR28": {
+        "mse": 0.004060950130224228,
+        "rmse": 0.0637255845812671,
+        "mae": 0.04317743703722954
+      }
+    }
+  },
+  "representative_test_samples": [
+    {
+      "test_array_index": 24,
+      "sample_id": 127,
+      "delay_min": 0.0
+    },
+    {
+      "test_array_index": 41,
+      "sample_id": 125,
+      "delay_min": 5.0
+    },
+    {
+      "test_array_index": 42,
+      "sample_id": 848,
+      "delay_min": 10.0
+    }
+  ],
+  "prediction_file": "ml/experiments/mixture_30ep/evaluation/test_predictions.npz",
+  "plot_file": "ml/experiments/mixture_30ep/evaluation/test_prediction_examples.png"
+}
