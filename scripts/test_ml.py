@@ -55,7 +55,7 @@ tracer2 = FDGTracer(
 # test_sample = sample.generate_sample()
 # print(test_sample.metadata)
 # plt.figure(figsize=(8,5))
-# plt.scatter(frame_mids, test_sample.y_meas)
+# plt.scatter(frame_mids, test_sample.y_meas_tavg_n1_d1)
 # plt.xlabel("Time(min)")
 # plt.ylabel("Activity")
 # plt.legend()
@@ -81,9 +81,9 @@ dataset_gen  = DatasetGenerator(
 samples, specs = dataset_gen.generate_dataset()
 
 for n in range(len(samples)):
-    y_meas = samples[n].y_meas
+    y_meas_tavg_n1_d1 = samples[n].y_meas_tavg_n1_d1
     plt.figure(figsize=(8,5))
-    plt.scatter(frame_mids, y_meas)
+    plt.scatter(frame_mids, y_meas_tavg_n1_d1)
     plt.xlabel("Time(min)")
     plt.ylabel("Activity")
     plt.legend()

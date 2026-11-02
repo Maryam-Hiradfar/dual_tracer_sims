@@ -85,8 +85,8 @@ def plot_scale_diagnostics(config: SimulationConfig,
         if t_frames is None:
             t_frames = sim["t_frames"]
 
-        Ct_pbr = sim["Ct1_bio"]   # assumes tracer 1 = PBR
-        Ct_fdg = sim["Ct2_bio"]   # assumes tracer 2 = FDG
+        Ct_pbr = sim["Ct1_bio_tavg_n0_d0"]   # assumes tracer 1 = PBR
+        Ct_fdg = sim["Ct2_bio_tavg_n0_d0"]   # assumes tracer 2 = FDG
 
         tac_pbr_list.append(Ct_pbr)
         tac_fdg_list.append(Ct_fdg)

@@ -1,0 +1,141 @@
+{
+  "samples": 100,
+  "primary_outcome": "per-sample physical RMSE pooled equally over 2 tracers and 62 frames",
+  "rmse_units": "kBq/mL",
+  "plot_semantics": {
+    "scatter": "one dot is one complete held-out test sample; RMSE pools its 124 tracer-frame errors",
+    "delay": "each dot is one sample; box shows the distribution within a delay group; line is median; triangle is mean",
+    "trend_line": "ordinary univariate least-squares line for visualization only"
+  },
+  "difficulty_definitions": {
+    "temporal_overlap_percent": "duration-weighted overlap after separately area-normalizing each true physical TAC",
+    "shared_activity_percent": "2 times duration-weighted shared area divided by summed tracer areas; includes amplitude imbalance",
+    "amplitude_similarity_percent": "2 times the smaller tracer area divided by summed tracer areas",
+    "entropy_ambiguity_percent": "activity- and duration-weighted binary entropy of the FDG/PBR28 contribution fraction in each frame"
+  },
+  "decay_correction_note": "Decay-correction amplification is saved per sample but is not treated as an independent predictor because it contains physical RMSE in its denominator.",
+  "physical_vs_biological_rmse": {
+    "n": 100,
+    "pearson_r": 0.6040086256632875,
+    "pearson_p": 2.8750228090104316e-11,
+    "spearman_rho": 0.6702790279027903,
+    "spearman_p": 2.3968178720514215e-14
+  },
+  "delay_group_summary": {
+    "0.0": {
+      "n": 25,
+      "mean_rmse": 0.08551392267656963,
+      "median_rmse": 0.08101015687839405
+    },
+    "5.0": {
+      "n": 40,
+      "mean_rmse": 0.06978023740886195,
+      "median_rmse": 0.0686143799904998
+    },
+    "10.0": {
+      "n": 35,
+      "mean_rmse": 0.06787928555265517,
+      "median_rmse": 0.06723833915971231
+    }
+  },
+  "correlations_with_physical_overall_rmse": {
+    "fdg_delay_min": {
+      "n": 100,
+      "pearson_r": -0.32216811360316183,
+      "pearson_p": 0.0010800827258365198,
+      "spearman_rho": -0.29096740419778067,
+      "spearman_p": 0.0033149376372190228
+    },
+    "fdg_scale": {
+      "n": 100,
+      "pearson_r": 0.07628364495127764,
+      "pearson_p": 0.45064159482536237,
+      "spearman_rho": 0.03223522352235223,
+      "spearman_p": 0.750195019305694
+    },
+    "pbr28_scale": {
+      "n": 100,
+      "pearson_r": -0.016252780389568806,
+      "pearson_p": 0.8724911510549839,
+      "spearman_rho": 0.10575457545754575,
+      "spearman_p": 0.2950120966173704
+    },
+    "fdg_to_pbr28_scale_ratio": {
+      "n": 100,
+      "pearson_r": 0.11529452294793796,
+      "pearson_p": 0.25334440952144843,
+      "spearman_rho": -0.04259225922592259,
+      "spearman_p": 0.6739312808832074
+    },
+    "mixture_noise_rmse": {
+      "n": 100,
+      "pearson_r": 0.3638960196108456,
+      "pearson_p": 0.00019792361383545062,
+      "spearman_rho": 0.3987278727872787,
+      "spearman_p": 3.975482347942006e-05
+    },
+    "relative_mixture_noise": {
+      "n": 100,
+      "pearson_r": 0.21253122827778295,
+      "pearson_p": 0.03376150767918125,
+      "spearman_rho": 0.26034203420342034,
+      "spearman_p": 0.008897625241152743
+    },
+    "total_expected_counts": {
+      "n": 100,
+      "pearson_r": 0.22084406464844797,
+      "pearson_p": 0.027243316335419515,
+      "spearman_rho": 0.17417341734173414,
+      "spearman_p": 0.08307618719239944
+    },
+    "median_expected_counts": {
+      "n": 100,
+      "pearson_r": 0.05915852047960744,
+      "pearson_p": 0.558776405975826,
+      "spearman_rho": 0.014329432943294328,
+      "spearman_p": 0.8874749491670452
+    },
+    "fdg_decay_attenuation_percent": {
+      "n": 100,
+      "pearson_r": 0.32091004897390135,
+      "pearson_p": 0.0011327100152379152,
+      "spearman_rho": 0.25899789978997895,
+      "spearman_p": 0.009268861415568692
+    },
+    "pbr28_decay_attenuation_percent": {
+      "n": 100,
+      "pearson_r": -0.1355294868706262,
+      "pearson_p": 0.17879714999357696,
+      "spearman_rho": -0.05694569456945694,
+      "spearman_p": 0.5736021175730268
+    },
+    "temporal_overlap_percent": {
+      "n": 100,
+      "pearson_r": 0.3167098482541336,
+      "pearson_p": 0.0013257593957298165,
+      "spearman_rho": 0.23397539753975397,
+      "spearman_p": 0.01913151049122266
+    },
+    "shared_activity_percent": {
+      "n": 100,
+      "pearson_r": 0.24040907686454815,
+      "pearson_p": 0.015982564600846055,
+      "spearman_rho": 0.2657545754575457,
+      "spearman_p": 0.007531769359198473
+    },
+    "amplitude_similarity_percent": {
+      "n": 100,
+      "pearson_r": -0.14166847420536857,
+      "pearson_p": 0.15973138019091146,
+      "spearman_rho": -0.04904890489048904,
+      "spearman_p": 0.6279500117321555
+    },
+    "entropy_ambiguity_percent": {
+      "n": 100,
+      "pearson_r": 0.229494968605339,
+      "pearson_p": 0.021627728505355073,
+      "spearman_rho": 0.2513531353135313,
+      "spearman_p": 0.011650164626256088
+    }
+  }
+}

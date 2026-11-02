@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import Union, Any
 import numpy as np
 
+from utils.path import RESULTS_DIR
+
 @dataclass
 class TracerConfig:
     fdg_scale: float = 10.0
@@ -66,7 +68,8 @@ class ExperimentConfig:
     description: str = "FDG/PBR delay sweep"
     notes: str = ""
 
-    output_root: Path = Path("/Users/maryamhiradfar/Desktop/catana_lab_local/testing_separation_algs_refactored")
+    # output_root: Path = Path("/Users/maryamhiradfar/Desktop/catana_lab_local/testing_separation_algs_refactored")
+    output_root: Path = RESULTS_DIR / "testing_separation_algs_refactored"
 
     delays_min: np.ndarray = field(default_factory=lambda: np.arange(0, 50, 1))
     frame_edges_min: np.ndarray | None = None

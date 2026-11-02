@@ -1,11 +1,92 @@
 from __future__ import annotations
 import numpy as np
 from typing import Any
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 
 from utils.run_logger import  get_figure_path
 from kinetics.helpers.basis_gamma import gamma_shape
+
+
+def plot_representative_dataset_samples(
+    samples: list[dict[str, Any]],
+    frame_midpoints_min: np.ndarray,
+    output_dir: str | Path,
+) -> list[Path]:
+    """Plot representative saved samples in physical and biological domains."""
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    t = np.asarray(frame_midpoints_min)
+
+    fig, axes = plt.subplots(1, len(samples), figsize=(6 * len(samples), 5))
+    axes = np.atleast_1d(axes)
+    for ax, sample in zip(axes, samples):
+        ax.scatter(
+            t,
+            sample["measured"],
+            s=14,
+            color="0.45",
+            alpha=0.7,
+            label="Noisy mixture",
+        )
+        ax.plot(t, sample["clean"], color="black", lw=2, label="Clean mixture")
+        ax.plot(t, sample["fdg_phys"], lw=2, label="FDG physical")
+        ax.plot(t, sample["pbr_phys"], lw=2, label="PBR28 physical")
+        ax.set_title(sample["title"])
+        ax.set_xlabel("Time (min)")
+        ax.grid(True, alpha=0.25)
+    axes[0].set_ylabel("Activity concentration (kBq/mL)")
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.suptitle("Representative physical-domain dataset samples", y=0.98)
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.94),
+        ncol=4,
+    )
+    fig.tight_layout(rect=(0, 0, 1, 0.86))
+    physical_path = output_dir / "representative_physical_tacs.png"
+    fig.savefig(physical_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+    fig, axes = plt.subplots(1, len(samples), figsize=(6 * len(samples), 5))
+    axes = np.atleast_1d(axes)
+    for ax, sample in zip(axes, samples):
+        ax.scatter(
+            t,
+            sample["measured"],
+            s=14,
+            color="0.55",
+            alpha=0.55,
+            label="Noisy physical mixture",
+        )
+        ax.plot(t, sample["clean"], color="black", lw=1.5, label="Clean physical mixture")
+        ax.plot(t, sample["fdg_bio"], lw=2, label="FDG biological")
+        ax.plot(t, sample["pbr_bio"], lw=2, label="PBR28 biological")
+        ax.set_title(sample["title"])
+        ax.set_xlabel("Time (min)")
+        ax.grid(True, alpha=0.25)
+    axes[0].set_ylabel("Activity concentration (kBq/mL)")
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.suptitle(
+        "Biological TACs with physical scanner mixtures (different domains)",
+        y=0.98,
+    )
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.94),
+        ncol=4,
+    )
+    fig.tight_layout(rect=(0, 0, 1, 0.86))
+    biological_path = output_dir / "representative_biological_tacs.png"
+    fig.savefig(biological_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+    return [physical_path, biological_path]
 
 def plot_nrmse_vs_delay(
     delays_min: np.ndarray,
@@ -74,10 +155,10 @@ def plot_bio_tac_grid(
 
 
             #t = sim.t_frames
-            ct1_true = sim.Ct1_bio_int
-            ct1_est = sim.Ct1_est_bio_int
-            ct2_true = sim.Ct2_bio_int
-            ct2_est = sim.Ct2_est_bio_int
+            ct1_true = sim.Ct1_bio_tint_n0_d0
+            ct1_est = sim.Ct1_est_bio_tint_n1_d0
+            ct2_true = sim.Ct2_bio_tint_n0_d0
+            ct2_est = sim.Ct2_est_bio_tint_n1_d0
 
             ax.plot(t, ct1_true, lw=2, label="PBR true")
             ax.plot(t, ct1_est, "--", lw=1.2, label="PBR est")
@@ -146,17 +227,17 @@ def plot_measured_tac_grid(
 
             t = sim.t_int
             t_meas = sim.t_frames
-            ct1_true_meas = sim.Ct1_phys_int
-            ct1_est_meas = sim.ct_1_est_meas_int
-            ct2_true_meas = sim.Ct2_phys_int
-            ct2_est_meas = sim.ct_2_est_meas_int
+            ct1_true_meas = sim.Ct1_phys_tint_n0_d1
+            ct1_est_meas = sim.ct_1_est_meas_tint_n1_d1
+            ct2_true_meas = sim.Ct2_phys_tint_n0_d1
+            ct2_est_meas = sim.ct_2_est_meas_tint_n1_d1
     
             ax.plot(t, ct1_true_meas, lw=2, label="PBR true")
             ax.plot(t, ct1_est_meas, "--", lw=1.2, label="PBR est")
             ax.plot(t, ct2_true_meas, lw=2, label="FDG true")
             ax.plot(t, ct2_est_meas, "--", lw=1.2, label="FDG est")
             ax.plot(t, ct1_true_meas + ct2_true_meas, color="black", lw=1, alpha=0.7, label="FDG + PBR sum")
-            ax.scatter(t_meas, sim.y_meas, color="grey", s=10, alpha=0.5, label="Measured")
+            ax.scatter(t_meas, sim.y_meas_tavg_n1_d1, color="grey", s=10, alpha=0.5, label="Measured")
             ax.set_ylim(*ylim)
             ax.set_title(f"Δ = {D} min")
             ax.grid(True, alpha=0.2)
@@ -199,7 +280,7 @@ def plot_fdg_aligned(
         
 
         t = sim.t_int
-        y = sim.Ct2_est_bio_int if estimated else sim.Ct2_bio_int
+        y = sim.Ct2_est_bio_tint_n1_d0 if estimated else sim.Ct2_bio_tint_n0_d0
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D

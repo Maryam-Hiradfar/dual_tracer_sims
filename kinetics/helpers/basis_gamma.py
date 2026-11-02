@@ -2,7 +2,7 @@
 from __future__ import annotations
 import numpy as np
 from ..configs import GammaBasisConfig, InjectionCenteredGammaBasisConfig
-from core.timegrid import frame_average
+from utils.frame_average import frame_average
 
 
 
@@ -139,7 +139,5 @@ def build_injection_centered_gamma_library(
 
 #     return lib_1, Gamma_1, lib_2, Gamma_2
 
-   
 
-   
-   
+

@@ -1,0 +1,29 @@
+{
+  "region_definition": "Equal thirds of elapsed scan time; RMSE pools all samples, tracers, and frames in each region.",
+  "regions": {
+    "Early 0.0\u201329.2 min": {
+      "physical_rmse_kBq_per_mL": 0.10033943868849046,
+      "biological_rmse_kBq_per_mL": 0.10795810618702874,
+      "amplification_ratio": 1.075928942777833,
+      "fdg_amplification_ratio": 1.0118888297138346,
+      "pbr28_amplification_ratio": 1.1794168003457453
+    },
+    "Middle 29.2\u201358.4 min": {
+      "physical_rmse_kBq_per_mL": 0.029337133275234115,
+      "biological_rmse_kBq_per_mL": 0.07038794731695448,
+      "amplification_ratio": 2.399278302231893,
+      "fdg_amplification_ratio": 1.2623310729376818,
+      "pbr28_amplification_ratio": 4.447028599274135
+    },
+    "Late 58.4\u201387.7 min": {
+      "physical_rmse_kBq_per_mL": 0.02720958823388801,
+      "biological_rmse_kBq_per_mL": 0.17738037746918658,
+      "amplification_ratio": 6.519039389514513,
+      "fdg_amplification_ratio": 1.5341489526359007,
+      "pbr28_amplification_ratio": 14.571062659999937
+    }
+  },
+  "representative_test_index": 51,
+  "representative_sample_id": 216,
+  "representative_late_amplification_ratio": 6.3867101152938
+}

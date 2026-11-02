@@ -136,7 +136,7 @@ def make_fdg_tracer_config() -> KineticsInformedTracerConfig:
     )
 def make_pbr_tracer_config() -> KineticsInformedTracerConfig: 
     return KineticsInformedTracerConfig(
-        tracer_name="PBR",
+        tracer_name="PBR28",
         nominal_params=TwoTCMParams(K1 = 0.18,
             k2 = 0.25,
             k3 = 0.04,
