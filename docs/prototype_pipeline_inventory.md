@@ -189,12 +189,9 @@ first cleanup commit.
 | `**/__pycache__/` and `*.pyc` | Python bytecode caches |
 | `.DS_Store` | macOS filesystem metadata |
 
-Generated artifacts should not be confused with implementation files. The
-current repository policy is to version the canonical prototype dataset and
-model checkpoints in Git. Caches, `.DS_Store`, temporary outputs, and redundant
-figures should remain excluded. Before substantially increasing dataset size,
-revisit whether binary files should move to Git LFS or external artifact
-storage.
+Generated artifacts should not be confused with implementation files. Whether
+datasets and experiment outputs should be committed is a repository-policy
+decision to make during cleanup.
 
 ## Present but not part of this prototype path
 
@@ -228,8 +225,8 @@ Before cleanup, confirm these points:
    downstream decay correction.
 4. The unfinished `ml/` files and analytical separation code are out of scope
    for the prototype, but should not yet be deleted.
-5. The canonical dataset and checkpoints will be deliberately versioned in Git;
-   caches and incidental generated files will not.
+5. Generated data and experiment outputs should either be ignored by Git or
+   deliberately versioned; this policy has not yet been chosen.
 
 No file should be renamed, moved, or deleted until these five points are
 approved.

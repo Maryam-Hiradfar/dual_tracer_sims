@@ -1,4 +1,4 @@
-"""Generate, split, validate, and save a dual-tracer PET dataset."""
+"""Generate, stack, split, validate, and save a dual-tracer PET dataset."""
 
 from __future__ import annotations
 

@@ -13,6 +13,7 @@ from kinetics.helpers.basis_gamma import build_gamma_library, build_gamma_librar
 from sim.sweep import sweep_delays
 from datetime import datetime
 import os
+from utils.path import FIGURES_DIR
 from utils.run_logger import start_run, finalize_run, get_figure_path
 
 
@@ -27,10 +28,13 @@ from separation.base import SeparationResult
 from pathlib import Path
 
 
-FIG_DIR = Path(" /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs") 
+# FIG_DIR = Path(" /Users/maryamhiradfar/Documents/dual_tracer_sims/figures/testing_separation_algs")
 
-# Create directory if it doesn't exist
-os.makedirs(FIG_DIR, exist_ok=True)
+# # Create directory if it doesn't exist
+# os.makedirs(FIG_DIR, exist_ok=True)
+
+FIG_DIR = FIGURES_DIR / "testing_separation_algs"
+FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 def main():
 
@@ -39,11 +43,11 @@ def main():
     # ==============================
     RUN_DESCRIPTION = "code test:tuning different alphas for the L2 regularizations for each tracer."
     separation_alg = "recursive_unmix" #options include "joint_unmix", "recursive_unmix", "sequential_unmix", "nnls_2", or any other algorithm registered in separation/registry.py
-    #algorithm sepcific context params 
+    #algorithm sepcific context params
     num_iters = 20 #example of passing an additional parameter to the separation algorithm
     RUN_DESCRIPTION = "FDG/PBR delay sweep"
     RUN_NOTES = """
-    Gamma basis library: uniform 
+    Gamma basis library: uniform
     - FDG scale = 1.0
     - PBR scale = 1.0
     - Delays: 0–50 min (1-min steps)
@@ -69,8 +73,8 @@ def main():
     ALPHA_TRACER_1 = 1.0
     ALPHA_TRACER_2 = 1.0
     key_params = f"joint_unmix, with L2 regularization, alpha = {ALPHA_TRACER_1} for tracer 1, and alpha = {ALPHA_TRACER_2}. FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma for tracer a = {GAMMA_N_T0_TRACER_1}x{GAMMA_N_TAU_TRACER_1}, gamma for tracer b = {GAMMA_N_T0_TRACER_2}x{GAMMA_N_TAU_TRACER_2}"
-    
-    
+
+
 
     #optional overrides for default parameters
     FDG_OVERRIDES = {
@@ -115,14 +119,14 @@ def main():
     # Half-lives: 11C ≈ 20.4 min, 18F ≈ 109.8 min
     pbr = PBR28Tracer(
         name="PBR28",
-        half_life_min=20.4, 
+        half_life_min=20.4,
         scale = 1.0,
         pbr28_params = (PBR_OVERRIDES if PBR_OVERRIDES else None),
         )
     fdg = FDGTracer(
-        name="FDG", 
+        name="FDG",
         half_life_min=109.8,
-        scale = 1.0, 
+        scale = 1.0,
         feng_params = (FDG_OVERRIDES if FDG_OVERRIDES else None),
         )
     timegrid = TimeGrid(frame_edges=FRAME_EDGES, internal_dt_min=1/60.0)  # 1 sec internal
@@ -135,28 +139,28 @@ def main():
             "alpha_2": ALPHA_TRACER_2, #example of passing an additional parameter to the separation algorithm
             "num_iters": num_iters #example of passing an additional parameter to the separation algorithm
         }
-    
+
     #===============================
     # ------- Run logging setup --------#
     #===============================
 
     params = {
     "run_description" : RUN_DESCRIPTION,
-    "tracers" : ["FDG", "PBR28"], 
+    "tracers" : ["FDG", "PBR28"],
     "fdg":{
         "name" : "FDG",
         "half_life_min" : fdg.half_life_min,
         "scale" : fdg.scale,
         "feng_params" : fdg.feng_params,
-    },  
+    },
     "pbr":{
         "name" : "PBR28",
         "half_life_min" : pbr.half_life_min,
         "scale" : pbr.scale,
         "pbr28_params" : pbr.pbr28_params,
-    },   
+    },
     "delays" : DELAYS,
-    "frame_edges" : FRAME_EDGES, 
+    "frame_edges" : FRAME_EDGES,
     "gamma_basis": {
             "n_t0_1": GAMMA_N_T0_TRACER_1,
             "n_tau_1": GAMMA_N_TAU_TRACER_1,
@@ -178,7 +182,7 @@ def main():
     # =======================================================
     # ----- 1) Define dynamic frame schedule -----
     gamma_lib_1, Gamma_1, gamma_lib_2, Gamma_2 = build_gamma_library_for_two_tracers(
-        timegrid.frame_mids, 
+        timegrid.frame_mids,
         n_t0_1=GAMMA_N_T0_TRACER_1,
         n_tau_1=GAMMA_N_TAU_TRACER_2,
         n_t0_2=GAMMA_N_T0_TRACER_2,
@@ -191,15 +195,15 @@ def main():
     alg_instance = create(separation_alg, alpha_1 = ALPHA_TRACER_1, alpha_2 = ALPHA_TRACER_2) #example of passing
     rng = np.random.default_rng(42)
     results = sweep_delays(
-        rac=pbr, 
-        fdg=fdg, 
-        timegrid=timegrid, 
-        gamma_lib_1 = gamma_lib_1, 
-        Gamma_1 = Gamma_1, 
+        rac=pbr,
+        fdg=fdg,
+        timegrid=timegrid,
+        gamma_lib_1 = gamma_lib_1,
+        Gamma_1 = Gamma_1,
         gamma_lib_2 = gamma_lib_2,
         Gamma_2 = Gamma_2,
         rng = rng,
-        delays=DELAYS, 
+        delays=DELAYS,
         separation_alg=alg_instance,
         context = context
     )
@@ -231,7 +235,7 @@ def main():
     fig_paths.append(fig1_path)
 
     # ===== FIGURE 2: Grid of true vs estimated biological TACs across delays, split into multiple files =====
-   
+
     n_results = len(results)
     n_cols = 4
     n_rows_per_fig = 3    # adjust here
@@ -265,8 +269,8 @@ def main():
             sim = r["sim"]
 
             t = sim["t_frames"]
-            Ct1_true, Ct1_est = sim["Ct1_bio"], sim["Ct1_est_bio"]
-            Ct2_true, Ct2_est = sim["Ct2_bio"], sim["Ct2_est_bio"]
+            Ct1_true, Ct1_est = sim["Ct1_bio_tavg_n0_d0"], sim["Ct1_est_bio_tavg_n1_d0"]
+            Ct2_true, Ct2_est = sim["Ct2_bio_tavg_n0_d0"], sim["Ct2_est_bio_tavg_n1_d0"]
 
             ax.plot(t, Ct1_true, lw=2, label="PBR true")
             ax.plot(t, Ct1_est, "--", lw=1.2, label="PBR est")
@@ -306,7 +310,7 @@ def main():
         sim = r["sim"]
 
         t = sim["t_frames"]
-        Ct2_true = sim["Ct2_bio"]
+        Ct2_true = sim["Ct2_bio_tavg_n0_d0"]
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D
@@ -340,7 +344,7 @@ def main():
         sim = r["sim"]
 
         t = sim["t_frames"]
-        Ct2_est = sim["Ct2_est_bio"]
+        Ct2_est = sim["Ct2_est_bio_tavg_n1_d0"]
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D
@@ -400,7 +404,7 @@ def main():
 
     #--------- Figure 5: measured estimate grid (individual curves are not decay correct) ---------#
      # ===== FIGURE 2: Grid of true vs estimated biological TACs across delays, split into multiple files =====
-   
+
     n_results = len(results)
     n_cols = 4
     n_rows_per_fig = 3    # adjust here
@@ -434,15 +438,15 @@ def main():
             sim = r["sim"]
 
             t = sim["t_frames"]
-            ct1_true_meas, ct1_est_meas = sim["Ct1_phys"], sim["ct_1_est_meas"]
-            ct2_true_meas, ct2_est_meas = sim["Ct2_phys"], sim["ct_2_est_meas"]
+            ct1_true_meas, ct1_est_meas = sim["Ct1_phys_tavg_n0_d1"], sim["ct_1_est_meas_tavg_n1_d1"]
+            ct2_true_meas, ct2_est_meas = sim["Ct2_phys_tavg_n0_d1"], sim["ct_2_est_meas_tavg_n1_d1"]
 
             ax.plot(t, ct1_true_meas, lw=2, label="PBR true")
             ax.plot(t, ct1_est_meas, "--", lw=1.2, label="PBR est")
             ax.plot(t, ct2_true_meas, lw=2, label="FDG true")
             ax.plot(t, ct2_est_meas, "--", lw=1.2, label="FDG est")
             ax.plot(t, ct1_true_meas + ct2_true_meas , color="black", lw=1, alpha=0.7, label="FDG + PBR sum")
-            ax.scatter(t, sim["y_meas"], color="grey", s=10, alpha=0.5, label="Measured")
+            ax.scatter(t, sim["y_meas_tavg_n1_d1"], color="grey", s=10, alpha=0.5, label="Measured")
             ax.set_ylim(0, 5)
             ax.set_title(f"Δ = {D} min")
             ax.grid(True, alpha=0.2)
@@ -477,7 +481,7 @@ def main():
         sim = r["sim"]
 
         t = sim["t_frames"]
-        Ct2_true = sim["Ct2_bio"]
+        Ct2_true = sim["Ct2_bio_tavg_n0_d0"]
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D
@@ -510,7 +514,7 @@ def main():
         key_params_str=key_params,
         notes= RUN_NOTES.strip(),
     )
-    
+
 
 
 
@@ -519,5 +523,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    

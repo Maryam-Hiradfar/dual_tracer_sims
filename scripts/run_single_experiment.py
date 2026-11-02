@@ -40,9 +40,13 @@ def main() -> None:
         #     positive_only= True,
         # ),
     )
+    print("\n===== CONFIG =====")
+    print(cfg)
+    print("==================\n")
+    return
 
     summary = run_single_experiment(cfg)
-    print(summary)
+    # print(summary)
 
 
 if __name__ == "__main__":

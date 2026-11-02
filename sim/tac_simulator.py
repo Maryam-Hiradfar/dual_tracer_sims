@@ -70,7 +70,7 @@ class DualTacResult:
     y_clean_tavg_n0_d1: np.ndarray  #clean frame-level measured-domain sum: Ct1_phys_tavg_n0_d1 + Ct2_phys_tavg_n0_d1
     y_meas_tavg_n1_d1: np.ndarray  #noisy frame-level measured data
 
-   
+
 
     Ct1_est_bio_tavg_n1_d0: np.ndarray # estimated biological TAC for tracer 1 on frame grid (because we assume it's realistic measurements)
     Ct2_est_bio_tavg_n1_d0: np.ndarray # estimated biological TAC for tracer 2 on frame grid (because we assume it's realistic measurements)
@@ -86,7 +86,7 @@ class DualTacResult:
     nrmse_est_1_bio: float
     nrmse_est_2_bio: float
 
-    coef_1: np.ndarray | None = None 
+    coef_1: np.ndarray | None = None
     coef_2: np.ndarray | None = None
 
 
@@ -125,12 +125,12 @@ def make_tracer_bases(
 
     return phi1.T, phi2.T, idx1, idx2
 
-
+# what we actually use for the TCN
 def simulate_dual_tracer_measurement(
-        timegrid: Any, 
+        timegrid: Any,
         tracer1: Any,
-        tracer2: Any, 
-        protocol: Any, 
+        tracer2: Any,
+        protocol: Any,
         rng=None,
         ) -> DualTacSimulation:
     """
@@ -223,7 +223,7 @@ def estimate_biological_curves(
     Ct2_est_bio_tavg_n1_d0 = tracer2_meas / decay2_tavg
     return Ct1_est_bio_tavg_n1_d0, Ct2_est_bio_tavg_n1_d0
 
-
+# the analytical method to solve - not used for TCN pipeline
 def simulate_dual_tac_any_alg(
     timegrid,
     rac,
@@ -283,7 +283,7 @@ def simulate_dual_tac_any_alg(
     psi1_int = np.array([
         gamma_shape(sim.t_int, t0, tau, scale = scale_1)
         for t0, tau in active_params_1])
-    
+
     psi2_int = np.array([
         gamma_shape(sim.t_int, t0, tau, scale=scale_2)
         for t0, tau in active_params_2
@@ -335,84 +335,84 @@ def simulate_dual_tac_any_alg(
     )
 
 
-def simulate_dual_tac_legacy(
-    timegrid,
-    rac,
-    fdg,
-    protocol,
-    gamma_lib_1: np.ndarray,
-    Gamma_1: np.ndarray,
-    gamma_lib_2: np.ndarray,
-    Gamma_2: np.ndarray,
-    rng,
-    use_joint: bool = False,
-) -> dict[str, Any]:
-    """
-    Thin compatibility wrapper for the older non-registry path.
-    """
-    sim = simulate_dual_tracer_measurement(
-        timegrid=timegrid,
-        rac=rac,
-        fdg=fdg,
-        protocol=protocol,
-        rng=rng,
-    )
+# def simulate_dual_tac_legacy(
+#     timegrid,
+#     rac,
+#     fdg,
+#     protocol,
+#     gamma_lib_1: np.ndarray,
+#     Gamma_1: np.ndarray,
+#     gamma_lib_2: np.ndarray,
+#     Gamma_2: np.ndarray,
+#     rng,
+#     use_joint: bool = False,
+# ) -> dict[str, Any]:
+#     """
+#     Thin compatibility wrapper for the older non-registry path.
+#     """
+#     sim = simulate_dual_tracer_measurement(
+#         timegrid=timegrid,
+#         rac=rac,
+#         fdg=fdg,
+#         protocol=protocol,
+#         rng=rng,
+#     )
 
-    Phi_rac, Phi_fdg = make_tracer_bases(
-        sim.Ct1_bio_tavg_n0_d0,
-        sim.Ct2_bio_tavg_n0_d0,
-        gamma_lib_1,
-        Gamma_1,
-        gamma_lib_2,
-        Gamma_2,
-        sim.decay1_tavg,
-        sim.decay2_tavg,
-    )
+#     Phi_rac, Phi_fdg = make_tracer_bases(
+#         sim.Ct1_bio_tavg_n0_d0,
+#         sim.Ct2_bio_tavg_n0_d0,
+#         gamma_lib_1,
+#         Gamma_1,
+#         gamma_lib_2,
+#         Gamma_2,
+#         sim.decay1_tavg,
+#         sim.decay2_tavg,
+#     )
 
-    if use_joint:
-        from separation.sequential_nnls import joint_unmix
+#     if use_joint:
+#         from separation.sequential_nnls import joint_unmix
 
-        rac_est_phys, fdg_est_phys, _ = joint_unmix(
-            sim.y_clean_tavg_n0_d1,
-            Phi_rac,
-            Phi_fdg,
-            sim.t_frames,
-            t_cut=protocol.early_cut(),
-        )
-    else:
-        from separation.sequential_nnls import sequential_unmix_l2
+#         rac_est_phys, fdg_est_phys, _ = joint_unmix(
+#             sim.y_clean_tavg_n0_d1,
+#             Phi_rac,
+#             Phi_fdg,
+#             sim.t_frames,
+#             t_cut=protocol.early_cut(),
+#         )
+#     else:
+#         from separation.sequential_nnls import sequential_unmix_l2
 
-        rac_est_phys, fdg_est_phys = sequential_unmix_l2(
-            sim.y_meas_tavg_n1_d1,
-            Phi_rac,
-            Phi_fdg,
-            sim.t_frames,
-            protocol.early_cut(),
-            alpha=0.3,
-        )
+#         rac_est_phys, fdg_est_phys = sequential_unmix_l2(
+#             sim.y_meas_tavg_n1_d1,
+#             Phi_rac,
+#             Phi_fdg,
+#             sim.t_frames,
+#             protocol.early_cut(),
+#             alpha=0.3,
+#         )
 
-    Ct1_est_bio_tavg_n1_d0, Ct2_est_bio_tavg_n1_d0 = estimate_biological_curves(
-        tracer1_meas=rac_est_phys,
-        tracer2_meas=fdg_est_phys,
-        decay1_tavg=sim.decay1_tavg,
-        decay2_tavg=sim.decay2_tavg,
-    )
+#     Ct1_est_bio_tavg_n1_d0, Ct2_est_bio_tavg_n1_d0 = estimate_biological_curves(
+#         tracer1_meas=rac_est_phys,
+#         tracer2_meas=fdg_est_phys,
+#         decay1_tavg=sim.decay1_tavg,
+#         decay2_tavg=sim.decay2_tavg,
+#     )
 
-    return {
-        "timegrid" : timegrid,
-        "t_frames": sim.t_frames,
-        "Delta": sim.Delta,
-        "Cp1": sim.Cp1,
-        "Cp2": sim.Cp2,
-        "Ct1_bio_tavg_n0_d0": sim.Ct1_bio_tavg_n0_d0,
-        "Ct2_bio_tavg_n0_d0": sim.Ct2_bio_tavg_n0_d0,
-        "Ct1_phys_tavg_n0_d1": sim.Ct1_phys_tavg_n0_d1,
-        "Ct2_phys_tavg_n0_d1": sim.Ct2_phys_tavg_n0_d1,
-        "y_clean_tavg_n0_d1": sim.y_clean_tavg_n0_d1,
-        "y_meas_tavg_n1_d1": sim.y_meas_tavg_n1_d1,
-        "Ct1_est_bio_tavg_n1_d0": Ct1_est_bio_tavg_n1_d0,
-        "Ct2_est_bio_tavg_n1_d0": Ct2_est_bio_tavg_n1_d0,
-    }
+#     return {
+#         "timegrid" : timegrid,
+#         "t_frames": sim.t_frames,
+#         "Delta": sim.Delta,
+#         "Cp1": sim.Cp1,
+#         "Cp2": sim.Cp2,
+#         "Ct1_bio_tavg_n0_d0": sim.Ct1_bio_tavg_n0_d0,
+#         "Ct2_bio_tavg_n0_d0": sim.Ct2_bio_tavg_n0_d0,
+#         "Ct1_phys_tavg_n0_d1": sim.Ct1_phys_tavg_n0_d1,
+#         "Ct2_phys_tavg_n0_d1": sim.Ct2_phys_tavg_n0_d1,
+#         "y_clean_tavg_n0_d1": sim.y_clean_tavg_n0_d1,
+#         "y_meas_tavg_n1_d1": sim.y_meas_tavg_n1_d1,
+#         "Ct1_est_bio_tavg_n1_d0": Ct1_est_bio_tavg_n1_d0,
+#         "Ct2_est_bio_tavg_n1_d0": Ct2_est_bio_tavg_n1_d0,
+#     }
 # sim/tac_simulator.py
 # import numpy as np
 # from kinetics.helpers.twotcm import simulate_2tcm
@@ -429,7 +429,7 @@ def simulate_dual_tac_legacy(
 #     #in real data we would not know this and would have to use the full basis
 #     idx2 = np.where(w2 > eps)[0]
 
-#     psi1 = gamma_lib_1[idx1] 
+#     psi1 = gamma_lib_1[idx1]
 #     psi2 = gamma_lib_2[idx2]
 
 #     phi1 = psi1 * decay1[np.newaxis, :] #gnerate the basis functions scaled by the decay
@@ -538,7 +538,7 @@ def simulate_dual_tac_legacy(
 #     # cond_rac = np.linalg.cond(Phi_rac)
 #     # cond_fdg = np.linalg.cond(Phi_fdg)
 #     # print(f"Condition number of PBR basis: {cond_rac:.2e}")
-#     # print(f"Condition number of FDG basis: {cond_fdg:.2e}") 
+#     # print(f"Condition number of FDG basis: {cond_fdg:.2e}")
 
 #     if use_joint:
 #         from separation.sequential_nnls import joint_unmix

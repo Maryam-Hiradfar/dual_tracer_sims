@@ -33,10 +33,10 @@ def sweep_delays(delays, timegrid, rac, fdg, gamma_lib_1, Gamma_1, gamma_params_
 
         out.append(dict(
             Delta=D,
-            nrmse_est_1_bio=nrmse(sim.Ct1_bio, sim.Ct1_est_bio),
-            nrmse_est_2_bio=nrmse(sim.Ct2_bio, sim.Ct2_est_bio),
-            nrmse_est_1_meas=nrmse(sim.Ct1_phys, sim.ct_1_est_meas),
-            nrmse_est_2_meas=nrmse(sim.Ct2_phys, sim.ct_2_est_meas),
+            nrmse_est_1_bio=nrmse(sim.Ct1_bio_tavg_n0_d0, sim.Ct1_est_bio_tavg_n1_d0),
+            nrmse_est_2_bio=nrmse(sim.Ct2_bio_tavg_n0_d0, sim.Ct2_est_bio_tavg_n1_d0),
+            nrmse_est_1_meas=nrmse(sim.Ct1_phys_tavg_n0_d1, sim.ct_1_est_meas_tavg_n1_d1),
+            nrmse_est_2_meas=nrmse(sim.Ct2_phys_tavg_n0_d1, sim.ct_2_est_meas_tavg_n1_d1),
             sim=sim,
         ))
 

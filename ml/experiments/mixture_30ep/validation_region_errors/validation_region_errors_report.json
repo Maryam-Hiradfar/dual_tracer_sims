@@ -1,0 +1,97 @@
+{
+  "checkpoint": "ml/experiments/mixture_30ep/best_tcn_prototype.pt",
+  "checkpoint_epoch": 29,
+  "split": "validation",
+  "samples": 100,
+  "units": "kBq/mL",
+  "weighting": "equal per frame",
+  "tail_start_min": 58.444444444444436,
+  "peak_half_window_frames": 1,
+  "caption": "Whole curve: all frames. Tail: frame midpoints in the final third of scan time (58.4\u201387.7 min).\nPeak region: true peak frame \u00b1 1 frame(s), clipped at scan boundaries, for each scan/tracer/domain.\nFrames have equal weight; regions may overlap. Biological errors include decay correction and its frame-averaging approximation.",
+  "metrics": {
+    "Physical": {
+      "FDG": {
+        "Whole curve": {
+          "pooled_rmse": 0.08832998725656954,
+          "median_sample_rmse": 0.07795354780499497,
+          "mean_sample_rmse": 0.08529778054490789,
+          "selected_sample_frame_pairs": 6200
+        },
+        "Tail": {
+          "pooled_rmse": 0.033997001284735304,
+          "median_sample_rmse": 0.032958554812712385,
+          "mean_sample_rmse": 0.03323822815491912,
+          "selected_sample_frame_pairs": 1500
+        },
+        "Peak region": {
+          "pooled_rmse": 0.031811594563167594,
+          "median_sample_rmse": 0.028226614039898037,
+          "mean_sample_rmse": 0.029126787858962166,
+          "selected_sample_frame_pairs": 300
+        }
+      },
+      "PBR28": {
+        "Whole curve": {
+          "pooled_rmse": 0.06371994352291305,
+          "median_sample_rmse": 0.05167970632885685,
+          "mean_sample_rmse": 0.057845145804420135,
+          "selected_sample_frame_pairs": 6200
+        },
+        "Tail": {
+          "pooled_rmse": 0.0163320531893615,
+          "median_sample_rmse": 0.01538207342669027,
+          "mean_sample_rmse": 0.016013092284244163,
+          "selected_sample_frame_pairs": 1500
+        },
+        "Peak region": {
+          "pooled_rmse": 0.10422938308509777,
+          "median_sample_rmse": 0.08899429314500093,
+          "mean_sample_rmse": 0.0909517202829387,
+          "selected_sample_frame_pairs": 300
+        }
+      }
+    },
+    "Biological": {
+      "FDG": {
+        "Whole curve": {
+          "pooled_rmse": 0.09245705804507455,
+          "median_sample_rmse": 0.08171463535340193,
+          "mean_sample_rmse": 0.089622254253762,
+          "selected_sample_frame_pairs": 6200
+        },
+        "Tail": {
+          "pooled_rmse": 0.05279848025299104,
+          "median_sample_rmse": 0.050694020152380906,
+          "mean_sample_rmse": 0.051565899992020145,
+          "selected_sample_frame_pairs": 1500
+        },
+        "Peak region": {
+          "pooled_rmse": 0.06619082250823644,
+          "median_sample_rmse": 0.05340868894435381,
+          "mean_sample_rmse": 0.058709023001388944,
+          "selected_sample_frame_pairs": 200
+        }
+      },
+      "PBR28": {
+        "Whole curve": {
+          "pooled_rmse": 0.1433884973308766,
+          "median_sample_rmse": 0.14001325338943182,
+          "mean_sample_rmse": 0.14028312887509453,
+          "selected_sample_frame_pairs": 6200
+        },
+        "Tail": {
+          "pooled_rmse": 0.2358699524965129,
+          "median_sample_rmse": 0.22189315124894995,
+          "mean_sample_rmse": 0.22904199950742052,
+          "selected_sample_frame_pairs": 1500
+        },
+        "Peak region": {
+          "pooled_rmse": 0.1102383949374764,
+          "median_sample_rmse": 0.0941859348705343,
+          "mean_sample_rmse": 0.09541290798111937,
+          "selected_sample_frame_pairs": 300
+        }
+      }
+    }
+  }
+}
