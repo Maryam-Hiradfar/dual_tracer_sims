@@ -213,20 +213,3 @@ the current forward-simulation code and older separation-related functions, so
 it imports some separation and gamma-basis modules even though the official
 dataset path does not call those functions. This should be reviewed before any
 code is moved.
-
-## Phase 1 review decisions
-
-Before cleanup, confirm these points:
-
-1. The three commands above are the official prototype pipeline.
-2. The 1,000-sample dataset and `mixture_30ep` checkpoint are the baseline to
-   preserve.
-3. Training predicts physical TACs; biological TACs are produced only through
-   downstream decay correction.
-4. The unfinished `ml/` files and analytical separation code are out of scope
-   for the prototype, but should not yet be deleted.
-5. Generated data and experiment outputs should either be ignored by Git or
-   deliberately versioned; this policy has not yet been chosen.
-
-No file should be renamed, moved, or deleted until these five points are
-approved.
