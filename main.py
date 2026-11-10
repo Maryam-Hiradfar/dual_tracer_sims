@@ -8,20 +8,18 @@ from tracers.rac import RacloprideTracer
 from tracers.fdg import FDGTracer
 from tracers.pbr28 import PBR28Tracer
 
-from kinetics.basis_gamma import build_gamma_library
+from kinetics.helpers.basis_gamma import build_gamma_library
 from sim.sweep import sweep_delays
 from datetime import datetime
 import os
-from utils.path import FIGURES_DIR
 from utils.run_logger import start_run, finalize_run, get_figure_path
 
-# FIG_DIR = " /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/figures/PBR_scale_1_fdg_scale_1"
+FIG_DIR = " /Users/maryamhiradfar/Documents/GitHub/dual_tracer_sims/figures/PBR_scale_1_fdg_scale_1"
 
-# # Create directory if it doesn't exist
-# os.makedirs(FIG_DIR, exist_ok=True)
+# Create directory if it doesn't exist
+os.makedirs(FIG_DIR, exist_ok=True)
 
-FIG_DIR = FIGURES_DIR / "PBR_scale_1_fdg_scale_1"
-FIG_DIR.mkdir(parents=True, exist_ok=True)
+
 
 
 def main():
@@ -31,7 +29,7 @@ def main():
 
     RUN_DESCRIPTION = "FDG/PBR delay sweep"
     RUN_NOTES = """
-    Gamma basis library: uniform
+    Gamma basis library: uniform 
     - FDG scale = 1.0
     - PBR scale = 1.0
     - Delays: 0–50 min (1-min steps)
@@ -52,7 +50,7 @@ def main():
     GAMMA_N_T0 = 30
     GAMMA_N_TAU = 30
     key_params = "FDG/PBR, delay sweep, Feng AIF, frame_edges=0–120, realistic_nonuniform, PBR scale=1.0, FDG scale=1.0, gamma=(n_t0=30, n_tau=30)"
-
+    
 
     #optional overrides for default parameters
     FDG_OVERRIDES = {
@@ -97,17 +95,17 @@ def main():
     # Half-lives: 11C ≈ 20.4 min, 18F ≈ 109.8 min
     pbr = PBR28Tracer(
         name="PBR28",
-        half_life_min=20.4,
+        half_life_min=20.4, 
         scale = 1.0,
         pbr28_params = (PBR_OVERRIDES if PBR_OVERRIDES else None),
         )
     fdg = FDGTracer(
-        name="FDG",
+        name="FDG", 
         half_life_min=109.8,
-        scale = 1.0,
+        scale = 1.0, 
         feng_params = (FDG_OVERRIDES if FDG_OVERRIDES else None),
         )
-
+    
     #===============================
     # ------- Run logging setup --------#
     #===============================
@@ -115,21 +113,21 @@ def main():
 
     params = {
     "run_description" : RUN_DESCRIPTION,
-    "tracers" : ["FDG", "PBR28"],
+    "tracers" : ["FDG", "PBR28"], 
     "fdg":{
         "name" : "FDG",
         "half_life_min" : fdg.half_life_min,
         "scale" : fdg.scale,
         "feng_params" : fdg.feng_params,
-    },
+    },  
     "pbr":{
         "name" : "PBR28",
         "half_life_min" : pbr.half_life_min,
         "scale" : pbr.scale,
         "pbr28_params" : pbr.pbr28_params,
-    },
+    },   
     "delays" : DELAYS,
-    "frame_edges" : FRAME_EDGES,
+    "frame_edges" : FRAME_EDGES, 
     "gamma_basis": {
             "n_t0": GAMMA_N_T0,
             "n_tau": GAMMA_N_TAU,
@@ -142,7 +140,7 @@ def main():
     # ----- 1) Define dynamic frame schedule -----
     timegrid = TimeGrid(frame_edges=FRAME_EDGES, internal_dt_min=1/60.0)  # 1 sec internal
     gamma_lib, Gamma = build_gamma_library(
-        timegrid.frame_mids,
+        timegrid.frame_mids, 
         n_t0=GAMMA_N_T0,
         n_tau=GAMMA_N_TAU,
         )
@@ -188,7 +186,7 @@ def main():
     fig_paths.append(fig1_path)
 
     # ===== FIGURE 2: Grid of true vs estimated biological TACs across delays, split into multiple files =====
-
+   
     n_results = len(results)
     n_cols = 4
     n_rows_per_fig = 3    # adjust here
@@ -222,8 +220,8 @@ def main():
             sim = r["sim"]
 
             t = sim["t_frames"]
-            Ct1_true, Ct1_est = sim["Ct1_bio_tavg_n0_d0"], sim["Ct1_est_bio_tavg_n1_d0"]
-            Ct2_true, Ct2_est = sim["Ct2_bio_tavg_n0_d0"], sim["Ct2_est_bio_tavg_n1_d0"]
+            Ct1_true, Ct1_est = sim["Ct1_bio"], sim["Ct1_est_bio"]
+            Ct2_true, Ct2_est = sim["Ct2_bio"], sim["Ct2_est_bio"]
 
             ax.plot(t, Ct1_true, lw=2, label="PBR true")
             ax.plot(t, Ct1_est, "--", lw=1.2, label="PBR est")
@@ -263,7 +261,7 @@ def main():
         sim = r["sim"]
 
         t = sim["t_frames"]
-        Ct2_true = sim["Ct2_bio_tavg_n0_d0"]
+        Ct2_true = sim["Ct2_bio"]
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D
@@ -297,7 +295,7 @@ def main():
         sim = r["sim"]
 
         t = sim["t_frames"]
-        Ct2_est = sim["Ct2_est_bio_tavg_n1_d0"]
+        Ct2_est = sim["Ct2_est_bio"]
 
         tau = np.maximum(t - D, 0.0)
         mask = t >= D
@@ -347,7 +345,7 @@ def main():
         key_params_str=key_params,
         notes= RUN_NOTES.strip(),
     )
-
+    
 
 
 

@@ -1,3 +1,5 @@
+#Currently not used in the code, though likely will in future refactorizations of the code (06/12/2026) - Maryam Hiradfar
+
 import numpy as np
 from tracers.fdg import FDGTracer
 from tracers.pbr28 import PBR28Tracer
