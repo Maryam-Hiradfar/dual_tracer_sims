@@ -78,7 +78,7 @@ def frame_average(times_min: np.ndarray, values: np.ndarray, edges_min: np.ndarr
     for a, b in zip(edges_min[:-1], edges_min[1:]):
         inside = times_min[(times_min > a) & (times_min < b)]
         points = np.concatenate(([a], inside, [b]))
-        out.append(np.trapz(np.interp(points, times_min, values), points) / (b - a))
+        out.append(np.trapezoid(np.interp(points, times_min, values), points) / (b - a))
     return np.asarray(out)
 
 
