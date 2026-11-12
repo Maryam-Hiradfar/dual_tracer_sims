@@ -78,7 +78,7 @@ def frame_average(times_min: np.ndarray, values: np.ndarray, edges_min: np.ndarr
     for a, b in zip(edges_min[:-1], edges_min[1:]):
         inside = times_min[(times_min > a) & (times_min < b)]
         points = np.concatenate(([a], inside, [b]))
-        out.append(np.trapezoid(np.interp(points, times_min, values), points) / (b - a))
+        out.append(np.trapz(np.interp(points, times_min, values), points) / (b - a))
     return np.asarray(out)
 
 
@@ -134,7 +134,7 @@ def simulate_mixture(
         if len(uniform) > 2 and not np.allclose(np.diff(uniform), np.diff(uniform)[0]):
             uniform = np.arange(0, edges[-1] + dt, dt)
         uniform_pbr = pbr.decay_corrected_bqml(np.minimum(uniform, pbr.coverage_min), pbr_dose_mci)
-        uniform_fdg = fdg.decay_corrected_bqml(uniform - fdg_injection_min, fdg_dose_mci)
+        uniform_fdg = fdg.decay_corrected_bqml(np.minimum(uniform - fdg_injection_min, fdg.coverage_min), fdg_dose_mci)
         tissue_pbr, _, _ = simulate_2tcm(**APPROX_TISSUE_PARAMS["PBR28"], Cp=uniform_pbr, t=uniform)
         tissue_fdg, _, _ = simulate_2tcm(**APPROX_TISSUE_PARAMS["FDG"], Cp=uniform_fdg, t=uniform)
         dc_pbr = np.interp(dense, uniform, tissue_pbr)
