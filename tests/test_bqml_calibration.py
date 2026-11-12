@@ -70,3 +70,26 @@ def test_compatible_dataset(tmp_path):
         assert d["Y_phys_tavg_n0_d1"].shape == (8, 2, 24)
         np.testing.assert_allclose(d["X_clean_tavg_n0_d1"][:, 0],
                                    d["Y_phys_tavg_n0_d1"].sum(axis=1), atol=1e-3)
+
+def test_configurable_fdg_kinetics_and_blood_fraction(tmp_path):
+    a, b = tmp_path / "fdg.csv", tmp_path / "pbr.csv"
+    make_csv(a)
+    make_csv(b)
+    fdg, pbr = MeasuredIDIF.from_csv(a, "FDG"), MeasuredIDIF.from_csv(b, "PBR28")
+    edges = np.array([0.0, 0.5, 1.0, 1.5])
+    fitted = dict(K1=0.146969833218802, k2=0.119575138861569,
+                  k3=0.042108367298586, k4=0.0)
+    result = simulate_mixture(
+        fdg, pbr, edges, fdg_injection_min=0.5,
+        signal_source="tissue-approx", fdg_kinetics=fitted,
+        fdg_vb=0.0808523133568341, fdg_delay_sec=5.78091827383968,
+    )
+    fdg_phys, pbr_phys = result["Y_phys_tavg_n0_d1"]
+    assert fdg_phys[0] == 0
+    assert np.all(np.isfinite(fdg_phys))
+    np.testing.assert_allclose(
+        result["X_clean_tavg_n0_d1"][0], fdg_phys + pbr_phys,
+    )
+    baseline = simulate_mixture(fdg, pbr, edges,
+                                fdg_injection_min=0.5, signal_source="tissue-approx")
+    assert not np.allclose(baseline["Y_phys_tavg_n0_d1"][0], fdg_phys)
