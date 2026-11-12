@@ -98,7 +98,7 @@ def _plot_predictions(
         ax.text(
             0.98,
             0.04,
-            f"FDG RMSE: {fdg_rmse:.3f} kBq/mL\n"
+            f"FDG RMSE: {fdg_rmse:.3f} {activity_unit}\n"
             f"PBR28 RMSE: {pbr28_rmse:.3f} {activity_unit}",
             transform=ax.transAxes,
             ha="right",
