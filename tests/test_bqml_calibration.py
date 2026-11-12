@@ -22,7 +22,13 @@ def test_dose_scaling_and_no_extrapolation(tmp_path):
     t = np.array([0.0, 0.5, 1.0])
     np.testing.assert_allclose(fdg.decay_corrected_bqml(t, 9.82),
                                2 * fdg.decay_corrected_bqml(t, 4.91))
-    # The scan/injection origin and all pre-injection points must be zero.\n    assert fdg.decay_corrected_bqml(np.array([0.0]), 4.91)[0] == 0\n    np.testing.assert_array_equal(\n        fdg.decay_corrected_bqml(np.array([-0.1, -0.001]), 4.91),\n        np.zeros(2),\n    )\n    with pytest.raises(ValueError, match="no extrapolation"):
+    # The scan/injection origin and all pre-injection points must be zero.
+    assert fdg.decay_corrected_bqml(np.array([0.0]), 4.91)[0] == 0
+    np.testing.assert_array_equal(
+        fdg.decay_corrected_bqml(np.array([-0.1, -0.001]), 4.91),
+        np.zeros(2),
+    )
+    with pytest.raises(ValueError, match="no extrapolation"):
         fdg.decay_corrected_bqml(np.array([2.01]), 4.91)
 
 
