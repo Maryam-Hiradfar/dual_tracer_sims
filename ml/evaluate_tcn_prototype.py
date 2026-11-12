@@ -64,6 +64,7 @@ def _plot_predictions(
     metadata: list[dict],
     selected_indices: list[int],
     output_path: Path,
+    activity_unit: str,
 ) -> None:
     fig, axes = plt.subplots(1, len(selected_indices), figsize=(18, 5), sharex=True)
     for ax, index in zip(np.atleast_1d(axes), selected_indices):
@@ -98,14 +99,14 @@ def _plot_predictions(
             0.98,
             0.04,
             f"FDG RMSE: {fdg_rmse:.3f} kBq/mL\n"
-            f"PBR28 RMSE: {pbr28_rmse:.3f} kBq/mL",
+            f"PBR28 RMSE: {pbr28_rmse:.3f} {activity_unit}",
             transform=ax.transAxes,
             ha="right",
             va="bottom",
             fontsize=9,
             bbox={"facecolor": "white", "edgecolor": "0.75", "alpha": 0.9},
         )
-    axes[0].set_ylabel("Activity concentration (kBq/mL)")
+    axes[0].set_ylabel(f"Activity concentration ({activity_unit})")
     handles, labels = axes[0].get_legend_handles_labels()
     fig.suptitle("TCN test predictions versus true physical tracer TACs", y=0.98)
     fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 0.92), ncol=6)
@@ -164,6 +165,9 @@ def evaluate(
 
     metadata = json.loads((data_dir / "test_metadata.json").read_text())
     global_metadata = json.loads((data_dir / "dataset_metadata.json").read_text())
+    activity_unit = global_metadata.get("units", {}).get("TAC", "kBq/mL")
+    if activity_unit not in ("Bq/mL", "kBq/mL"):
+        raise ValueError(f"unsupported activity unit: {activity_unit}")
     selected_indices = _select_representative_indices(metadata)
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -185,6 +189,7 @@ def evaluate(
         metadata=metadata,
         selected_indices=selected_indices,
         output_path=plot_path,
+        activity_unit=activity_unit,
     )
 
     report = {
@@ -203,9 +208,9 @@ def evaluate(
         },
         "physical_metrics": {
             "units": {
-                "mse": "(kBq/mL)^2",
-                "rmse": "kBq/mL",
-                "mae": "kBq/mL",
+                "mse": f"({activity_unit})^2",
+                "rmse": activity_unit,
+                "mae": activity_unit,
             },
             "overall_mse": physical_overall_mse,
             "mixture_mse": physical_mixture_mse,
@@ -270,7 +275,7 @@ def main() -> None:
     print(f"normalized_fdg_mse={normalized['by_tracer']['FDG']['mse']:.8g}")
     print(f"normalized_pbr28_mse={normalized['by_tracer']['PBR28']['mse']:.8g}")
     print(f"normalized_mixture_mse={normalized['mixture_mse']:.8g}")
-    print(f"physical_overall_mse={physical['overall_mse']:.8g} (kBq/mL)^2")
+    print(f"physical_overall_mse={physical['overall_mse']:.8g} {physical['units']['mse']}")
     print(f"report={args.output_dir / 'test_report.json'}")
     print(f"plot={report['plot_file']}")
 
