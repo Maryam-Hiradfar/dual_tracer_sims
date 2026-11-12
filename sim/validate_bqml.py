@@ -27,6 +27,9 @@ def plot_validation(
     signal_source: str = "tissue-approx",
     effective_sensitivity_cps_per_bq: float = 0.001,
     seed: int = 48,
+    fdg_kinetics: dict[str, float] | None = None,
+    fdg_vb: float = 0.0,
+    fdg_delay_sec: float = 0.0,
 ) -> None:
     """Produce quantitative checks and visualizations, not a realism verdict."""
     fdg = MeasuredIDIF.from_csv(fdg_csv, "FDG")
@@ -69,7 +72,9 @@ def plot_validation(
                                        squeeze=False, constrained_layout=True)
     for j, offset in enumerate(offsets_min):
         sample = simulate_mixture(fdg, pbr, edges, fdg_injection_min=offset,
-                                  signal_source=signal_source)
+                                  signal_source=signal_source,
+                                  fdg_kinetics=fdg_kinetics,
+                                  fdg_vb=fdg_vb, fdg_delay_sec=fdg_delay_sec)
         fdg_phys, pbr_phys = sample["Y_phys_tavg_n0_d1"]
         clean = sample["X_clean_tavg_n0_d1"][0]
         np.testing.assert_allclose(clean, fdg_phys + pbr_phys, atol=1e-8)
@@ -134,12 +139,20 @@ def main() -> None:
     parser.add_argument("--signal-source", choices=("blood", "tissue-approx"),
                         default="tissue-approx")
     parser.add_argument("--effective-sensitivity-cps-per-bq", type=float, default=0.001)
+    parser.add_argument("--fdg-kinetics", type=float, nargs=4,
+                        metavar=("K1", "k2", "k3", "k4"),
+                        help="FDG tissue K1,k2,k3,k4 (per minute)")
+    parser.add_argument("--fdg-vb", type=float, default=0.0)
+    parser.add_argument("--fdg-delay-sec", type=float, default=0.0)
     args = parser.parse_args()
     plot_validation(args.fdg_csv, args.pbr_csv, args.output_dir,
                     duration_min=args.duration_min,
                     offsets_min=tuple(args.fdg_offsets_min),
                     signal_source=args.signal_source,
-                    effective_sensitivity_cps_per_bq=args.effective_sensitivity_cps_per_bq)
+                    effective_sensitivity_cps_per_bq=args.effective_sensitivity_cps_per_bq,
+                    fdg_kinetics=(dict(zip(("K1", "k2", "k3", "k4"), args.fdg_kinetics))
+                                  if args.fdg_kinetics is not None else None),
+                    fdg_vb=args.fdg_vb, fdg_delay_sec=args.fdg_delay_sec)
 
 
 if __name__ == "__main__":
