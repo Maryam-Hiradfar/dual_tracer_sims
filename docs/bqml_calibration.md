@@ -91,3 +91,32 @@ normalization uses training data and is otherwise unit-agnostic.
   all synthetic samples here derive from the same two measured IDIFs.
 - Keep participant-derived reference CSVs private; output NPZs also derive
   from participant data and should not be committed to a public repository.
+
+## Testing an externally fitted FDG brain TAC
+
+Keep fitted, participant-derived parameters local rather than hard-coding them into
+this public repository. To inspect a fitted FDG model without changing PBR28:
+
+```bash
+python -m sim.validate_bqml \
+  --fdg-csv "/private/FDG Aorta(1).csv" \
+  --pbr-csv "/private/Aorta PBR(1).csv" \
+  --output-dir results/bqml_qc_fitted \
+  --duration-min 60 \
+  --fdg-offsets-min 0 5 10 \
+  --signal-source tissue-approx \
+  --fdg-kinetics 0.146969833218802 0.119575138861569 0.042108367298586 0 \
+  --fdg-vb 0.0808523133568341 \
+  --fdg-delay-sec 5.78091827383968
+```
+
+All kinetic rate constants are interpreted in minutes-based units; the fitting
+code's `td` is interpreted as seconds here, with positive delay shifting the
+FDG input later. **Confirm the original fitter's delay sign convention**, and
+whether its `vb` mixes tissue and blood with `(1-vb)C_t + vb C_b` before
+claiming model equivalence. The FDG aortic curve is used as a surrogate for
+parent-plasma input, so tissue fits may differ from Kevin's PIM. These
+parameters are a single fitted brain-region candidate, not a representative
+distribution of biological parameters. The new flags also work with
+`sim.generate_bqml_dataset`; the defaults preserve the original illustrative
+kinetic model and zero vascular fraction/delay.
