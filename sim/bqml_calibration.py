@@ -64,7 +64,12 @@ class MeasuredIDIF:
         t = np.asarray(relative_time_min, dtype=float)
         if not np.isfinite(t).all() or not np.isfinite(dose_mci) or dose_mci <= 0:
             raise ValueError("time and administered dose must be finite; dose must be positive")
-        # At scan/injection onset the instantaneous concentration is zero.\n        # The first measured frame average does NOT imply a nonzero value at t=0.\n        # This also prevents interpolation across a delayed injection from\n        # depositing activity in the preceding frame.\n        valid = t > 0\n        if np.any(t[valid] > self.coverage_min + 1e-9):
+        # At scan/injection onset the instantaneous concentration is zero.
+        # The first measured frame average does NOT imply a nonzero value at t=0.
+        # This also prevents interpolation across a delayed injection from
+        # depositing activity in the preceding frame.
+        valid = t > 0
+        if np.any(t[valid] > self.coverage_min + 1e-9):
             raise ValueError(f"{self.tracer} IDIF ends at {self.coverage_min:g} minutes; no extrapolation")
         # Edge-hold inside the measured interval, zero before this tracer's scan/injection.
         values = np.interp(np.clip(t, 0, self.coverage_min), self.mid_min, self.bqml)
