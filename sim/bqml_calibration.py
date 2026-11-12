@@ -96,6 +96,9 @@ def simulate_mixture(
     pbr_dose_mci: float = 4.98,
     time_step_sec: float = 1.0,
     signal_source: str = "tissue-approx",
+    fdg_kinetics: dict[str, float] | None = None,
+    fdg_vb: float = 0.0,
+    fdg_delay_sec: float = 0.0,
 ) -> dict[str, np.ndarray]:
     """Make separate DC targets, undo decay correction, then sum physical activities.
 
@@ -117,6 +120,12 @@ def simulate_mixture(
         raise ValueError("time_step_sec must be positive")
     if signal_source not in ("blood", "tissue-approx"):
         raise ValueError("signal_source must be 'blood' or 'tissue-approx'")
+    kin_fdg = dict(APPROX_TISSUE_PARAMS["FDG"] if fdg_kinetics is None else fdg_kinetics)
+    if (set(kin_fdg) != {"K1", "k2", "k3", "k4"}
+            or any(not np.isfinite(v) or v < 0 for v in kin_fdg.values())
+            or not np.isfinite(fdg_vb) or not 0 <= fdg_vb < 1
+            or not np.isfinite(fdg_delay_sec) or fdg_delay_sec < 0):
+        raise ValueError("invalid FDG kinetic parameters, blood fraction, or delay")
 
     # Include every frame edge exactly; helps with short early frames.
     dense = np.unique(np.concatenate((
@@ -138,11 +147,17 @@ def simulate_mixture(
         if len(uniform) > 2 and not np.allclose(np.diff(uniform), np.diff(uniform)[0]):
             uniform = np.arange(0, edges[-1] + dt, dt)
         uniform_pbr = pbr.decay_corrected_bqml(np.minimum(uniform, pbr.coverage_min), pbr_dose_mci)
-        uniform_fdg = fdg.decay_corrected_bqml(np.minimum(uniform - fdg_injection_min, fdg.coverage_min), fdg_dose_mci)
+        # A positive td delays the tissue input relative to the scan/injection clock.
+        # Match the fitter's td sign convention before treating this as a validated fit.
+        relative_fdg = uniform - fdg_injection_min - fdg_delay_sec / 60
+        uniform_fdg = fdg.decay_corrected_bqml(
+            np.minimum(relative_fdg, fdg.coverage_min), fdg_dose_mci
+        )
         tissue_pbr, _, _ = simulate_2tcm(**APPROX_TISSUE_PARAMS["PBR28"], Cp=uniform_pbr, t=uniform)
-        tissue_fdg, _, _ = simulate_2tcm(**APPROX_TISSUE_PARAMS["FDG"], Cp=uniform_fdg, t=uniform)
+        tissue_fdg, _, _ = simulate_2tcm(**kin_fdg, Cp=uniform_fdg, t=uniform)
+        # Approximate fitted whole-blood vascular contribution.
         dc_pbr = np.interp(dense, uniform, tissue_pbr)
-        dc_fdg = np.interp(dense, uniform, tissue_fdg)
+        dc_fdg = np.interp(dense, uniform, (1 - fdg_vb) * tissue_fdg + fdg_vb * uniform_fdg)
     # Each measured IDIF was decay corrected to its own scan start.
     decay_pbr = np.exp(-np.log(2) * dense / HALF_LIVES_MIN["PBR28"])
     decay_fdg = np.exp(-np.log(2) * np.maximum(dense - fdg_injection_min, 0) / HALF_LIVES_MIN["FDG"])
