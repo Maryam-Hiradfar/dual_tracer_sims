@@ -36,6 +36,9 @@ def generate_dataset(
     effective_sensitivity_cps_per_bq: float = 0.001,
     effective_volume_ml: float = 0.064,
     signal_source: str = "tissue-approx",
+    fdg_kinetics: dict[str, float] | None = None,
+    fdg_vb: float = 0.0,
+    fdg_delay_sec: float = 0.0,
 ) -> None:
     fdg = MeasuredIDIF.from_csv(fdg_csv, "FDG")
     pbr = MeasuredIDIF.from_csv(pbr_csv, "PBR28")
@@ -62,7 +65,8 @@ def generate_dataset(
         pbr_dose = float(pbr.reference_dose_mci * rng.uniform(*dose_relative_range))
         sample = simulate_mixture(
             fdg, pbr, edges, fdg_injection_min=offset, fdg_dose_mci=fdg_dose,
-            pbr_dose_mci=pbr_dose, signal_source=signal_source
+            pbr_dose_mci=pbr_dose, signal_source=signal_source,
+            fdg_kinetics=fdg_kinetics, fdg_vb=fdg_vb, fdg_delay_sec=fdg_delay_sec
         )
         observed, expected, counts = noisy_bqml_from_counts(
             sample["X_clean_tavg_n0_d1"][0], np.diff(edges),
@@ -122,6 +126,9 @@ def generate_dataset(
         "measured_input": "decay-corrected aortic whole-blood IDIF; PBR28 NOT parent-plasma corrected",
         "measurement_domain": "sum of physically decaying tracer contributions, then Poisson noise",
         "signal_source": signal_source,
+        "fdg_kinetics": fdg_kinetics,
+        "fdg_vb": fdg_vb,
+        "fdg_delay_sec": fdg_delay_sec,
         "effective_sensitivity_cps_per_bq": effective_sensitivity_cps_per_bq,
         "effective_volume_ml": effective_volume_ml,
         "noise_warning": "idealized Poisson coefficient, NOT scanner-calibrated without independent validation",
@@ -146,6 +153,13 @@ def main() -> None:
     parser.add_argument("--effective-volume-ml", type=float, default=0.064)
     parser.add_argument("--signal-source", choices=("blood", "tissue-approx"),
                         default="tissue-approx")
+    parser.add_argument("--fdg-kinetics", type=float, nargs=4,
+                        metavar=("K1", "k2", "k3", "k4"),
+                        help="Override FDG tissue rate constants (per minute)")
+    parser.add_argument("--fdg-vb", type=float, default=0.0,
+                        help="FDG whole-blood volume fraction, default 0")
+    parser.add_argument("--fdg-delay-sec", type=float, default=0.0,
+                        help="Additional FDG input delay in seconds, default 0")
     args = parser.parse_args()
     generate_dataset(args.fdg_csv, args.pbr_csv, args.output_dir,
                      n_samples=args.n_samples, seed=args.seed,
@@ -153,7 +167,10 @@ def main() -> None:
                      fdg_offsets_min=tuple(args.fdg_offsets_min),
                      effective_sensitivity_cps_per_bq=args.effective_sensitivity_cps_per_bq,
                      effective_volume_ml=args.effective_volume_ml,
-                     signal_source=args.signal_source)
+                     signal_source=args.signal_source,
+                     fdg_kinetics=(dict(zip(("K1", "k2", "k3", "k4"), args.fdg_kinetics))
+                                   if args.fdg_kinetics is not None else None),
+                     fdg_vb=args.fdg_vb, fdg_delay_sec=args.fdg_delay_sec)
     print(f"Wrote Bq/mL TCN-compatible splits to {args.output_dir}")
 
 
