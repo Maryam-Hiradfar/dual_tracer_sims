@@ -175,17 +175,6 @@ def evaluate(
         output_dir, training_history=checkpoint_path.parent / "history.json",
     )
     plot_path = output_dir / "test_prediction_examples.png"
-    _plot_predictions(
-        frame_midpoints=np.asarray(global_metadata["frame_midpoints_min"]),
-        measured=measured,
-        clean=clean,
-        target=target,
-        prediction=prediction,
-        metadata=metadata,
-        selected_indices=selected_indices,
-        output_path=plot_path,
-        activity_unit=activity_unit,
-    )
 
     report = {
         "checkpoint": str(checkpoint_path),
