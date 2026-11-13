@@ -176,11 +176,10 @@ def forward(cfg,frames,offset,fdg_dose,pbr_dose,variation,rng,
             aif_variation=0.,dt_sec=1.):
     if dt_sec<=0:raise ValueError("dt_sec must be positive")
     duration=frames[-1,1]
-    t=np.arange(0,duration+dt_sec/120,dt_sec/60)
-    if t[-1]<duration:
-        t=np.r_[t,duration]
-    elif t[-1]>duration+1e-8:
-        t[-1]=duration
+    # Exactly uniform integration grid; ensure the final frame edge is a node.
+    n_steps=max(1,int(np.ceil(duration*60/dt_sec)))
+    t=np.linspace(0,duration,n_steps+1)
+    step_min=duration/n_steps
     targets=[];idifs=[]; dc_targets=[]
     for tracer,dose in (("FDG",fdg_dose),("PBR28",pbr_dose)):
         relative=t-(offset if tracer=="FDG" else 0.)
@@ -198,7 +197,7 @@ def forward(cfg,frames,offset,fdg_dose,pbr_dose,variation,rng,
            if variation else float(v)
            for x,v in cfg["kinetics"][tracer].items()}
         vb=float(cfg["vascular_fraction"][tracer])
-        tissue_dc=tcm_curve(drive,dt_sec/60,k,vb)
+        tissue_dc=tcm_curve(drive,step_min,k,vb)
         decay=np.exp(-np.log(2)*np.maximum(relative,0)/HALF_LIVES_MIN[tracer])
         targets.append(dense_frame_means(t,tissue_dc*decay,frames))
         dc_targets.append(dense_frame_means(t,tissue_dc,frames))
