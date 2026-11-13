@@ -1,3 +1,46 @@
+## Source timing and activity scale defaults (updated)
+
+As of this revision, `sim.generate_roi_tcn_dataset` defaults to
+`--frame-schedule measured --scale-range 1 1`.
+
+- **Timing:** read `TimeStart` and `TimeEnd` in seconds from the
+  **PBR28 CSV** and use those native reconstructed time frames as
+  the common output timeline. It rejects gaps/overlaps and requires
+  coverage for the requested `--duration-min`. FDG uses its own
+  original `TimeMid` and is rebinned/interpolated onto the PBR28
+  frames after the chosen FDG injection shift.
+- **Scales:** preserve the two measured concentrations in Bq/mL;
+  no random amplitude/dose scaling by default. Tracers are
+  shifted and physically decay-corrected back to their
+  physical-activity mixture domain; this naturally changes the
+  numerical TAC magnitude.
+- **Optional augmentation:** `--scale-range 0.85 1.15` independently
+  scales FDG/PBR28 concentrations for additional synthetic variation.
+  This is optional, **not** measured concentration.
+- **Alternative framing:** `--frame-schedule preferred` selects the
+  earlier proposed 2s/5s/10s/... synthetic schedule instead.
+
+Current example using the user's aortic blood TACs (replace paths):
+
+```bash
+python -m sim.generate_roi_tcn_dataset \
+  --fdg-rois "/private/FDG Aorta.csv" \
+  --pbr-rois "/private/Aorta PBR.csv" \
+  --output-dir datasets/aorta_measured_framing \
+  --duration-min 60 \
+  --offsets-min 0 5 10 \
+  --frame-schedule measured \
+  --scale-range 1 1 \
+  --noise-cv60 0.05 \
+  --n-samples 1000
+```
+
+**Important:** with one measured aortic TAC per tracer, fixed scales
+do not create new kinetic shapes: stochastic noise and injection delays
+create the only sample variation. This benchmark is a technical
+feasibility test, not independent biological generalization.
+The 5% noise is still illustrative, not measured.
+
 # ROI TAC -> EXISTING causal TCN benchmark (revised timing and empirical noise)
 
 This is **the student's existing** `ml.train_tcn_prototype` /
