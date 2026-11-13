@@ -12,6 +12,7 @@ import re
 from pathlib import Path
 import numpy as np
 import pandas as pd
+from scipy.optimize import nnls
 
 HALF_LIVES = {"FDG": 109.8, "PBR28": 20.4}
 
@@ -166,6 +167,7 @@ def run(fdg_path, pbr_path, out_dir, *, duration_min=60.,
     widths = np.diff(edges)
     measurements = []
     scores = []
+    template_scores = []
     for region, fcol, pcol in chosen:
         for offset in offsets:
             f = frame_activity(ft, fdg[fcol].to_numpy(float), edges, offset, HALF_LIVES["FDG"])
@@ -180,7 +182,22 @@ def run(fdg_path, pbr_path, out_dir, *, duration_min=60.,
                     fdg_phys_bqml=f[idx], pbr_phys_bqml=p[idx], mixture_clean_bqml=mix[idx]))
             for cv in noise_levels:
                 trials = np.stack([sample_roi_noise(mix, widths, rng, cv) for _ in range(reps)])
+                # Optimistic reference-template NNLS: NOT blind dual-tracer separation.
+                # Both exact constituent reference shapes are supplied to the solver;
+                # use only as an identifiability/sensitivity sanity check.
+                design = np.column_stack([f, p])
                 for trial in range(reps):
+                    fit, _ = nnls(design, trials[trial])
+                    pred_fdg = design[:,0] * fit[0]
+                    pred_pbr = design[:,1] * fit[1]
+                    template_scores.append(dict(
+                        roi=region, offset_min=offset, noise_cv60=cv,
+                        replicate=trial, fdg_template_nrmse=nrmse(pred_fdg, f),
+                        pbr_template_nrmse=nrmse(pred_pbr, p),
+                        fdg_amplitude=fit[0], pbr_amplitude=fit[1],
+                        design_condition=float(np.linalg.cond(design))
+                        if np.linalg.matrix_rank(design)==2 else np.inf,
+                    ))
                     scores.append(dict(roi=region, offset_min=offset, noise_cv60=cv,
                        replicate=trial, mixture_nrmse=nrmse(trials[trial], mix),
                        relative_rmse=float(np.sqrt(np.mean((trials[trial]-mix)**2)) /
@@ -194,6 +211,7 @@ def run(fdg_path, pbr_path, out_dir, *, duration_min=60.,
         sd_mixture_nrmse=("mixture_nrmse","std"),
         mean_relative_rmse=("relative_rmse","mean"))
     summary.to_csv(out_dir/"roi_noise_summary.csv",index=False)
+    pd.DataFrame(template_scores).to_csv(out_dir/"oracle_template_fit_trials.csv",index=False)
 
     # Figure: three representative ROIs; corresponding FDG / PBR / mixed curves.
     present = chosen[:preview_rois]
@@ -253,7 +271,8 @@ def run(fdg_path, pbr_path, out_dir, *, duration_min=60.,
             "Frame-mean TAC interpolation approximates continuous tracer kinetics",
             "ROI-level synthetic mixture is not observed simultaneous dual-tracer PET",
             "Noise uses illustrative effective ROI Poisson counts, not GS-calibrated noise",
-            "Noise NRMSE measures mixture perturbation, not tracer-separation performance"
+            "Noise NRMSE measures mixture perturbation, not tracer-separation performance",
+            "Oracle-template NNLS uses the exact true FDG/PBR28 reference shapes; not blinded separation or a TCN result"
         ]},indent=2)+"\n")
     return df,summary
 
