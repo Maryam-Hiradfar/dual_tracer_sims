@@ -12,6 +12,9 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from ml.tcn_plot_style import use_slide_plot_style
+
+use_slide_plot_style()
 from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 
@@ -60,17 +63,17 @@ def export_all_test_cases_pdf(
             for begin in range(0,len(indices),cases_per_page):
                 subset=indices[begin:begin+cases_per_page]
                 page+=1
-                fig,axes=plt.subplots(nrows,ncols,figsize=(15.4,3.95*nrows+1.3),
+                fig,axes=plt.subplots(nrows,ncols,figsize=(17.5,5.0*nrows+1.65),
                                       squeeze=False)
                 axes=axes.ravel()
                 for ax,i in zip(axes,subset):
                     for ch,name,color in ((0,"FDG","C0"),(1,"PBR28","C1")):
-                        ax.plot(t,true[i,ch],color=color,linewidth=1.65,
+                        ax.plot(t,true[i,ch],color=color,linewidth=3.0,
                                 label=name+" truth")
-                        ax.plot(t,pred[i,ch],color=color,linewidth=1.45,
+                        ax.plot(t,pred[i,ch],color=color,linewidth=2.8,
                                 linestyle="--",label=name+" TCN")
-                    ax.plot(t,clean[i,0],color="black",lw=1.15,label="Clean mixture")
-                    ax.scatter(t,observed[i,0],color=".50",s=9,alpha=.5,
+                    ax.plot(t,clean[i,0],color="black",lw=2.5,label="Clean mixture")
+                    ax.scatter(t,observed[i,0],color=".50",s=22,alpha=.65,
                                label="Noisy mixture")
                     errors=[]
                     for ch,name in ((0,"FDG"),(1,"PBR28")):
@@ -82,7 +85,7 @@ def export_all_test_cases_pdf(
                         errors.append(f"{name}: {rmse:.3g} {unit} ({pct})")
                     sample_id=metadata[i].get("sample_id",i)
                     ax.set_title(f"Test index {i} | sample {sample_id}\n"+
-                                 "   |   ".join(errors),fontsize=9)
+                                 "   |   ".join(errors),fontsize=12,fontweight="bold")
                     ax.set_xlabel("Time from PBR28 injection (min)")
                     ax.set_ylabel(f"Activity ({unit})")
                     ax.grid(alpha=.20)
@@ -91,11 +94,11 @@ def export_all_test_cases_pdf(
                 fig.suptitle(
                     f"Dual-tracer TCN | FDG injection +{offset:g} min | "
                     f"{len(subset)} case(s) | page {page}/{n_total_pages}",
-                    fontsize=15,y=.99)
+                    fontsize=19,fontweight="bold",y=.99)
                 handles,labels=axes[0].get_legend_handles_labels()
                 fig.legend(handles,labels,loc="lower center",
-                           bbox_to_anchor=(.5,.013),ncol=6,frameon=False,fontsize=9)
-                fig.tight_layout(rect=(0,.065,1,.955),pad=2.1)
+                           bbox_to_anchor=(.5,.013),ncol=6,frameon=False,prop={"size":13,"weight":"bold"})
+                fig.tight_layout(rect=(0,.095,1,.925),pad=2.6)
                 pdf.savefig(fig)
                 plt.close(fig)
     return {"pdf_path":str(path),"test_cases":len(true),
