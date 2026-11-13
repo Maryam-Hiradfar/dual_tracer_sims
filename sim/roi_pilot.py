@@ -49,10 +49,12 @@ def load_rois(path):
     else:
         # A midpoint-only input cannot establish the end of the final frame.
         coverage = float(t[-1])
-    ignore = {"TimeStart", "TimeEnd", "TimeMid", "aorta", "Cp"}
+    # Aortic IDIF files contain the 'aorta' signal. Permit it as a
+    # valid blood-TAC source for the existing TCN benchmark.
+    ignore = {"TimeStart", "TimeEnd", "TimeMid"}
     names = [c for c in df.columns if c not in ignore]
     if not names:
-        raise ValueError("no ROI TAC columns")
+        raise ValueError("No TAC activity column found (e.g. aorta or Cortex)")
     for c in names:
         v = pd.to_numeric(df[c], errors="raise").to_numpy(float)
         if np.any(~np.isfinite(v)) or np.any(v < 0):
