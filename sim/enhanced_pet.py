@@ -44,8 +44,39 @@ def frame_info(ds, i):
             raise ValueError(f"Real-world value map units {unit!r} not verified as Bq/mL")
         slope = getattr(rw,"RealWorldValueSlope",None)
         intercept = getattr(rw,"RealWorldValueIntercept",None)
-    if any(v is None for v in (ori,pos,space,slope,intercept)):
-        raise ValueError("Multiframe PET missing plane geometry or explicit BQML scaling")
+    # Legacy PET multiframe frequently stores only the first slice origin
+    # in ImagePositionPatient, plus one GridFrameOffsetVector entry per slice.
+    # This vector may specify offsets from the first position (relative form)
+    # or absolute patient-z positions (absolute form). Only support the
+    # unambiguous RELATIVE form; absolute variants require manual validation.
+    if pos is not None and ori is not None and getattr(ds, "GridFrameOffsetVector", None) is not None:
+        offsets = np.asarray(ds.GridFrameOffsetVector, dtype=float)
+        nf = int(getattr(ds, "NumberOfFrames", 1))
+        if len(offsets) != nf:
+            raise ValueError("GridFrameOffsetVector length must match NumberOfFrames")
+        if not np.isfinite(offsets).all() or not np.allclose(offsets[0], 0, atol=1e-4):
+            raise ValueError("Unsupported GridFrameOffsetVector: expected relative offsets "
+                             "starting at zero; inspect original DICOM orientation")
+        original_pos = getattr(ds, "ImagePositionPatient", None)
+        explicit_per_plane = field(ds, i, "PlanePositionSequence", "ImagePositionPatient")
+        if explicit_per_plane is None and original_pos is not None:
+            orientation = np.asarray(ori, float)
+            if orientation.shape != (6,):
+                raise ValueError("Invalid ImageOrientationPatient for grid offsets")
+            direction = np.cross(orientation[:3], orientation[3:])
+            if not np.isclose(np.linalg.norm(direction), 1, atol=1e-3):
+                raise ValueError("Invalid image orientation for grid offsets")
+            pos = np.asarray(original_pos, float) + offsets[i] * direction
+    missing = [name for name, value in (
+        ("ImageOrientationPatient", ori),
+        ("ImagePositionPatient / GridFrameOffsetVector", pos),
+        ("PixelSpacing", space),
+        ("RescaleSlope / RealWorldValueSlope", slope),
+        ("RescaleIntercept / RealWorldValueIntercept", intercept),
+    ) if value is None]
+    if missing:
+        raise ValueError("Multiframe PET missing: " + ", ".join(missing) +
+                         ". Run python -m sim.dicom_dynamic_pet --dicom-dir PATH --inspect")
     ref = field(ds,i,"FrameContentSequence","FrameReferenceTime")
     if ref is None:
         ref = getattr(ds,"FrameReferenceTime",None)
