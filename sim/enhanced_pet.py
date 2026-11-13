@@ -166,6 +166,27 @@ def inspect(directory, max_files=3):
             print(f" GridFrameOffsetVector: count={len(offsets)}, "
                   f"first={list(offsets[:min(3,len(offsets))])}, "
                   f"last={list(offsets[-min(3,len(offsets)):])}")
+        # Display only numeric calibration/units, never identifying fields.
+        for scope,i in (("shared",0),("first",0),("middle",int(getattr(d,"NumberOfFrames",1))//2)):
+            if scope=="shared":
+                holder=sh[0] if sh else None
+            else:
+                holder=per[i] if per and len(per)>i else None
+            if holder is None: continue
+            pv=getattr(holder,"PixelValueTransformationSequence",None)
+            rw=getattr(holder,"RealWorldValueMappingSequence",None)
+            if pv:
+                item=pv[0]
+                print(f" {scope} pixel scaling: slope={getattr(item,'RescaleSlope',None)}, "
+                      f"intercept={getattr(item,'RescaleIntercept',None)}")
+            if rw:
+                for j,item in enumerate(list(rw)[:3]):
+                    us=getattr(item,"MeasurementUnitsCodeSequence",None)
+                    unit=getattr(us[0],"CodeValue",None) if us else None
+                    print(f" {scope} RWVM {j}: unit_code={unit!r}, "
+                          f"slope={getattr(item,'RealWorldValueSlope',None)}, "
+                          f"intercept={getattr(item,'RealWorldValueIntercept',None)}, "
+                          f"LUT={bool(getattr(item,'RealWorldValueLUTData',None))}")
         print(" Shared sequences:",seqs(sh[0] if sh else None))
         print(" Per-frame sequences:",seqs(per[0] if per else None))
         if per:
