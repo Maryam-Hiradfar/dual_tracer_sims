@@ -170,6 +170,36 @@ def render_tcn_diagnostics(frame_midpoints, measured, clean, target, prediction,
     path=out/"error_by_offset.png";_save(fig,path)
     images["error_by_offset"]=str(path)
 
+    # Percent errors normalized to each tracer's true RMS activity.
+    # Avoid dividing by individual near-zero pre-injection frame values.
+    fig,axes=plt.subplots(1,2,figsize=(12,4.8))
+    percent_by_offset={}
+    reference_rms=np.sqrt(np.mean(y**2,axis=(0,2)))
+    for ch,ax in enumerate(axes):
+        divisor=max(float(reference_rms[ch]),1e-12)
+        nrmse_pct=100*np.sqrt(np.mean(residual[:,ch,:]**2,axis=0))/divisor
+        nmae_pct=100*np.mean(np.abs(residual[:,ch,:]),axis=0)/divisor
+        ax.plot(t,nrmse_pct,lw=1.8,label="RMSE / reference RMS")
+        ax.plot(t,nmae_pct,lw=1.5,ls="--",label="MAE / reference RMS")
+        ax.set(title=sources[ch],xlabel="Time from PBR28 injection (min)",
+               ylabel="Normalized error (%)")
+        ax.grid(alpha=.2)
+        percent_by_offset[sources[ch]]={
+            str(float(d)):float(100*np.sqrt(np.mean(residual[delay==d,ch,:]**2))/
+                         max(float(np.sqrt(np.mean(y[delay==d,ch,:]**2))),1e-12))
+            for d in offsets}
+    fig.suptitle("Percent error versus time (per-tracer global RMS normalization)",fontsize=14)
+    _legend_below(fig,axes,ncol=2)
+    path=out/"percent_error_over_time.png";_save(fig,path)
+    images["percent_error_over_time"]=str(path)
+    import csv
+    with (out/"percent_error_by_offset.csv").open("w",newline="") as fp:
+        writer=csv.writer(fp)
+        writer.writerow(["tracer","fdg_offset_min","percent_rmse"])
+        for tracer,offset_map in percent_by_offset.items():
+            for key,val in offset_map.items():
+                writer.writerow([tracer,key,val])
+
     # Mixture consistency.
     fig,axes=plt.subplots(1,len(selected),figsize=(5.7*len(selected),4.6),
                           squeeze=False)
