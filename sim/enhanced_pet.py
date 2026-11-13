@@ -120,6 +120,17 @@ def inspect(directory, max_files=3):
               f"Units={getattr(d,'Units','?')}; "
               f"FrameReferenceTime={getattr(d,'FrameReferenceTime',None)}; "
               f"AcquisitionNumber={getattr(d,'AcquisitionNumber',None)}")
+        offsets = getattr(d, "GridFrameOffsetVector", None)
+        print(" Classic geometry tags: "
+              f"orientation={bool(getattr(d,'ImageOrientationPatient',None))}, "
+              f"position={bool(getattr(d,'ImagePositionPatient',None))}, "
+              f"pixel_spacing={bool(getattr(d,'PixelSpacing',None))}, "
+              f"rescale_slope={getattr(d,'RescaleSlope',None)}, "
+              f"rescale_intercept={getattr(d,'RescaleIntercept',None)}")
+        if offsets is not None:
+            print(f" GridFrameOffsetVector: count={len(offsets)}, "
+                  f"first={list(offsets[:min(3,len(offsets))])}, "
+                  f"last={list(offsets[-min(3,len(offsets)):])}")
         print(" Shared sequences:",seqs(sh[0] if sh else None))
         print(" Per-frame sequences:",seqs(per[0] if per else None))
         if per:
