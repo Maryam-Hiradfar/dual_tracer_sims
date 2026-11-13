@@ -240,23 +240,40 @@ def convert_multiframe(directory, out_nifti, *, timing_csv):
     affine_lps[:3,2]=direction*np.median(np.diff(zz0))
     affine_lps[:3,3]=origin
     affine=np.diag([-1.,-1.,1.,1.])@affine_lps
-    array=np.empty((rows,cols,nslices,len(keys)),dtype=np.float32)
+    import tempfile
+    import os
+    # Disk-backed intermediate avoids materializing a potentially 30+ GB 4D
+    # volume in RAM. Saving uncompressed .nii enables memory-mapped frame reads.
+    out=Path(out_nifti)
+    out.parent.mkdir(parents=True,exist_ok=True)
+    if out.suffix==".gz":
+        raise ValueError("Large dynamic PET conversion requires an uncompressed .nii "
+                         "output for memory-mapped processing; set --converted-nifti "
+                         "to an output path ending in .nii")
+    fd,tmp=tempfile.mkstemp(prefix="enhanced_pet_",suffix=".dat",dir=out.parent)
+    os.close(fd)
+    array=np.memmap(tmp,dtype=np.float32,mode="w+",shape=(rows,cols,nslices,len(keys)))
     index={(rec["path"],rec["i"]):(t,z,rec)
            for t,frame in enumerate(slices) for z,rec in enumerate(frame)}
-    for path in paths:
-        d=pydicom.dcmread(str(path))
-        pixel=np.asarray(d.pixel_array)
-        if pixel.ndim!=3 or pixel.shape[1:]!=(rows,cols):
-            raise ValueError("Unexpected decoded multiframe pixel array shape")
-        for i in range(pixel.shape[0]):
-            t,z,rec=index[(path,i)]
-            array[:,:,z,t]=np.asarray(pixel[i],np.float32)*rec["slope"]+rec["intercept"]
-    if not np.isfinite(array).all(): raise ValueError("Nonfinite PET intensity values")
-    out=Path(out_nifti);out.parent.mkdir(parents=True,exist_ok=True)
-    img=nib.Nifti1Image(array,affine)
-    img.header.set_xyzt_units("mm","sec")
-    img.header.set_data_dtype(np.float32)
-    nib.save(img,str(out))
+    try:
+        for path in paths:
+            d=pydicom.dcmread(str(path))
+            pixel=np.asarray(d.pixel_array)
+            if pixel.ndim!=3 or pixel.shape[1:]!=(rows,cols):
+                raise ValueError("Unexpected decoded multiframe pixel array shape")
+            for i in range(pixel.shape[0]):
+                t,z,rec=index[(path,i)]
+                array[:,:,z,t]=np.asarray(pixel[i],np.float32)*rec["slope"]+rec["intercept"]
+        if not np.isfinite(array).all():
+            raise ValueError("Nonfinite PET intensity values")
+        array.flush()
+        img=nib.Nifti1Image(array,affine)
+        img.header.set_xyzt_units("mm","sec")
+        img.header.set_data_dtype(np.float32)
+        nib.save(img,str(out))
+    finally:
+        del array
+        Path(tmp).unlink(missing_ok=True)
     print(f"Enhanced PET converted: {len(keys)} dynamic frames, {nslices} slices, Bq/mL. "
           "Verify frame ordering and decay convention against source DICOM.")
     return out
