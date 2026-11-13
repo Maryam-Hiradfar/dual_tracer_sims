@@ -24,6 +24,7 @@ def test_all_diagnostic_figures_with_external_legends(tmp_path):
     imgs=render_tcn_diagnostics(t,measured,clean,y,pred,metadata,
         {"units":{"TAC":"Bq/mL"},"selected_rois":["aorta"]},
         [0,1,2],tmp_path/"plots",training_history=hist)
-    assert len(imgs)==9
+    assert len(imgs)==10
+    assert (tmp_path/"plots"/"percent_error_by_offset.csv").exists()
     for p in imgs.values():
         assert __import__("pathlib").Path(p).stat().st_size > 1000
