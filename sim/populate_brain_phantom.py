@@ -105,13 +105,9 @@ def populate(atlas_path, fdg_path, pbr_path, mapping_path, output_dir, *,
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from numpy.lib.format import open_memmap
-    atlas = nib.load(str(atlas_path))
-    if len(atlas.shape) != 3:
-        raise ValueError("atlas must be a 3D integer NIfTI labelmap")
-    raw = np.asanyarray(atlas.dataobj)
-    if not np.allclose(raw, np.rint(raw)):
-        raise ValueError("atlas labels must be integers")
-    labels = np.rint(raw).astype(np.int32)
+    from sim.brain_atlas_io import load_atlas
+    atlas, atlas_names = load_atlas(atlas_path, output_dir=output_dir)
+    labels = np.asarray(atlas.dataobj, dtype=np.int32)
     fdg, pbr = table(fdg_path), table(pbr_path)
     mapping = pd.read_csv(mapping_path)
     if not {"label_id","region_name","fdg_column","pbr_column"}.issubset(mapping.columns):
@@ -206,7 +202,8 @@ def populate(atlas_path, fdg_path, pbr_path, mapping_path, output_dir, *,
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--atlas",type=Path,required=True)
+    p.add_argument("--atlas",type=Path,required=True,
+                   help="Integer atlas NIfTI or directory of ROI mask NIfTIs")
     p.add_argument("--fdg-rois",type=Path,required=True)
     p.add_argument("--pbr-rois",type=Path,required=True)
     p.add_argument("--mapping-csv",type=Path,required=True)
