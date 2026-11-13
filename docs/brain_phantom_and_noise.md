@@ -9,6 +9,41 @@ python -m pip install numpy scipy pandas matplotlib nibabel openpyxl pytest
 python -m pytest tests/test_brain_phantom.py -v
 ```
 
+## Dynamic PET DICOM in a single directory
+
+The noise estimator accepts classic **single-frame PET DICOMs** directly with
+`--pet-dicom-dir` (no pre-conversion necessary). Files can be extensionless;
+the program reads DICOM headers, groups slices into frames using
+`FrameReferenceTime`, `TemporalPositionIdentifier`, or `AcquisitionNumber`,
+sorts slices by patient-space position, applies per-file
+`RescaleSlope/RescaleIntercept` for DICOM `Units=BQML`, and saves a local
+converted 4D NIfTI. It requires a **frame timing CSV** in seconds matching the
+number of dynamic frames.
+
+```bash
+python -m pip install pydicom nibabel
+python -m sim.estimate_pet_noise \
+  --pet-dicom-dir "/private/FDG/DICOM" \
+  --atlas "/private/brain_labels_in_PET_space.nii.gz" \
+  --timing-csv "/private/FDG_timing.csv" \
+  --output-dir results/FDG_brain_noise
+```
+
+Inspect `results/FDG_brain_noise/converted_pet_bqml_4d.nii.gz` with your
+original DICOM viewer to verify frame order, orientation, scaling and
+decay-correction convention before trusting noise estimates.
+
+**Limitations:** classic single-frame PET DICOM only; enhanced/multiframe PET
+is rejected rather than guessed. Some exports use a single
+`AcquisitionNumber` for all frames or assign varying identifiers per slice.
+If automatic temporal grouping fails, inspect header metadata before
+converting. A mixed directory containing multiple reconstructions or PET
+series should be separated first. The current loader uses temporal frame keys
+and supplied timing as a consistency check on frame count; check actual
+frame-reference timestamps against CSV midpoints where available.
+Some compressed DICOM transfer syntaxes require a pixel decoding plugin
+such as `pylibjpeg` or `gdcm`.
+
 ## 1. Estimate frame-dependent voxel noise from real PET
 
 Supply a **4D Bq/mL PET NIfTI** with time in its last dimension, a **registered 3D integer-label atlas**, and a frame timing CSV containing `TimeStart,TimeEnd` in **seconds**, one row per dynamic frame.
