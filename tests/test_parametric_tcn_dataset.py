@@ -86,3 +86,25 @@ def test_generate_tcn_contract_and_original_framing(tmp_path):
             d["X_clean_tavg_n0_d1"][:,0,:],np.sum(y,axis=1),
             rtol=1e-5,atol=.01)
         assert np.all(np.isfinite(x))
+
+
+def test_aif_mode_outputs_correct_physically_decayed_targets(tmp_path):
+    cfg=sample_config()
+    params=tmp_path/"params.json";params.write_text(json.dumps(cfg))
+    schedule=tmp_path/"timing.csv"
+    ends=np.arange(60,11*60,60,dtype=float)
+    pd.DataFrame(dict(TimeStart=np.r_[0,ends[:-1]],TimeEnd=ends)).to_csv(schedule,index=False)
+    out=tmp_path/"aif_data"
+    generate(params,schedule,out,duration_min=10,n_samples=30,
+             cv60=.05,offsets=(0.,5.,10.),target_mode="aif")
+    md=json.loads((out/"dataset_metadata.json").read_text())
+    assert md["target_mode"]=="aif"
+    with np.load(out/"train.npz") as d:
+        y=d["Y_phys_tavg_n0_d1"]
+        pure_aif=d["Y_aif_phys_tavg_n0_d1"]
+        tissue=d["Y_tissue_phys_tavg_n0_d1"]
+        np.testing.assert_allclose(y,pure_aif)
+        assert not np.allclose(y,tissue)
+        np.testing.assert_allclose(d["X_clean_tavg_n0_d1"][:,0,:],
+                                   y.sum(axis=1),rtol=1e-5,atol=.02)
+        assert np.all(np.isfinite(y))
