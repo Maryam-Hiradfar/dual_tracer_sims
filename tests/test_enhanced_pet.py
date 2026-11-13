@@ -65,7 +65,7 @@ def test_3d_multiframe_2_times_converted(tmp_path):
     ds.save_as(str(folder/"pet.dcm"),enforce_file_format=True)
     timing=tmp_path/"frames.csv"
     timing.write_text("TimeStart,TimeEnd\n0,5\n5,10\n")
-    out=tmp_path/"out.nii.gz"
+    out=tmp_path/"out.nii"
     convert_dicom_directory(folder,out,timing_csv=timing)
     image=nib.load(str(out))
     assert image.shape==(4,5,3,2)
