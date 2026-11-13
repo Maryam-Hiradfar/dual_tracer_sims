@@ -1,3 +1,32 @@
+## Full TCN evaluation figures (added)
+
+After pulling the latest branch, **re-run only**
+`python -m ml.evaluate_tcn_prototype` against the saved TCN checkpoint.
+Retraining is not needed solely to regenerate figures.
+
+Evaluation now saves:
+`test_prediction_examples.png`,
+`component_predictions.png`,
+`component_residuals.png`,
+`prediction_parity.png`,
+`error_over_time.png`,
+`error_histograms.png`,
+`error_by_offset.png`,
+`mixture_consistency.png`, and, when
+`history.json` is next to the checkpoint,
+`training_curves.png`. Legends are outside plotting axes.
+
+**Aorta CSVs contain BLOOD input functions, not brain tissue TACs.**
+To obtain TCN predictions of tissue kinetics, re-generate the
+dataset using paired ROI tissue TAC tables (same region names or
+`--roi-mapping`). No code can turn the aorta input function
+into measured tissue activity by relabeling figures.
+
+The branch's evaluation script previously generated only a single
+three-panel overlay figure. These additions expand that script,
+but they are not claimed to reproduce unavailable student-authored
+figures that may live outside the tracked repository.
+
 ## Source timing and activity scale defaults (updated)
 
 As of this revision, `sim.generate_roi_tcn_dataset` defaults to
