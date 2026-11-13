@@ -33,3 +33,45 @@ def use_slide_plot_style():
         "grid.linewidth": 0.9,
         "savefig.dpi": 300,
     })
+
+
+# Increment when making presentation-style changes; printed by evaluation.
+STYLE_VERSION = "ppt-bold-v2"
+
+
+def finalize_slide_figure(fig):
+    """Enforce visible typography and strokes on all existing plotted artists.
+
+    Applied after plot construction so per-plot overrides cannot silently
+    cancel the slide-style settings.
+    """
+    for ax in fig.axes:
+        ax.title.set_fontsize(17)
+        ax.title.set_fontweight("bold")
+        ax.xaxis.label.set_fontsize(15)
+        ax.xaxis.label.set_fontweight("bold")
+        ax.yaxis.label.set_fontsize(15)
+        ax.yaxis.label.set_fontweight("bold")
+        for tick in ax.get_xticklabels() + ax.get_yticklabels():
+            tick.set_fontsize(12)
+            tick.set_fontweight("bold")
+        ax.tick_params(axis="both", width=1.6, length=5)
+        for spine in ax.spines.values():
+            spine.set_linewidth(1.6)
+        for line in ax.lines:
+            line.set_linewidth(max(line.get_linewidth(), 2.7))
+            line.set_markersize(max(line.get_markersize(), 7))
+        for collection in ax.collections:
+            # Scatter PathCollections support sizes; other collections need
+            # not expose mutable marker size arrays.
+            if hasattr(collection, "get_sizes") and hasattr(collection, "set_sizes"):
+                sizes=collection.get_sizes()
+                if len(sizes):
+                    collection.set_sizes([max(float(v), 22.) for v in sizes])
+    for text_artist in fig.texts:
+        text_artist.set_fontweight("bold")
+    for legend in fig.legends:
+        for item in legend.get_texts():
+            item.set_fontweight("bold")
+            item.set_fontsize(13)
+    return fig
