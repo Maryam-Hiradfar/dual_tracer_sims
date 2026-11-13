@@ -182,7 +182,7 @@ def main():
     pet_path = a.pet
     if a.pet_dicom_dir is not None:
         from sim.dicom_dynamic_pet import convert_dicom_directory
-        pet_path = a.converted_nifti or (a.output_dir / "converted_pet_bqml_4d.nii.gz")
+        pet_path = a.converted_nifti or (a.output_dir / "converted_pet_bqml_4d.nii")
         convert_dicom_directory(a.pet_dicom_dir, pet_path, timing_csv=a.timing_csv)
     estimate_noise(pet_path, a.atlas, a.timing_csv, a.output_dir, half_a_path=a.half_a,
                    half_b_path=a.half_b, atlas_lut=a.atlas_lut,
