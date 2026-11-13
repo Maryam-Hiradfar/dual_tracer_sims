@@ -85,28 +85,23 @@ def estimate_noise(pet_path, atlas_path, timing_path, output_dir, *,
     if len(im.shape) != 4:
         raise ValueError("PET must be 4D with time as final dimension")
     times = load_timing_csv(timing_path, im.shape[-1])
-    atlas = nib.load(str(atlas_path))
-    if len(atlas.shape) != 3:
-        raise ValueError("atlas must be 3D")
-    if atlas.shape != im.shape[:3] or not np.allclose(atlas.affine, im.affine, atol=1e-3):
-        if not allow_resample_atlas:
-            raise ValueError("atlas differs in shape/affine: register or use --resample-atlas")
-        from nibabel.processing import resample_from_to
-        atlas = resample_from_to(atlas, (im.shape[:3], im.affine), order=0)
-    labels = np.asanyarray(atlas.dataobj)
-    if not np.allclose(labels, np.rint(labels), atol=1e-3):
-        raise ValueError("atlas values must be integer labels")
-    labels = np.rint(labels).astype(np.int32)
+    from sim.brain_atlas_io import load_atlas
+    reference = nib.Nifti1Image(np.zeros(im.shape[:3], dtype=np.uint8), im.affine)
+    atlas, names = load_atlas(
+        atlas_path, reference=reference,
+        allow_resample=allow_resample_atlas, output_dir=output_dir,
+    )
+    labels = np.asarray(atlas.dataobj, dtype=np.int32)
     ids = np.unique(labels)
     ids = ids[ids > 0]
     if not ids.size:
         raise ValueError("no atlas labels")
-    names = {}
     if atlas_lut:
         lut = pd.read_csv(atlas_lut)
         if not {"label_id", "region_name"}.issubset(lut):
             raise ValueError("atlas LUT must have label_id,region_name")
-        names = {int(row.label_id): str(row.region_name) for row in lut.itertuples(index=False)}
+        names.update({int(row.label_id): str(row.region_name)
+                      for row in lut.itertuples(index=False)})
     if voxel_volume_ml is None:
         voxel_volume_ml = abs(np.linalg.det(im.affine[:3, :3])) / 1000
     if not np.isfinite(voxel_volume_ml) or voxel_volume_ml <= 0:
@@ -165,8 +160,12 @@ def estimate_noise(pet_path, atlas_path, timing_path, output_dir, *,
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--pet", type=Path, required=True)
-    p.add_argument("--atlas", type=Path, required=True)
+    source = p.add_mutually_exclusive_group(required=True)
+    source.add_argument("--pet", type=Path, help="4D PET NIfTI (.nii/.nii.gz)")
+    source.add_argument("--pet-dicom-dir", type=Path,
+                        help="One directory containing classic single-frame dynamic PET DICOMs")
+    p.add_argument("--atlas", type=Path, required=True,
+                   help="Integer 3D atlas NIfTI or directory of ROI-mask NIfTIs")
     p.add_argument("--timing-csv", type=Path, required=True)
     p.add_argument("--output-dir", type=Path, default=Path("results/brain_noise"))
     p.add_argument("--half-a", type=Path)
@@ -177,8 +176,15 @@ def main():
     p.add_argument("--min-voxels", type=int, default=30)
     p.add_argument("--voxel-volume-ml", type=float)
     p.add_argument("--resample-atlas", action="store_true")
+    p.add_argument("--converted-nifti", type=Path,
+                   help="Path for the DICOM-derived 4D PET NIfTI; default inside output-dir")
     a = p.parse_args()
-    estimate_noise(a.pet, a.atlas, a.timing_csv, a.output_dir, half_a_path=a.half_a,
+    pet_path = a.pet
+    if a.pet_dicom_dir is not None:
+        from sim.dicom_dynamic_pet import convert_dicom_directory
+        pet_path = a.converted_nifti or (a.output_dir / "converted_pet_bqml_4d.nii.gz")
+        convert_dicom_directory(a.pet_dicom_dir, pet_path, timing_csv=a.timing_csv)
+    estimate_noise(pet_path, a.atlas, a.timing_csv, a.output_dir, half_a_path=a.half_a,
                    half_b_path=a.half_b, atlas_lut=a.atlas_lut,
                    smooth_sigma_vox=a.smooth_sigma_vox, erode_vox=a.erode_vox,
                    min_voxels=a.min_voxels, voxel_volume_ml=a.voxel_volume_ml,
