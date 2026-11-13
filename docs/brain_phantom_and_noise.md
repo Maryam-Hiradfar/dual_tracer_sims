@@ -52,6 +52,42 @@ python -m sim.estimate_pet_noise \
   --output-dir results/FDG_noise
 ```
 
+## Enhanced / multiframe Panorama PET DICOM
+
+The DICOM converter now detects PET instances with `NumberOfFrames > 1`
+and attempts conservative conversion using the shared/per-frame functional
+groups. It supports multiframe objects when each decoded 2D plane has an
+explicit 3D patient-space location, a verifiable temporal position or
+reference time, and quantitative BQML rescaling. It does not assume that
+the flattened multiframe dimension is time rather than slice.
+
+Re-run the same noise-estimation command with `--pet-dicom-dir`, not `--pet`.
+If a vendor-specific export is rejected, inspect the headers **without**
+printing identifying metadata:
+
+```bash
+python -m sim.dicom_dynamic_pet \
+  --dicom-dir "/path/to/WB PET Dynamic 3i10s_160730_401" \
+  --inspect
+```
+
+This reports the frame count, image dimensions, activity units, selected
+frame-reference tags and names of nested metadata sequences. Share that
+text-only output if the converter cannot determine frame geometry or order.
+The synthetic enhanced-PET regression test can be run via:
+
+```bash
+python -m pytest tests/test_enhanced_pet.py -v
+```
+
+**Scientific QA before noise estimation:** compare reconstructed frame
+midpoints to `TimeStart/TimeEnd` CSV, check image orientation against a
+known anatomical landmark, and compare one or more original DICOM pixel
+values after quantitative scaling against the 4D NIfTI. Pixel intensities
+might be scan-start decay-corrected; verify that convention independently.
+Do not interpret the fitted equivalent Poisson sensitivity as a measured
+scanner NEMA sensitivity.
+
 ## Dynamic PET DICOM in a single directory
 
 The noise estimator accepts classic **single-frame PET DICOMs** directly with
@@ -76,8 +112,7 @@ Inspect `results/FDG_brain_noise/converted_pet_bqml_4d.nii.gz` with your
 original DICOM viewer to verify frame order, orientation, scaling and
 decay-correction convention before trusting noise estimates.
 
-**Limitations:** classic single-frame PET DICOM only; enhanced/multiframe PET
-is rejected rather than guessed. Some exports use a single
+**Limitations:** Enhanced PET requires explicit per-frame plane positions and time grouping; unsupported variants are rejected rather than guessed. Some exports use a single
 `AcquisitionNumber` for all frames or assign varying identifiers per slice.
 If automatic temporal grouping fails, inspect header metadata before
 converting. A mixed directory containing multiple reconstructions or PET
