@@ -32,18 +32,53 @@ def frame_info(ds, i):
     ori = get("PlaneOrientationSequence", "ImageOrientationPatient")
     pos = get("PlanePositionSequence", "ImagePositionPatient")
     space = get("PixelMeasuresSequence", "PixelSpacing")
-    slope = get("PixelValueTransformationSequence", "RescaleSlope")
-    intercept = get("PixelValueTransformationSequence", "RescaleIntercept")
-    rw = fg(ds, i, "RealWorldValueMappingSequence")
-    if rw is None and getattr(ds, "RealWorldValueMappingSequence", None):
-        rw = ds.RealWorldValueMappingSequence[0]
-    if rw is not None:
-        u = getattr(rw, "MeasurementUnitsCodeSequence", None)
-        unit = str(getattr(u[0], "CodeValue", "")) if u else ""
-        if unit.lower().replace(" ","") not in ("bq/ml","bq.ml-1"):
-            raise ValueError(f"Real-world value map units {unit!r} not verified as Bq/mL")
-        slope = getattr(rw,"RealWorldValueSlope",None)
-        intercept = getattr(rw,"RealWorldValueIntercept",None)
+    # Favor linear mappings with proven BQML units. A per-frame
+    # RealWorldValueMappingSequence may be present but not have a linear
+    # slope/intercept (e.g. LUT-only). Its presence must NOT mask a valid
+    # shared PixelValueTransformationSequence.
+    def candidates(name):
+        per = getattr(ds, "PerFrameFunctionalGroupsSequence", None)
+        shared = getattr(ds, "SharedFunctionalGroupsSequence", None)
+        for source, holder in (
+            ("per-frame", per[i] if per is not None and len(per) > i else None),
+            ("shared", shared[0] if shared else None),
+            ("top-level", ds),
+        ):
+            if holder is None:
+                continue
+            seq = getattr(holder, name, None)
+            if seq:
+                for item in seq:
+                    yield source, item
+
+    slope = intercept = None
+    rw_diagnostics = []
+    for source, rw in candidates("RealWorldValueMappingSequence"):
+        unit_seq = getattr(rw, "MeasurementUnitsCodeSequence", None)
+        unit = str(getattr(unit_seq[0], "CodeValue", "")) if unit_seq else ""
+        scheme = str(getattr(unit_seq[0], "CodingSchemeDesignator", "")) if unit_seq else ""
+        a = getattr(rw, "RealWorldValueSlope", None)
+        b = getattr(rw, "RealWorldValueIntercept", None)
+        rw_diagnostics.append((source, unit, a is not None, b is not None))
+        if a is None or b is None:
+            continue
+        normalized = unit.lower().replace(" ", "").replace("{", "").replace("}", "")
+        if normalized not in ("bq/ml", "bq.ml-1", "bqml"):
+            # The header says Units=BQML; ignore mappings to SUV and other units.
+            # Do not mistake these for the quantitative PET concentration.
+            continue
+        slope, intercept = a, b
+        break
+    if slope is None:
+        for source, transform in candidates("PixelValueTransformationSequence"):
+            a = getattr(transform, "RescaleSlope", None)
+            b = getattr(transform, "RescaleIntercept", None)
+            if a is not None and b is not None:
+                slope, intercept = a, b
+                break
+    if slope is None:
+        slope = getattr(ds, "RescaleSlope", None)
+        intercept = getattr(ds, "RescaleIntercept", None)
     # Legacy PET multiframe frequently stores only the first slice origin
     # in ImagePositionPatient, plus one GridFrameOffsetVector entry per slice.
     # This vector may specify offsets from the first position (relative form)
