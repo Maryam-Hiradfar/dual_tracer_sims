@@ -1,0 +1,72 @@
+{
+  "aif": {
+    "FDG": {
+      "delay_min": 0.3328968925001793,
+      "bolus_amplitude_bqml": 104344.02805161808,
+      "bolus_peak_min": 0.15137510829870982,
+      "bolus_shape": 7.999978985511707,
+      "fast_amplitude_bqml": 29145.94630415457,
+      "fast_lambda_per_min": 1.3285155246883436,
+      "slow_amplitude_bqml": 9073.314384519372,
+      "slow_lambda_per_min": 0.014908486850412954
+    },
+    "PBR28": {
+      "delay_min": 0.39999998872600584,
+      "bolus_amplitude_bqml": 45429.556107277276,
+      "bolus_peak_min": 0.13361947383603956,
+      "bolus_shape": 4.254789954588173,
+      "fast_amplitude_bqml": 10365.30251740629,
+      "fast_lambda_per_min": 0.8375233098759588,
+      "slow_amplitude_bqml": 2869.6266895336644,
+      "slow_lambda_per_min": 0.006509112923612521
+    }
+  },
+  "kinetics": {
+    "FDG": {
+      "K1": 0.146969833218802,
+      "k2": 0.119575138861569,
+      "k3": 0.042108367298586,
+      "k4": 0.0
+    },
+    "PBR28": {
+      "K1": 0.18,
+      "k2": 0.25,
+      "k3": 0.04,
+      "k4": 0.01
+    }
+  },
+  "vascular_fraction": {
+    "FDG": 0.0808523133568341,
+    "PBR28": 0.05
+  },
+  "reference_doses_mci": {
+    "FDG": 4.91,
+    "PBR28": 4.98
+  },
+  "dose_ranges_mci": {
+    "FDG": [
+      4.91,
+      4.91
+    ],
+    "PBR28": [
+      4.98,
+      4.98
+    ]
+  },
+  "kinetic_variation_fraction": 0.1,
+  "aif_variation_fraction": 0.05,
+  "fdg_extra_delay_sec": 5.78091827383968,
+  "provenance": {
+    "aif": "Frame-average analytical model fitted separately to measured blood AIF files",
+    "aif_fit_rmse_bqml": {
+      "FDG": 1985.1333479371078,
+      "PBR28": 402.08071820711444
+    },
+    "FDG_kinetics": "Previously supplied single-region fitted FDG parameters; not population validated",
+    "PBR28_kinetics": "Illustrative parameter defaults, NOT fitted to current subject",
+    "PBR28_aif": "Whole-blood AIF surrogate, not metabolite-corrected plasma",
+    "reference_doses": "Measured injected activities recalled from prior scan (mCi)",
+    "dose_scale_assumption": "Concentrations linear in administered activity",
+    "delay_sign": "Positive FDG extra delay shifts tissue input later; original fitter sign not verified"
+  }
+}
