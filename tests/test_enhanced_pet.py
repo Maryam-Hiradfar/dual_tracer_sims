@@ -85,3 +85,24 @@ def test_legacy_relative_grid_frame_offsets():
     results=[frame_info(ds,i) for i in range(3)]
     np.testing.assert_allclose([r["pos"][2] for r in results],[12,14,16])
     assert all(r["key"]==("temporal_index",7) for r in results)
+
+
+def test_incomplete_real_world_mapping_falls_back_to_shared_pixel_transform():
+    ds=Dataset()
+    ds.NumberOfFrames=2
+    ds.Units="BQML"
+    ds.FrameReferenceTime=1000
+    pf=Dataset()
+    pf.PlanePositionSequence=seq(ImagePositionPatient=[0,0,0])
+    pf.RealWorldValueMappingSequence=seq(
+        MeasurementUnitsCodeSequence=seq(CodeValue="BQML")
+    )
+    shared=Dataset()
+    shared.PlaneOrientationSequence=seq(ImageOrientationPatient=[1,0,0,0,1,0])
+    shared.PixelMeasuresSequence=seq(PixelSpacing=[2,2])
+    shared.PixelValueTransformationSequence=seq(RescaleSlope=4.2,RescaleIntercept=0)
+    ds.PerFrameFunctionalGroupsSequence=Sequence([pf,pf])
+    ds.SharedFunctionalGroupsSequence=Sequence([shared])
+    result=frame_info(ds,0)
+    assert result["slope"]==pytest.approx(4.2)
+    assert result["intercept"]==0
