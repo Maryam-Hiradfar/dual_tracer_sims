@@ -16,3 +16,6 @@ logs/
 results/
 ml/prototype_outputs/
 ml/experiments/mixture_30ep/test_biological_analysis/all_100_samples/
+
+# Local Python virtual environment
+.venv/

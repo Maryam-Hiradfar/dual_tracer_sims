@@ -24,7 +24,14 @@ def _channel_metrics(
     for channel, name in enumerate(names):
         error = prediction[:, channel] - target[:, channel]
         mse = float(np.mean(error**2))
+        # Normalize percentage errors to true tracer RMS across all frames.
+        # Pointwise percentages diverge around pre-injection zero activity.
+        ref_rms=float(np.sqrt(np.mean(target[:,channel]**2)))
+        denom=max(ref_rms,1e-12)
         metrics[name] = {
+            "percent_rmse":float(100*np.sqrt(mse)/denom),
+            "percent_mae":float(100*np.mean(np.abs(error))/denom),
+            "reference_rms":ref_rms,
             "mse": mse,
             "rmse": float(np.sqrt(mse)),
             "mae": float(np.mean(np.abs(error))),
@@ -64,6 +71,7 @@ def _plot_predictions(
     metadata: list[dict],
     selected_indices: list[int],
     output_path: Path,
+    activity_unit: str,
 ) -> None:
     fig, axes = plt.subplots(1, len(selected_indices), figsize=(18, 5), sharex=True)
     for ax, index in zip(np.atleast_1d(axes), selected_indices):
@@ -94,22 +102,11 @@ def _plot_predictions(
         )
         ax.set_xlabel("Time (min)")
         ax.grid(True, alpha=0.25)
-        ax.text(
-            0.98,
-            0.04,
-            f"FDG RMSE: {fdg_rmse:.3f} kBq/mL\n"
-            f"PBR28 RMSE: {pbr28_rmse:.3f} kBq/mL",
-            transform=ax.transAxes,
-            ha="right",
-            va="bottom",
-            fontsize=9,
-            bbox={"facecolor": "white", "edgecolor": "0.75", "alpha": 0.9},
-        )
-    axes[0].set_ylabel("Activity concentration (kBq/mL)")
+    axes[0].set_ylabel(f"Activity concentration ({activity_unit})")
     handles, labels = axes[0].get_legend_handles_labels()
     fig.suptitle("TCN test predictions versus true physical tracer TACs", y=0.98)
-    fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 0.92), ncol=6)
-    fig.tight_layout(rect=(0, 0, 1, 0.83))
+    fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(0.5, 0.005), ncol=6, frameon=False)
+    fig.tight_layout(rect=(0, 0.14, 1, 0.92))
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
@@ -164,6 +161,9 @@ def evaluate(
 
     metadata = json.loads((data_dir / "test_metadata.json").read_text())
     global_metadata = json.loads((data_dir / "dataset_metadata.json").read_text())
+    activity_unit = global_metadata.get("units", {}).get("TAC", "kBq/mL")
+    if activity_unit not in ("Bq/mL", "kBq/mL"):
+        raise ValueError(f"unsupported activity unit: {activity_unit}")
     selected_indices = _select_representative_indices(metadata)
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -175,16 +175,20 @@ def evaluate(
         measured_tavg_n1_d1=measured.astype(np.float32),
         clean_tavg_n0_d1=clean.astype(np.float32),
     )
+    from ml.tcn_diagnostic_plots import render_tcn_diagnostics
+    additional_figures = render_tcn_diagnostics(
+        np.asarray(global_metadata["frame_midpoints_min"]), measured, clean,
+        target, prediction, metadata, global_metadata, selected_indices,
+        output_dir, training_history=checkpoint_path.parent / "history.json",
+    )
     plot_path = output_dir / "test_prediction_examples.png"
-    _plot_predictions(
-        frame_midpoints=np.asarray(global_metadata["frame_midpoints_min"]),
-        measured=measured,
-        clean=clean,
-        target=target,
-        prediction=prediction,
-        metadata=metadata,
-        selected_indices=selected_indices,
-        output_path=plot_path,
+
+    from ml.tcn_all_cases_pdf import export_all_test_cases_pdf
+    pdf_report = export_all_test_cases_pdf(
+        output_dir / "all_test_cases.pdf",
+        time_min=global_metadata["frame_midpoints_min"],
+        measured=measured, clean=clean, target=target, prediction=prediction,
+        metadata=metadata, unit=activity_unit,
     )
 
     report = {
@@ -203,9 +207,9 @@ def evaluate(
         },
         "physical_metrics": {
             "units": {
-                "mse": "(kBq/mL)^2",
-                "rmse": "kBq/mL",
-                "mae": "kBq/mL",
+                "mse": f"({activity_unit})^2",
+                "rmse": activity_unit,
+                "mae": activity_unit,
             },
             "overall_mse": physical_overall_mse,
             "mixture_mse": physical_mixture_mse,
@@ -221,6 +225,9 @@ def evaluate(
         ],
         "prediction_file": str(prediction_path),
         "plot_file": str(plot_path),
+        "diagnostic_figures": additional_figures,
+        "all_test_cases_pdf": pdf_report,
+        "signal_origin": ("aortic blood input functions" if global_metadata.get("selected_rois")==["aorta"] else "ROI TAC columns"),
     }
     report_path = output_dir / "test_report.json"
     report_path.write_text(json.dumps(report, indent=2) + "\n")
@@ -270,7 +277,7 @@ def main() -> None:
     print(f"normalized_fdg_mse={normalized['by_tracer']['FDG']['mse']:.8g}")
     print(f"normalized_pbr28_mse={normalized['by_tracer']['PBR28']['mse']:.8g}")
     print(f"normalized_mixture_mse={normalized['mixture_mse']:.8g}")
-    print(f"physical_overall_mse={physical['overall_mse']:.8g} (kBq/mL)^2")
+    print(f"physical_overall_mse={physical['overall_mse']:.8g} {physical['units']['mse']}")
     print(f"report={args.output_dir / 'test_report.json'}")
     print(f"plot={report['plot_file']}")
 
