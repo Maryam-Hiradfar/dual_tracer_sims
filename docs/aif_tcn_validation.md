@@ -1,3 +1,28 @@
+## Complete test-set PDF (added)
+
+The usual `python -m ml.evaluate_tcn_prototype` command now writes
+`evaluation/all_test_cases.pdf` alongside the aggregate diagnostic
+PNG plots. Every held-out test sample is included exactly once,
+grouped by FDG injection offset (0/5/10 min by default), four cases
+per page. Each case plots noisy and clean mixture, FDG/PBR28 true
+and predicted curves, and per-tracer RMSE and normalized percent
+RMSE. Legends are outside the data axes.
+
+You can regenerate the PDF **without any TCN retraining or inference**
+from the already saved `test_predictions.npz`:
+
+```bash
+python -m ml.tcn_all_cases_pdf \
+  --data-dir "/path/to/TCN_parametric" \
+  --evaluation-dir "/path/to/TCN_parametric_results/evaluation" \
+  --cases-per-page 4
+```
+
+With 1,000 generated samples and an 80/10/10 split, this produces
+roughly 100 test plots across approximately 26–28 PDF pages,
+depending on offset-group sizes. Note that it covers **test.npz** only,
+not the training/validation examples.
+
 # Expanded dual-tracer TCN validation: percentage error and AIF separation
 
 The same causal `ml.tcn.Model` supports two **separate** parametric benchmarks:
