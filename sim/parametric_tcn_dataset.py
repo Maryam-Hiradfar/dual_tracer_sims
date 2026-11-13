@@ -173,14 +173,14 @@ def fit_aifs(fdg_csv,pbr_csv,out_file):
 
 
 def forward(cfg,frames,offset,fdg_dose,pbr_dose,variation,rng,
-            aif_variation=0.,dt_sec=1.):
+            aif_variation=0.,dt_sec=1.,return_aif_phys=False):
     if dt_sec<=0:raise ValueError("dt_sec must be positive")
     duration=frames[-1,1]
     # Exactly uniform integration grid; ensure the final frame edge is a node.
     n_steps=max(1,int(np.ceil(duration*60/dt_sec)))
     t=np.linspace(0,duration,n_steps+1)
     step_min=duration/n_steps
-    targets=[];idifs=[]; dc_targets=[]
+    targets=[];idifs=[]; dc_targets=[]; aif_phys=[]
     for tracer,dose in (("FDG",fdg_dose),("PBR28",pbr_dose)):
         relative=t-(offset if tracer=="FDG" else 0.)
         aif=dict(cfg["aif"][tracer])
@@ -202,12 +202,16 @@ def forward(cfg,frames,offset,fdg_dose,pbr_dose,variation,rng,
         targets.append(dense_frame_means(t,tissue_dc*decay,frames))
         dc_targets.append(dense_frame_means(t,tissue_dc,frames))
         idifs.append(dense_frame_means(t,plasma_like,frames))
-    return (np.asarray(targets),np.asarray(dc_targets),np.asarray(idifs))
+        aif_phys.append(dense_frame_means(t,plasma_like*decay,frames))
+    result=(np.asarray(targets),np.asarray(dc_targets),np.asarray(idifs))
+    return result+(np.asarray(aif_phys),) if return_aif_phys else result
 
 
 def generate(params_path,frames_path,output_dir,*,n_samples=1000,seed=48,
              duration_min=60.,offsets=(0,5,10),cv60=.05,dt_sec=1.,
-             train_fraction=.8,val_fraction=.1):
+             train_fraction=.8,val_fraction=.1,target_mode="tissue"):
+    if target_mode not in ("tissue","aif"):
+        raise ValueError("target_mode must be tissue or aif")
     cfg=json.loads(Path(params_path).read_text())
     frames=read_frames(frames_path,duration_min)
     if (n_samples<10 or not 0<train_fraction<1
@@ -231,15 +235,19 @@ def generate(params_path,frames_path,output_dir,*,n_samples=1000,seed=48,
         offset=float(rng.choice(offsets))
         fdg_dose=float(rng.uniform(*doses["FDG"]))
         pbr_dose=float(rng.uniform(*doses["PBR28"]))
-        target,dc_target,idifs=forward(cfg,frames,offset,fdg_dose,pbr_dose,
-                                      variation,rng,aif_variation,dt_sec)
+        tissue_target,dc_target,idifs,aif_target=forward(
+            cfg,frames,offset,fdg_dose,pbr_dose,
+            variation,rng,aif_variation,dt_sec,return_aif_phys=True)
+        target=tissue_target if target_mode=="tissue" else aif_target
         clean=target.sum(axis=0)
         observed,expected=sample_noise(clean,frames[:,1]-frames[:,0],cv60,rng)
         samples.append({
             "X_measured_tavg_n1_d1":observed[None,:].astype("float32"),
             "X_clean_tavg_n0_d1":clean[None,:].astype("float32"),
             "Y_phys_tavg_n0_d1":target.astype("float32"),
-            "Y_bio_tavg_n0_d0":dc_target.astype("float32"),
+            "Y_bio_tavg_n0_d0":(dc_target if target_mode=="tissue" else idifs).astype("float32"),
+            "Y_tissue_phys_tavg_n0_d1":tissue_target.astype("float32"),
+            "Y_aif_phys_tavg_n0_d1":aif_target.astype("float32"),
             "expected_counts":expected.astype("float32"),
             "fdg_idif_dc_bqml":idifs[0].astype("float32"),
             "pbr28_idif_dc_bqml":idifs[1].astype("float32"),
@@ -258,7 +266,8 @@ def generate(params_path,frames_path,output_dir,*,n_samples=1000,seed=48,
     for split,indices in (("train",order[:a]),("val",order[a:b]),("test",order[b:])):
         keys=("X_measured_tavg_n1_d1","X_clean_tavg_n0_d1",
               "Y_phys_tavg_n0_d1","Y_bio_tavg_n0_d0",
-              "expected_counts","fdg_idif_dc_bqml","pbr28_idif_dc_bqml")
+              "expected_counts","fdg_idif_dc_bqml","pbr28_idif_dc_bqml",
+              "Y_tissue_phys_tavg_n0_d1","Y_aif_phys_tavg_n0_d1")
         np.savez_compressed(out/f"{split}.npz",
                             **{k:np.stack([samples[int(i)][k] for i in indices])
                                for k in keys})
@@ -273,7 +282,9 @@ def generate(params_path,frames_path,output_dir,*,n_samples=1000,seed=48,
         "params_file":str(params_path),
         "reference_doses_mci":cfg["reference_doses_mci"],
         "fdg_offsets_min":list(offsets),
-        "source_signal":"analytic AIF -> 2TCM forward simulation; no measured TAC interpolation",
+        "source_signal":("analytic AIF -> 2TCM tissue forward simulation" if target_mode=="tissue" else "analytic AIF physical blood activity separation"),
+        "target_mode":target_mode,
+        "aif_fit_inputs":"analytic AIF calibrated using measured frame averages, but samples generated from parametric curves",
         "noise":{"model":"effective Poisson for ROI mean","cv_60s_at_10k_bqml":cv60,
                  "warning":"Illustrative unless independently ROI-calibrated"},
         "seed":seed,"sample_count":n_samples,"channel_order":list(CHANNELS),
@@ -300,6 +311,8 @@ def main():
     gen.add_argument("--n-samples",type=int,default=1000)
     gen.add_argument("--seed",type=int,default=48)
     gen.add_argument("--integration-step-sec",type=float,default=1.)
+    gen.add_argument("--target-mode",choices=["tissue","aif"],default="tissue",
+                     help="Train target: simulated tissue TACs or independently varied blood AIFs")
     a=parser.parse_args()
     if a.action=="fit-aif":
         fit_aifs(a.fdg_aif_csv,a.pbr_aif_csv,a.out_params)
@@ -307,7 +320,7 @@ def main():
         generate(a.params,a.frame_csv,a.output_dir,n_samples=a.n_samples,
                  seed=a.seed,duration_min=a.duration_min,
                  offsets=tuple(a.fdg_offsets_min),cv60=a.noise_cv60,
-                 dt_sec=a.integration_step_sec)
+                 dt_sec=a.integration_step_sec,target_mode=a.target_mode)
 
 
 if __name__=="__main__":
