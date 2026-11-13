@@ -24,7 +24,14 @@ def _channel_metrics(
     for channel, name in enumerate(names):
         error = prediction[:, channel] - target[:, channel]
         mse = float(np.mean(error**2))
+        # Normalize percentage errors to true tracer RMS across all frames.
+        # Pointwise percentages diverge around pre-injection zero activity.
+        ref_rms=float(np.sqrt(np.mean(target[:,channel]**2)))
+        denom=max(ref_rms,1e-12)
         metrics[name] = {
+            "percent_rmse":float(100*np.sqrt(mse)/denom),
+            "percent_mae":float(100*np.mean(np.abs(error))/denom),
+            "reference_rms":ref_rms,
             "mse": mse,
             "rmse": float(np.sqrt(mse)),
             "mae": float(np.mean(np.abs(error))),
