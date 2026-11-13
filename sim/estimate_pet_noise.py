@@ -59,8 +59,23 @@ def estimate_frame(frame, roi, *, half_a=None, half_b=None,
 def load_timing_csv(path, n_frames):
     with Path(path).open(newline="") as f:
         rows = list(csv.DictReader(f))
-    if not rows or len(rows) != n_frames or not {"TimeStart", "TimeEnd"}.issubset(rows[0]):
-        raise ValueError("timing CSV must have a TimeStart/TimeEnd row per 4D frame (seconds)")
+    if not rows:
+        raise ValueError(f"Timing CSV {path} has no data rows")
+    required = {"TimeStart", "TimeEnd"}
+    actual = set(rows[0])
+    if not required.issubset(actual):
+        raise ValueError(f"Timing CSV headers are {sorted(actual)!r}, "
+                         "but TimeStart and TimeEnd (seconds) are required")
+    if len(rows) != n_frames:
+        start_preview = [(r.get("TimeStart"), r.get("TimeEnd")) for r in rows[:3]]
+        end_preview = [(r.get("TimeStart"), r.get("TimeEnd")) for r in rows[-3:]]
+        raise ValueError(
+            f"Frame count mismatch: DICOM identified {n_frames} dynamic time points "
+            f"but timing CSV has {len(rows)} data rows. "
+            f"CSV first frames: {start_preview}; last frames: {end_preview}. "
+            "Check whether these files use the same reconstruction/frame schedule; "
+            "do not pad, truncate, or reorder frames without validation."
+        )
     edges = np.array([[float(r["TimeStart"]), float(r["TimeEnd"])] for r in rows])
     if (not np.isfinite(edges).all() or np.any(edges[:, 1] <= edges[:, 0])
             or np.any(np.diff(edges[:, 0]) <= 0)
