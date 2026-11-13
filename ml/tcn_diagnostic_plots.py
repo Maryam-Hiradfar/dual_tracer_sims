@@ -54,7 +54,10 @@ def render_tcn_diagnostics(frame_midpoints, measured, clean, target, prediction,
         raise ValueError("Incompatible TCN evaluation shapes")
     out=Path(output_dir);out.mkdir(parents=True,exist_ok=True)
     unit=_unit(global_metadata)
-    kind="Aortic blood curves (input functions)" if global_metadata.get("selected_rois")==["aorta"] else "ROI TACs"
+    mode=global_metadata.get("target_mode")
+    kind=("Synthetic arterial input functions (AIFs)" if mode=="aif" else
+          "Simulated tissue TACs (2TCM)" if mode=="tissue" else
+          "Aortic blood curves (input functions)" if global_metadata.get("selected_rois")==["aorta"] else "ROI TACs")
     sources=("FDG","PBR28")
     images={}
 
