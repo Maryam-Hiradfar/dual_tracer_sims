@@ -1,7 +1,7 @@
-"""Convert classic single-frame dynamic PET DICOM files from one directory to 4D Bq/mL NIfTI.
+"""Convert classic or enhanced dynamic PET DICOM to 4D Bq/mL NIfTI.
 
 Conservative loader: requires explicit frame identity, uniform geometry, BQML units,
-and external timing CSV. Rejects enhanced multiframe and uncertain scaling.
+and external timing CSV. Rejects uncertain geometry, chronology and scaling.
 No patient metadata written. Source DICOM stays local.
 """
 from __future__ import annotations
@@ -139,6 +139,25 @@ def convert_dicom_directory(directory, out_nifti, *, timing_csv):
     import pydicom
     import nibabel as nib
     from sim.estimate_pet_noise import load_timing_csv
+    # Detect enhanced objects before the classic single-slice series parser.
+    seen_multiframe = False
+    seen_classic = False
+    for path in sorted(Path(directory).iterdir()):
+        if not path.is_file():
+            continue
+        d = _read_header(path, pydicom)
+        if d is None or getattr(d, "Modality", "") != "PT":
+            continue
+        if int(getattr(d, "NumberOfFrames", 1)) > 1:
+            seen_multiframe = True
+        else:
+            seen_classic = True
+    if seen_multiframe:
+        if seen_classic:
+            raise ValueError("Directory mixes classic and multiframe PET DICOM; "
+                             "isolate one acquisition")
+        from sim.enhanced_pet import convert_multiframe
+        return convert_multiframe(directory, out_nifti, timing_csv=timing_csv)
     groups, affine, shape, keys = scan_series(directory)
     times = load_timing_csv(timing_csv, len(groups))
     if (keys[0][0] == "FrameReferenceTime" and
@@ -176,9 +195,19 @@ def convert_dicom_directory(directory, out_nifti, *, timing_csv):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--dicom-dir", type=Path, required=True)
-    p.add_argument("--timing-csv", type=Path, required=True)
-    p.add_argument("--output-nifti", type=Path, required=True)
+    p.add_argument("--inspect", action="store_true",
+                   help="Print non-identifying header structure without converting")
+    p.add_argument("--timing-csv", type=Path,
+                   help="Required for conversion; not needed with --inspect")
+    p.add_argument("--output-nifti", type=Path,
+                   help="Required for conversion; not needed with --inspect")
     a = p.parse_args()
+    if a.inspect:
+        from sim.enhanced_pet import inspect
+        inspect(a.dicom_dir)
+        return
+    if a.timing_csv is None or a.output_nifti is None:
+        p.error("--timing-csv and --output-nifti are required unless --inspect is set")
     convert_dicom_directory(a.dicom_dir, a.output_nifti, timing_csv=a.timing_csv)
 
 
