@@ -88,6 +88,23 @@ might be scan-start decay-corrected; verify that convention independently.
 Do not interpret the fitted equivalent Poisson sensitivity as a measured
 scanner NEMA sensitivity.
 
+### Panorama GS multiframe scaling and large-volume handling
+
+Some multiframe exports include `RealWorldValueMappingSequence` in each
+frame but omit linear slope/intercept there while providing a valid
+`PixelValueTransformationSequence` in the shared functional groups.
+The converter now falls back to a complete shared pixel transform rather than
+mistaking an incomplete per-frame mapping for missing quantitative data. When a
+complete Real World Value Mapping to Bq/mL is available, that mapping is preferred.
+Verify rescaled pixel values against your PET viewer before quantitative use.
+
+Large Enhanced PET series are written as **uncompressed, memory-mappable**
+`converted_pet_bqml_4d.nii` using a disk-backed temporary buffer to avoid
+allocating the entire 4D volume in RAM. This may require tens of gigabytes of
+free space *for the output and temporary buffer simultaneously*. For example,
+a 360 x 360 x 702 x 80 float32 series is about 29 GB uncompressed (decimal).
+Do not convert on a volume without adequate free space.
+
 ## Dynamic PET DICOM in a single directory
 
 The noise estimator accepts classic **single-frame PET DICOMs** directly with
