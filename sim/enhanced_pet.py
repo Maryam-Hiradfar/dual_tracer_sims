@@ -229,6 +229,10 @@ def convert_multiframe(directory, out_nifti, *, timing_csv):
     keys=sorted(groups,key=lambda k:k[1])
     if len(keys)<2 or len({k[0] for k in keys})!=1:
         raise ValueError("Cannot identify at least two unique, consistently indexed time frames")
+    print(f"DICOM temporal grouping: {len(keys)} distinct time points; "
+          f"{len(records)} total image planes; {len(paths)} multiframe objects.")
+    print(f"First temporal identifiers: {keys[:3]}")
+    print(f"Last temporal identifiers: {keys[-3:]}")
     times=load_timing_csv(timing_csv,len(keys))
     ref=records[0]
     ori,space=ref["ori"],ref["space"]
