@@ -26,22 +26,22 @@ def template(ids,fdg_cols,pbr_cols,names=None):
 def main():
     import nibabel as nib
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--atlas",type=Path,required=True)
+    p.add_argument("--atlas",type=Path,required=True,
+                   help="3D label NIfTI or directory of individual ROI mask NIfTIs")
     p.add_argument("--fdg-rois",type=Path,required=True)
     p.add_argument("--pbr-rois",type=Path,required=True)
     p.add_argument("--atlas-lut",type=Path)
     p.add_argument("--out",type=Path,required=True)
     a=p.parse_args()
-    im=nib.load(str(a.atlas))
-    if len(im.shape)!=3: raise ValueError("atlas must be 3D")
+    from sim.brain_atlas_io import load_atlas
+    im,names=load_atlas(a.atlas,output_dir=a.out.parent)
     labels=np.unique(np.asarray(im.dataobj))
-    if not np.allclose(labels,np.rint(labels)): raise ValueError("integer labels required")
-    names={}
     if a.atlas_lut:
         d=pd.read_csv(a.atlas_lut)
         if not {"label_id","region_name"}.issubset(d.columns):
             raise ValueError("LUT needs label_id,region_name")
-        names={int(row.label_id):str(row.region_name) for row in d.itertuples(index=False)}
+        names.update({int(row.label_id):str(row.region_name)
+                      for row in d.itertuples(index=False)})
     exclude={"TimeStart","TimeEnd","TimeMid","aorta","Cp"}
     fdg=[str(c) for c in table(a.fdg_rois).columns if c not in exclude]
     pbr=[str(c) for c in table(a.pbr_rois).columns if c not in exclude]
