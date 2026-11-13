@@ -70,3 +70,18 @@ def test_3d_multiframe_2_times_converted(tmp_path):
     image=nib.load(str(out))
     assert image.shape==(4,5,3,2)
     np.testing.assert_allclose(np.asarray(image.dataobj)[0,0,1,:],[205,225])
+
+
+def test_legacy_relative_grid_frame_offsets():
+    ds=Dataset()
+    ds.NumberOfFrames=3
+    ds.ImageOrientationPatient=[1,0,0,0,1,0]
+    ds.ImagePositionPatient=[0,0,12]
+    ds.PixelSpacing=[2,2]
+    ds.RescaleSlope=2
+    ds.RescaleIntercept=0
+    ds.AcquisitionNumber=7
+    ds.GridFrameOffsetVector=[0,2,4]
+    results=[frame_info(ds,i) for i in range(3)]
+    np.testing.assert_allclose([r["pos"][2] for r in results],[12,14,16])
+    assert all(r["key"]==("temporal_index",7) for r in results)
