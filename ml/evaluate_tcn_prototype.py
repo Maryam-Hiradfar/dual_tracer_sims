@@ -95,22 +95,11 @@ def _plot_predictions(
         )
         ax.set_xlabel("Time (min)")
         ax.grid(True, alpha=0.25)
-        ax.text(
-            0.98,
-            0.04,
-            f"FDG RMSE: {fdg_rmse:.3f} {activity_unit}\n"
-            f"PBR28 RMSE: {pbr28_rmse:.3f} {activity_unit}",
-            transform=ax.transAxes,
-            ha="right",
-            va="bottom",
-            fontsize=9,
-            bbox={"facecolor": "white", "edgecolor": "0.75", "alpha": 0.9},
-        )
     axes[0].set_ylabel(f"Activity concentration ({activity_unit})")
     handles, labels = axes[0].get_legend_handles_labels()
     fig.suptitle("TCN test predictions versus true physical tracer TACs", y=0.98)
-    fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 0.92), ncol=6)
-    fig.tight_layout(rect=(0, 0, 1, 0.83))
+    fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(0.5, 0.005), ncol=6, frameon=False)
+    fig.tight_layout(rect=(0, 0.14, 1, 0.92))
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
@@ -179,6 +168,12 @@ def evaluate(
         measured_tavg_n1_d1=measured.astype(np.float32),
         clean_tavg_n0_d1=clean.astype(np.float32),
     )
+    from ml.tcn_diagnostic_plots import render_tcn_diagnostics
+    additional_figures = render_tcn_diagnostics(
+        np.asarray(global_metadata["frame_midpoints_min"]), measured, clean,
+        target, prediction, metadata, global_metadata, selected_indices,
+        output_dir, training_history=checkpoint_path.parent / "history.json",
+    )
     plot_path = output_dir / "test_prediction_examples.png"
     _plot_predictions(
         frame_midpoints=np.asarray(global_metadata["frame_midpoints_min"]),
@@ -226,6 +221,8 @@ def evaluate(
         ],
         "prediction_file": str(prediction_path),
         "plot_file": str(plot_path),
+        "diagnostic_figures": additional_figures,
+        "signal_origin": ("aortic blood input functions" if global_metadata.get("selected_rois")==["aorta"] else "ROI TAC columns"),
     }
     report_path = output_dir / "test_report.json"
     report_path.write_text(json.dumps(report, indent=2) + "\n")
