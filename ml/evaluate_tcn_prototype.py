@@ -183,6 +183,14 @@ def evaluate(
     )
     plot_path = output_dir / "test_prediction_examples.png"
 
+    from ml.tcn_all_cases_pdf import export_all_test_cases_pdf
+    pdf_report = export_all_test_cases_pdf(
+        output_dir / "all_test_cases.pdf",
+        time_min=global_metadata["frame_midpoints_min"],
+        measured=measured, clean=clean, target=target, prediction=prediction,
+        metadata=metadata, unit=activity_unit,
+    )
+
     report = {
         "checkpoint": str(checkpoint_path),
         "checkpoint_epoch": int(checkpoint["epoch"]),
@@ -218,6 +226,7 @@ def evaluate(
         "prediction_file": str(prediction_path),
         "plot_file": str(plot_path),
         "diagnostic_figures": additional_figures,
+        "all_test_cases_pdf": pdf_report,
         "signal_origin": ("aortic blood input functions" if global_metadata.get("selected_rois")==["aorta"] else "ROI TAC columns"),
     }
     report_path = output_dir / "test_report.json"
