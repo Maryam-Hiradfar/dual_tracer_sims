@@ -163,7 +163,9 @@ def estimate_noise(pet_path, atlas_path, timing_path, output_dir, *,
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--pet", type=Path, required=True)
+    source = p.add_mutually_exclusive_group(required=True)
+    source.add_argument("--pet", type=Path, help="4D Bq/mL PET NIfTI")
+    source.add_argument("--pet-dicom-dir", type=Path, help="Directory of classic single-frame dynamic PET DICOM slices")
     p.add_argument("--atlas", type=Path, required=True)
     p.add_argument("--timing-csv", type=Path, required=True)
     p.add_argument("--output-dir", type=Path, default=Path("results/brain_noise"))
@@ -175,8 +177,15 @@ def main():
     p.add_argument("--min-voxels", type=int, default=30)
     p.add_argument("--voxel-volume-ml", type=float)
     p.add_argument("--resample-atlas", action="store_true")
+    p.add_argument("--converted-nifti", type=Path,
+                   help="Output path for validated 4D PET NIfTI; default inside output-dir")
     a = p.parse_args()
-    estimate_noise(a.pet, a.atlas, a.timing_csv, a.output_dir, half_a_path=a.half_a,
+    pet_path = a.pet
+    if a.pet_dicom_dir is not None:
+        from sim.dicom_dynamic_pet import convert_dicom_directory
+        pet_path = a.converted_nifti or (a.output_dir / "converted_pet_bqml_4d.nii.gz")
+        convert_dicom_directory(a.pet_dicom_dir, pet_path, timing_csv=a.timing_csv)
+    estimate_noise(pet_path, a.atlas, a.timing_csv, a.output_dir, half_a_path=a.half_a,
                    half_b_path=a.half_b, atlas_lut=a.atlas_lut,
                    smooth_sigma_vox=a.smooth_sigma_vox, erode_vox=a.erode_vox,
                    min_voxels=a.min_voxels, voxel_volume_ml=a.voxel_volume_ml,
