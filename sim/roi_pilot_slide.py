@@ -34,8 +34,18 @@ def make_slide(fig_dir: Path, output: Path, *, title=None):
         return shape
     textbox(.55,.23,12.3,.6,
             title or "FDG/PBR28 ROI-level synthetic mixture feasibility",24,True)
-    slide.shapes.add_picture(str(big),Inches(.45),Inches(1.03),width=Inches(9.25))
-    slide.shapes.add_picture(str(secondary),Inches(9.55),Inches(2.03),width=Inches(3.5))
+    # Preserve aspect ratios and fit all image panels within the slide.
+    def fit_picture(path, x, y, max_w, max_h):
+        from pptx.util import Inches
+        from PIL import Image
+        with Image.open(path) as im:
+            w, h = im.size
+        scale = min(max_w / w, max_h / h)
+        width, height = w * scale, h * scale
+        slide.shapes.add_picture(str(path), Inches(x), Inches(y),
+                                 width=Inches(width), height=Inches(height))
+    fit_picture(big, .45, 1.03, 9.15, 5.52)
+    fit_picture(secondary, 9.55, 2.03, 3.45, 3.5)
     textbox(9.7,1.12,3.2,.7,"Noise sensitivity",16,True)
     textbox(.65,6.77,12.,.55,
             "Preliminary: empirical single-tracer ROI TACs; synthetically delayed/decayed mixture. "
