@@ -35,3 +35,18 @@ def test_tcn_ready_split_shapes(tmp_path):
         assert y.shape==(24,2,x.shape[-1])
         np.testing.assert_allclose(y.sum(axis=1,keepdims=True),clean,atol=1e-3)
         assert np.isfinite(x).all()
+
+
+def test_aorta_only_inputs_generate_tcn_dataset(tmp_path):
+    t=np.arange(15,60*62,30,dtype=float)
+    basic=dict(TimeStart=t-15,TimeEnd=t+15,TimeMid=t)
+    fdg=pd.DataFrame(dict(**basic,aorta=10000*np.exp(-t/1000)+2500))
+    pbr=pd.DataFrame(dict(**basic,aorta=12000*np.exp(-t/650)+1000))
+    f=tmp_path/"FDG Aorta.csv";p=tmp_path/"Aorta PBR.csv"
+    fdg.to_csv(f,index=False);pbr.to_csv(p,index=False)
+    out=tmp_path/"tcn"
+    build(f,p,out,duration_min=30,offsets=(0,5,10),n_samples=30,cv60=.05)
+    import json
+    assert json.loads((out/"dataset_metadata.json").read_text())["selected_rois"]==["aorta"]
+    with np.load(out/"test.npz") as d:
+        assert d["Y_phys_tavg_n0_d1"].shape[1]==2
