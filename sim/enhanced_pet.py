@@ -264,8 +264,9 @@ def convert_multiframe(directory, out_nifti, *, timing_csv):
             for i in range(pixel.shape[0]):
                 t,z,rec=index[(path,i)]
                 array[:,:,z,t]=np.asarray(pixel[i],np.float32)*rec["slope"]+rec["intercept"]
-        if not np.isfinite(array).all():
-            raise ValueError("Nonfinite PET intensity values")
+        for ti in range(len(keys)):
+            if not np.isfinite(array[...,ti]).all():
+                raise ValueError(f"Nonfinite PET intensities in time frame {ti}")
         array.flush()
         img=nib.Nifti1Image(array,affine)
         img.header.set_xyzt_units("mm","sec")
