@@ -37,6 +37,7 @@ def scan_series(directory):
     if not directory.is_dir():
         raise FileNotFoundError(directory)
     groups = defaultdict(list)
+    series_uids = set()
     ignored = 0
     for path in sorted(directory.iterdir()):
         if not path.is_file():
@@ -58,8 +59,15 @@ def scan_series(directory):
         if hasattr(d, "RealWorldValueMappingSequence"):
             raise ValueError("RealWorldValueMappingSequence present: manual verification "
                              "of SUV/BQML scaling is required")
+        uid = str(getattr(d, "SeriesInstanceUID", ""))
+        if not uid:
+            raise ValueError(f"Missing SeriesInstanceUID in {path.name}")
+        series_uids.add(uid)
         key = frame_key(d)
         groups[key].append((path, d))
+    if len(series_uids) != 1:
+        raise ValueError(f"Directory contains {len(series_uids)} PET series. "
+                         "Separate different reconstructions/series before converting")
     if len(groups) < 2:
         raise ValueError(f"Need at least 2 dynamic frames; found {len(groups)}. "
                          f"Ignored {ignored} non-PET/non-DICOM files")
