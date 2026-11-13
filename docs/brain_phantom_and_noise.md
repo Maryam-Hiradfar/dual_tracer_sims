@@ -9,6 +9,49 @@ python -m pip install numpy scipy pandas matplotlib nibabel openpyxl pytest
 python -m pytest tests/test_brain_phantom.py -v
 ```
 
+## Atlas provided as a directory of individual ROI NIfTIs
+
+All three commands now accept **either** a single 3D integer-label NIfTI **or**
+a directory with one 3D ROI mask (`.nii`/`.nii.gz`) per brain region.
+For example:
+
+```text
+brain_rois/
+  Left_Cortex.nii.gz
+  Left_WhiteMatter.nii.gz
+  Right_Cortex.nii.gz
+  Right_WhiteMatter.nii.gz
+```
+
+Replace `--atlas "/private/brain_labels.nii.gz"` in any command with
+`--atlas "/private/brain_rois"`. Masks are assigned deterministic ascending
+integer labels by sorted filename. The scripts write the derived
+`combined_roi_labels.nii.gz` and `combined_roi_labels.csv` into the output
+directory. The mapping generator also suggests matching TAC spreadsheet columns
+using mask filenames. Review every row; any blanks must be completed or their
+corresponding mask removed from the input set.
+
+**Important:** Every mask must already be on the same voxel grid and affine.
+For real PET noise estimation, the masks must also align with PET; use
+`--resample-atlas` only if they are correctly registered in world coordinates
+and require nearest-neighbor grid resampling. An MRI-native parcellation with
+no PET-MRI registration cannot be made anatomically correct simply by
+resampling. Overlapping mask voxels are rejected by default. If your ROI
+directory has overlapping or nested masks (e.g. whole brain + cortex),
+create a disjoint subset first. Keep the identical mask directory/filenames
+for noise estimation, ROI mapping and phantom population, because numerical
+label IDs are assigned from sorted files.
+
+Example: estimate noise directly from PET DICOM and an ROI-mask directory:
+
+```bash
+python -m sim.estimate_pet_noise \
+  --pet-dicom-dir "/private/FDG_DICOM" \
+  --atlas "/private/brain_rois_in_PET_space" \
+  --timing-csv "/private/FDG_timing.csv" \
+  --output-dir results/FDG_noise
+```
+
 ## Dynamic PET DICOM in a single directory
 
 The noise estimator accepts classic **single-frame PET DICOMs** directly with
