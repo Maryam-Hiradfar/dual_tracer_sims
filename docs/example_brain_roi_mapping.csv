@@ -1,0 +1,4 @@
+label_id,region_name,fdg_column,pbr_column
+2,Left Cerebral White Matter,Left WM FDG,Left WM PBR
+3,Left Cerebral Cortex,Left Cortex FDG,Left Cortex PBR
+10,Left Thalamus,Thalamus FDG,Thalamus PBR
